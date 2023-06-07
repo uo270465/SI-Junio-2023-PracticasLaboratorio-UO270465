@@ -6,6 +6,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JTextField;
+
+import com.toedter.calendar.JDateChooser;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -17,6 +21,7 @@ import java.awt.event.ActionEvent;
 public class SwingMain {
 
 	private JFrame frame;
+	private JDateChooser textField;
 
 	/**
 	 * Launch the application.
@@ -50,16 +55,6 @@ public class SwingMain {
 		frame.setBounds(0, 0, 287, 185);
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		
-		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
-		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-				//CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
-				//controller.initController();
-			}
-		});
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.getContentPane().add(btnEjecutarTkrun);
-		
 			
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
 		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
@@ -68,7 +63,11 @@ public class SwingMain {
 				db.createDatabase(false);
 			}
 		});
-		frame.getContentPane().add(btnInicializarBaseDeDatos);
+		frame.getContentPane().setLayout(new MigLayout("", "[grow,fill]", "[grow][grow][grow][grow]"));
+		
+		textField = new JDateChooser();
+		frame.getContentPane().add(textField, "cell 0 0,growx");
+		frame.getContentPane().add(btnInicializarBaseDeDatos, "cell 0 1,grow");
 			
 		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
 		btnCargarDatosIniciales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
@@ -78,7 +77,16 @@ public class SwingMain {
 				db.loadDatabase();
 			}
 		});
-		frame.getContentPane().add(btnCargarDatosIniciales);
+		frame.getContentPane().add(btnCargarDatosIniciales, "cell 0 2,grow");
+		
+		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
+		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				//CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
+				//controller.initController();
+			}
+		});
+		frame.getContentPane().add(btnEjecutarTkrun, "cell 0 3,grow");
 	}
 
 	public JFrame getFrame() { return this.frame; }
