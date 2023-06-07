@@ -3,17 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>giis</groupId>
-	<artifactId>samples-test-dev</artifactId>
-	<version>1.1.20-master</version>
+	<groupId>giitin.uo270394</groupId>
+	<artifactId>SI-Junio-2023-PracticasLaboratorio-UO270465</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
-	<organization>
-		<name>Grupo de Investigacion en Ingenieria del Software - Universidad de Oviedo</name>
-		<url>http://giis.uniovi.es/</url>
-	</organization>
 
-	<name>samples-test-dev</name>
-	<url>http://maven.apache.org</url>
+	<name>SI-Junio-2023-PracticasLaboratorio-UO270465</name>
+	<url>https://github.com/uo270465</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
