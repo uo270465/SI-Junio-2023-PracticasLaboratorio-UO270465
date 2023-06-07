@@ -1,4 +1,4 @@
-package giitin.uo270394.si.dto;
+package giitin.uo270465.si.dto;
 
 public class PaqueteDTO {
     private int paqueteId;

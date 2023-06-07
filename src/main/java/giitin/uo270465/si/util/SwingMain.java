@@ -1,4 +1,4 @@
-package giitin.uo270394.si.util;
+package giitin.uo270465.si.util;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -10,6 +10,18 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JPanel;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import java.awt.GridLayout;
+import java.awt.CardLayout;
+import javax.swing.SpringLayout;
+import java.awt.Component;
+import javax.swing.Box;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -21,7 +33,8 @@ import com.toedter.calendar.JDateChooser;
 public class SwingMain {
 
 	private JFrame frame;
-	private JDateChooser textField;
+	private JDateChooser dcFecha;
+	private final JLabel lblNewLabel = new JLabel("Fecha: ");
 
 	/**
 	 * Launch the application.
@@ -52,24 +65,39 @@ public class SwingMain {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Main");
-		frame.setBounds(0, 0, 287, 185);
+		frame.setBounds(0, 0, 244, 257);
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		frame.getContentPane().add(scrollPane);
+		
+		JPanel panel = new JPanel();
+		scrollPane.setViewportView(panel);
+		panel.setLayout(new MigLayout("", "[grow,fill]", "[grow][grow][grow][grow,fill][grow]"));
+		
+		dcFecha = new JDateChooser();
+		panel.add(dcFecha, "cell 0 0,grow");
+		dcFecha.add(lblNewLabel, BorderLayout.WEST);
 		
 			
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
-		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+		panel.add(btnInicializarBaseDeDatos, "flowy,cell 0 1,grow");
+		
+		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
+		panel.add(btnCargarDatosIniciales, "flowy,cell 0 2,grow");
+		
+		JLabel lblNewLabel_1 = new JLabel("Funcionalidades:");
+		panel.add(lblNewLabel_1, "cell 0 3,grow");
+		
+		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
+		panel.add(btnEjecutarTkrun, "cell 0 4,grow");
+		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				Database db=new Database();
-				db.createDatabase(false);
+				//CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
+				//controller.initController();
 			}
 		});
-		frame.getContentPane().setLayout(new MigLayout("", "[grow,fill]", "[grow][grow][grow][grow]"));
-		
-		textField = new JDateChooser();
-		frame.getContentPane().add(textField, "cell 0 0,growx");
-		frame.getContentPane().add(btnInicializarBaseDeDatos, "cell 0 1,grow");
-			
-		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
 		btnCargarDatosIniciales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				Database db=new Database();
@@ -77,16 +105,12 @@ public class SwingMain {
 				db.loadDatabase();
 			}
 		});
-		frame.getContentPane().add(btnCargarDatosIniciales, "cell 0 2,grow");
-		
-		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
-		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+		btnInicializarBaseDeDatos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				//CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
-				//controller.initController();
+				Database db=new Database();
+				db.createDatabase(false);
 			}
 		});
-		frame.getContentPane().add(btnEjecutarTkrun, "cell 0 3,grow");
 	}
 
 	public JFrame getFrame() { return this.frame; }

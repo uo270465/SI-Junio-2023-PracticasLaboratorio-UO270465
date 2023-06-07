@@ -1,4 +1,4 @@
-package giitin.uo270394.si.util;
+package giitin.uo270465.si.util;
 
 /**
  * Excepcion producida por la aplicacion antes situaciones incontroladas
