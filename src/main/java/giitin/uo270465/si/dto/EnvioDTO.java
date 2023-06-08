@@ -1,61 +1,123 @@
 package giitin.uo270465.si.dto;
 
 public class EnvioDTO {
-    private int envioId;
-    private int solicitudId;
-    private String fechaRecogida;
-    private String fechaEntrega;
-    private String estado;
 
-    public EnvioDTO() {
+	private int envioId;
+	private int remitenteId;
+	private int destinatarioId;
+	private int origenId;
+	private Integer destinoId;
+	private String fechaSolicitud;
+	private String fechaRecogida;
+	private double peso;
+	private String dimensiones;
+	private String estado;
+	private int transportistaId;
 
-    }
+	public EnvioDTO() {
+	}
 
-    public EnvioDTO(int envioId, int solicitudId, String fechaRecogida, String fechaEntrega, String estado) {
-        this.envioId = envioId;
-        this.solicitudId = solicitudId;
-        this.fechaRecogida = fechaRecogida;
-        this.fechaEntrega = fechaEntrega;
-        this.estado = estado;
-    }
+	public EnvioDTO(int envioId, int remitenteId, int destinatarioId, int origenId, Integer destinoId,
+			String fechaSolicitud, String fechaRecogida, double peso, String dimensiones, String estado,
+			int transportistaId) {
+		this.envioId = envioId;
+		this.remitenteId = remitenteId;
+		this.destinatarioId = destinatarioId;
+		this.origenId = origenId;
+		this.destinoId = destinoId;
+		this.fechaSolicitud = fechaSolicitud;
+		this.fechaRecogida = fechaRecogida;
+		this.peso = peso;
+		this.dimensiones = dimensiones;
+		this.estado = estado;
+		this.transportistaId = transportistaId;
+	}
 
-    public int getEnvioId() {
-        return envioId;
-    }
+	public int getEnvioId() {
+		return envioId;
+	}
 
-    public void setEnvioId(int envioId) {
-        this.envioId = envioId;
-    }
+	public void setEnvioId(int envioId) {
+		this.envioId = envioId;
+	}
 
-    public int getSolicitudId() {
-        return solicitudId;
-    }
+	public int getRemitenteId() {
+		return remitenteId;
+	}
 
-    public void setSolicitudId(int solicitudId) {
-        this.solicitudId = solicitudId;
-    }
+	public void setRemitenteId(int remitenteId) {
+		this.remitenteId = remitenteId;
+	}
 
-    public String getFechaRecogida() {
-        return fechaRecogida;
-    }
+	public int getDestinatarioId() {
+		return destinatarioId;
+	}
 
-    public void setFechaRecogida(String fechaRecogida) {
-        this.fechaRecogida = fechaRecogida;
-    }
+	public void setDestinatarioId(int destinatarioId) {
+		this.destinatarioId = destinatarioId;
+	}
 
-    public String getFechaEntrega() {
-        return fechaEntrega;
-    }
+	public int getOrigenId() {
+		return origenId;
+	}
 
-    public void setFechaEntrega(String fechaEntrega) {
-        this.fechaEntrega = fechaEntrega;
-    }
+	public void setOrigenId(int origenId) {
+		this.origenId = origenId;
+	}
 
-    public String getEstado() {
-        return estado;
-    }
+	public Integer getDestinoId() {
+		return destinoId;
+	}
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+	public void setDestinoId(Integer destinoId) {
+		this.destinoId = destinoId;
+	}
+
+	public String getFechaSolicitud() {
+		return fechaSolicitud;
+	}
+
+	public void setFechaSolicitud(String fechaSolicitud) {
+		this.fechaSolicitud = fechaSolicitud;
+	}
+
+	public String getFechaRecogida() {
+		return fechaRecogida;
+	}
+
+	public void setFechaRecogida(String fechaRecogida) {
+		this.fechaRecogida = fechaRecogida;
+	}
+
+	public double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
+
+	public String getDimensiones() {
+		return dimensiones;
+	}
+
+	public void setDimensiones(String dimensiones) {
+		this.dimensiones = dimensiones;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public int getTransportistaId() {
+		return transportistaId;
+	}
+
+	public void setTransportistaId(int transportistaId) {
+		this.transportistaId = transportistaId;
+	}
 }

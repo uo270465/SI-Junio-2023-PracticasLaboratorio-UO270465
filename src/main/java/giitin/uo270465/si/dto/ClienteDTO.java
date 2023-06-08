@@ -1,22 +1,19 @@
 package giitin.uo270465.si.dto;
 
 public class ClienteDTO {
+    
     private int clienteId;
     private String nombre;
+    private String email;
     private String direccion;
-    private String telefono;
-    private String correoElectronico;
 
-    public ClienteDTO() {
+    public ClienteDTO() {}
 
-    }
-
-    public ClienteDTO(int clienteId, String nombre, String direccion, String telefono, String correoElectronico) {
+    public ClienteDTO(int clienteId, String nombre, String email, String direccion) {
         this.clienteId = clienteId;
         this.nombre = nombre;
+        this.email = email;
         this.direccion = direccion;
-        this.telefono = telefono;
-        this.correoElectronico = correoElectronico;
     }
 
     public int getClienteId() {
@@ -35,27 +32,19 @@ public class ClienteDTO {
         this.nombre = nombre;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getDireccion() {
         return direccion;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
     }
 }

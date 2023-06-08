@@ -1,21 +1,16 @@
 package giitin.uo270465.si.dto;
 
 public class TarifaDTO {
+
     private int tarifaId;
-    private String origen;
-    private String destino;
-    private double pesoMaximo;
+    private String concepto;
     private double precio;
 
-    public TarifaDTO() {
+    public TarifaDTO() {}
 
-    }
-
-    public TarifaDTO(int tarifaId, String origen, String destino, double pesoMaximo, double precio) {
+    public TarifaDTO(int tarifaId, String concepto, double precio) {
         this.tarifaId = tarifaId;
-        this.origen = origen;
-        this.destino = destino;
-        this.pesoMaximo = pesoMaximo;
+        this.concepto = concepto;
         this.precio = precio;
     }
 
@@ -27,28 +22,12 @@ public class TarifaDTO {
         this.tarifaId = tarifaId;
     }
 
-    public String getOrigen() {
-        return origen;
+    public String getConcepto() {
+        return concepto;
     }
 
-    public void setOrigen(String origen) {
-        this.origen = origen;
-    }
-
-    public String getDestino() {
-        return destino;
-    }
-
-    public void setDestino(String destino) {
-        this.destino = destino;
-    }
-
-    public double getPesoMaximo() {
-        return pesoMaximo;
-    }
-
-    public void setPesoMaximo(double pesoMaximo) {
-        this.pesoMaximo = pesoMaximo;
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 
     public double getPrecio() {
@@ -59,3 +38,4 @@ public class TarifaDTO {
         this.precio = precio;
     }
 }
+

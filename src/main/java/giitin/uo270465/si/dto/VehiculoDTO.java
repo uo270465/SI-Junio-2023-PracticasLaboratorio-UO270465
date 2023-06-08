@@ -1,18 +1,17 @@
 package giitin.uo270465.si.dto;
 
 public class VehiculoDTO {
+
     private int vehiculoId;
     private String tipo;
-    private double capacidadCarga;
+    private double capacidad;
 
-    public VehiculoDTO() {
+    public VehiculoDTO() {}
 
-    }
-
-    public VehiculoDTO(int vehiculoId, String tipo, double capacidadCarga) {
+    public VehiculoDTO(int vehiculoId, String tipo, double capacidad) {
         this.vehiculoId = vehiculoId;
         this.tipo = tipo;
-        this.capacidadCarga = capacidadCarga;
+        this.capacidad = capacidad;
     }
 
     public int getVehiculoId() {
@@ -31,11 +30,11 @@ public class VehiculoDTO {
         this.tipo = tipo;
     }
 
-    public double getCapacidadCarga() {
-        return capacidadCarga;
+    public double getCapacidad() {
+        return capacidad;
     }
 
-    public void setCapacidadCarga(double capacidadCarga) {
-        this.capacidadCarga = capacidadCarga;
+    public void setCapacidad(double capacidad) {
+        this.capacidad = capacidad;
     }
 }
