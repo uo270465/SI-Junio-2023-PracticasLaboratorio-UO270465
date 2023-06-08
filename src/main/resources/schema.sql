@@ -1,140 +1,86 @@
--- Almacen definition
-DROP TABLE IF EXISTS Almacen;
-CREATE TABLE Almacen (
-  almacenId INTEGER PRIMARY KEY,
-  nombre TEXT,
-  direccion TEXT
+-- Tabla Clientes
+DROP TABLE IF EXISTS Clientes;
+CREATE TABLE Clientes (
+    clienteId INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    direccion TEXT NOT NULL
 );
 
-
--- Cliente definition
-DROP TABLE IF EXISTS Cliente;
-CREATE TABLE Cliente (
-  clienteId INTEGER PRIMARY KEY,
-  nombre TEXT,
-  direccion TEXT,
-  telefono TEXT,
-  correoElectronico TEXT
+-- Tabla Vehiculos
+DROP TABLE IF EXISTS Vehiculos;
+CREATE TABLE Vehiculos (
+    vehiculoId INTEGER PRIMARY KEY AUTOINCREMENT,
+    tipo TEXT NOT NULL,
+    capacidad DECIMAL(6, 2) NOT NULL
 );
 
-
--- Oficina definition
-DROP TABLE IF EXISTS Oficina;
-CREATE TABLE Oficina (
-  oficinaId INTEGER PRIMARY KEY,
-  nombre TEXT,
-  direccion TEXT,
-  telefono TEXT
+-- Tabla Transportistas
+DROP TABLE IF EXISTS Transportistas;
+CREATE TABLE Transportistas (
+    transportistaId INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    vehiculoId INTEGER,
+    email TEXT NOT NULL UNIQUE,
+    FOREIGN KEY(vehiculoId) REFERENCES Vehiculos(vehiculoId)
 );
 
-
--- Paquete definition
-DROP TABLE IF EXISTS Paquete;
-CREATE TABLE Paquete (
-  paqueteId INTEGER PRIMARY KEY,
-  descripcion TEXT,
-  peso REAL,
-  dimensiones TEXT,
-  fechaEnvio TEXT,
-  estado TEXT
+-- Tabla AlmacenesOficinas
+DROP TABLE IF EXISTS AlmacenesOficinas;
+CREATE TABLE AlmacenesOficinas (
+    almacenesOficinasId INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    direccion TEXT NOT NULL,
+    ciudad TEXT NOT NULL
 );
 
-
--- Ruta definition
-DROP TABLE IF EXISTS Ruta;
-CREATE TABLE Ruta (
-  rutaId INTEGER PRIMARY KEY,
-  origen TEXT,
-  destino TEXT,
-  distancia REAL,
-  duracionEstimada NUMBER
+-- Tabla Tarifas
+DROP TABLE IF EXISTS Tarifas;
+CREATE TABLE Tarifas (
+    tarifaId INTEGER PRIMARY KEY AUTOINCREMENT,
+    concepto TEXT NOT NULL,
+    precio DECIMAL(6, 2) NOT NULL
 );
 
-
--- Tarifa definition
-DROP TABLE IF EXISTS Tarifa;
-CREATE TABLE Tarifa (
-  tarifaId INTEGER PRIMARY KEY,
-  origen TEXT,
-  destino TEXT,
-  pesoMaximo REAL,
-  precio NUMERIC
+-- Tabla Envios
+DROP TABLE IF EXISTS Envios;
+CREATE TABLE Envios (
+    envioId INTEGER PRIMARY KEY AUTOINCREMENT,
+    remitenteId INTEGER NOT NULL,
+    destinatarioId INTEGER NOT NULL,
+    origenId INTEGER NOT NULL,
+    destinoId INTEGER,
+    fechaSolicitud TEXT NOT NULL,
+    fechaRecogida TEXT,
+    peso DECIMAL(6, 2) NOT NULL,
+    dimensiones TEXT NOT NULL,
+    estado TEXT NOT NULL,
+    transportistaId INTEGER NOT NULL,
+    FOREIGN KEY(remitenteId) REFERENCES Clientes(clienteId),
+    FOREIGN KEY(destinatarioId) REFERENCES Clientes(clienteId),
+    FOREIGN KEY(origenId) REFERENCES AlmacenesOficinas(almacenesOficinasId),
+    FOREIGN KEY(destinoId) REFERENCES AlmacenesOficinas(almacenesOficinasId),
+    FOREIGN KEY(transportistaId) REFERENCES Transportistas(transportistaId)
 );
 
-
--- Vehiculo definition
-DROP TABLE IF EXISTS Vehiculo;
-CREATE TABLE Vehiculo (
-  vehiculoId INTEGER PRIMARY KEY,
-  tipo TEXT,
-  capacidadCarga REAL
+-- Tabla EnviosTarifas
+DROP TABLE IF EXISTS EnviosTarifas;
+CREATE TABLE EnviosTarifas (
+    envioId INTEGER NOT NULL,
+    tarifaId INTEGER NOT NULL,
+    PRIMARY KEY(envioId, tarifaId),
+    FOREIGN KEY(envioId) REFERENCES Envios(envioId),
+    FOREIGN KEY(tarifaId) REFERENCES Tarifas(tarifaId)
 );
 
-
--- SolicitudEnvio definition
-DROP TABLE IF EXISTS SolicitudEnvio;
-CREATE TABLE SolicitudEnvio (
-  solicitudId INTEGER PRIMARY KEY,
-  clienteId INTEGER,
-  paqueteId INTEGER,
-  rutaId INTEGER,
-  vehiculoId INTEGER,
-  fechaSolicitud TEXT,
-  FOREIGN KEY (clienteId) REFERENCES Cliente(clienteId),
-  FOREIGN KEY (paqueteId) REFERENCES Paquete(paqueteId),
-  FOREIGN KEY (rutaId) REFERENCES Ruta(rutaId),
-  FOREIGN KEY (vehiculoId) REFERENCES Vehiculo(vehiculoId)
-);
-
-
--- TarifaAlmacen definition
-DROP TABLE IF EXISTS TarifaAlmacen;
-CREATE TABLE TarifaAlmacen (
-  tarifaId INTEGER,
-  almacenId INTEGER,
-  FOREIGN KEY (tarifaId) REFERENCES Tarifa(tarifaId),
-  FOREIGN KEY (almacenId) REFERENCES Almacen(almacenId)
-);
-
-
--- TarifaOficina definition
-DROP TABLE IF EXISTS TarifaOficina;
-CREATE TABLE TarifaOficina (
-  tarifaId INTEGER,
-  oficinaId INTEGER,
-  FOREIGN KEY (tarifaId) REFERENCES Tarifa(tarifaId),
-  FOREIGN KEY (oficinaId) REFERENCES Oficina(oficinaId)
-);
-
-
--- TarifaRuta definition
-DROP TABLE IF EXISTS TarifaRuta;
-CREATE TABLE TarifaRuta (
-  tarifaId INTEGER,
-  rutaId INTEGER,
-  FOREIGN KEY (tarifaId) REFERENCES Tarifa(tarifaId),
-  FOREIGN KEY (rutaId) REFERENCES Ruta(rutaId)
-);
-
-
--- Envio definition
-DROP TABLE IF EXISTS Envio;
-CREATE TABLE Envio (
-  envioId INTEGER PRIMARY KEY,
-  solicitudId INTEGER,
-  fechaRecogida TEXT,
-  fechaEntrega TEXT,
-  estado TEXT,
-  FOREIGN KEY (solicitudId) REFERENCES SolicitudEnvio(solicitudId)
-);
-
-
--- EntregaFallida definition
-DROP TABLE IF EXISTS EntregaFallida;
-CREATE TABLE EntregaFallida (
-  entregaId INTEGER PRIMARY KEY,
-  envioId INTEGER,
-  fechaEntregaFallida TEXT,
-  numeroIntentos INTEGER,
-  FOREIGN KEY (envioId) REFERENCES Envio(envioId)
+-- Tabla Movimientos
+DROP TABLE IF EXISTS Movimientos;
+CREATE TABLE Movimientos (
+    movimientoId INTEGER PRIMARY KEY AUTOINCREMENT,
+    envioId INTEGER NOT NULL,
+    fechaHora TEXT NOT NULL,
+    ubicacionId INTEGER NOT NULL,
+    estado TEXT NOT NULL,
+    FOREIGN KEY(envioId) REFERENCES Envios(envioId),
+    FOREIGN KEY(ubicacionId) REFERENCES AlmacenesOficinas(almacenesOficinasId)
 );
