@@ -65,7 +65,7 @@ public class SwingMain {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Main");
-		frame.setBounds(0, 0, 244, 257);
+		frame.setBounds(0, 0, 340, 353);
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -74,24 +74,24 @@ public class SwingMain {
 		
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[grow,fill]", "[grow][grow][grow][grow,fill][grow]"));
+		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][grow]"));
 		
 		dcFecha = new JDateChooser();
-		panel.add(dcFecha, "cell 0 0,grow");
+		panel.add(dcFecha, "cell 1 1,alignx center,aligny center");
 		dcFecha.add(lblNewLabel, BorderLayout.WEST);
 		
 			
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
-		panel.add(btnInicializarBaseDeDatos, "flowy,cell 0 1,grow");
+		panel.add(btnInicializarBaseDeDatos, "flowy,cell 1 2,grow");
 		
 		JButton btnCargarDatosIniciales = new JButton("Cargar Datos Iniciales para Pruebas");
-		panel.add(btnCargarDatosIniciales, "flowy,cell 0 2,grow");
+		panel.add(btnCargarDatosIniciales, "flowy,cell 1 3,grow");
 		
 		JLabel lblNewLabel_1 = new JLabel("Funcionalidades:");
-		panel.add(lblNewLabel_1, "cell 0 3,grow");
+		panel.add(lblNewLabel_1, "cell 1 4,grow");
 		
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
-		panel.add(btnEjecutarTkrun, "cell 0 4,grow");
+		panel.add(btnEjecutarTkrun, "cell 1 5,grow");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				//CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
