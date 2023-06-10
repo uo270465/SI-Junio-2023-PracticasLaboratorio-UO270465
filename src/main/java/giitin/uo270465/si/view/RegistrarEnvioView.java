@@ -40,6 +40,7 @@ public class RegistrarEnvioView extends View {
 	private JButton bNuevoEnvio;
 
 	public RegistrarEnvioView() {
+		setTitle("Registrar envío");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane_1 = new JScrollPane();
