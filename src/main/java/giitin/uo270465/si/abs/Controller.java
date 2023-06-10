@@ -16,7 +16,9 @@ public abstract class Controller<M extends Model, V extends View> {
 		this.model = model;
 		this.view = view;
 		this.fecha = fecha;
+		this.updateView();
 		this.initView();
+		this.updateView();
 	}
 
 	public void initView() {
