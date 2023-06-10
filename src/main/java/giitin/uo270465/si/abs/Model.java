@@ -2,7 +2,7 @@ package giitin.uo270465.si.abs;
 
 import giitin.uo270465.si.util.Database;
 
-public class Model {
+public abstract class Model {
 	protected Database db;
 	
 	public Model() {

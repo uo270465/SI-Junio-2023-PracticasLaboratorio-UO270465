@@ -2,7 +2,9 @@ package giitin.uo270465.si.abs;
 
 import java.util.Date;
 
-public class Controller<M extends Model, V extends View> {
+import javax.swing.JFrame;
+
+public abstract class Controller<M extends Model, V extends View> {
 	
 	protected M model;
 	protected V view;
@@ -12,5 +14,13 @@ public class Controller<M extends Model, V extends View> {
 		this.model = model;
 		this.view = view;
 		this.fecha = fecha;		
+		this.initView();
 	}
+	
+	public void initView() {
+		((JFrame)view).setVisible(true);
+		((JFrame)view).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+	
+	public abstract void initController();
 }
