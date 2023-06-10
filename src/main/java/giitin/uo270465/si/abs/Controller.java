@@ -16,17 +16,14 @@ public abstract class Controller<M extends Model, V extends View> {
 		this.model = model;
 		this.view = view;
 		this.fecha = fecha;
+		
 		this.updateView();
 		this.initView();
 		this.updateView();
+		this.view.setVisible(true);	
 	}
 
-	public void initView() {
-		JFrame fView = (JFrame) view;
-		fView.setVisible(true);
-
-
-	}
+	public abstract void initView();
 	
 	public void updateView() {
 		JFrame fView = (JFrame) view;
