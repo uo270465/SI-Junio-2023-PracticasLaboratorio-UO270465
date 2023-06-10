@@ -59,10 +59,14 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		super.initView();
 
 		mostrarClientesTodos();
-		JScrollPane spTClientes = view.getSpTClientes();
-		spTClientes.setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 6));
 
+		view.getSpTClientes()
+				.setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 10));
+		
+		view.getSpCentroAlmacenOrigen().setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 10));
 		selectClientesMode(0);
+		
+		super.initView();
 	}
 
 	public DefaultTableModel getClientesModel() {
