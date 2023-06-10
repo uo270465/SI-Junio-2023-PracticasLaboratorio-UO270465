@@ -125,6 +125,7 @@ public class RegistrarEnvioView extends View {
 		panel.add(spTAlmacenesOficinasOrigen, "cell 0 8 2 1,grow");
 
 		tAlmacenesOficinasOrigen = new JTable();
+		tAlmacenesOficinasOrigen.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tAlmacenesOficinasOrigen.setModel(
 				new DefaultTableModel(new Object[][] {}, new String[] { "Nombre", "Direcci\u00F3n", "Ciudad" }) {
 					boolean[] columnEditables = new boolean[] { false, false, false };
