@@ -56,8 +56,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 	@Override
 	public void initView() {
-		super.initView();
-
+		
 		mostrarClientesTodos();
 
 		view.getSpTClientes()
@@ -66,7 +65,6 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		view.getSpCentroAlmacenOrigen().setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 10));
 		selectClientesMode(0);
 		
-		super.initView();
 	}
 
 	public DefaultTableModel getClientesModel() {
