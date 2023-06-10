@@ -18,6 +18,7 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.ScrollPaneConstants;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
@@ -29,9 +30,9 @@ public class RegistrarEnvioView extends View {
 	private JTextField tfDireccionNuevoCliente;
 	private JScrollPane spTClientes;
 	private Component verticalStrut;
-	private JTextField textField;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
+	private JTextField tfFiltroClienteExistente;
+	private JButton bBuscarClienteExistente;
+	private JButton bMostrarTodosClienteExistente;
 	private JLabel lblNewLabel_2;
 
 	public RegistrarEnvioView() {
@@ -48,6 +49,7 @@ public class RegistrarEnvioView extends View {
 		panel.add(lblNewLabel, "cell 0 0 6 1");
 
 		tbNievoClienteMode = new JToggleButton("Nuevo cliente");
+		tbNievoClienteMode.setSelected(true);
 		panel.add(tbNievoClienteMode, "flowx,cell 0 1 2 1,growx");
 
 		tbClienteExistenteMode = new JToggleButton("Cliente Existente");
@@ -59,15 +61,16 @@ public class RegistrarEnvioView extends View {
 				lblNewLabel_2 = new JLabel("Buscar clientes:");
 				panel.add(lblNewLabel_2, "cell 2 2,alignx trailing");
 				
-				textField = new JTextField();
-				panel.add(textField, "cell 3 2,growx");
-				textField.setColumns(10);
+				tfFiltroClienteExistente = new JTextField();
+				tfFiltroClienteExistente.setToolTipText("Introduzca un nombre, email o dirección");
+				panel.add(tfFiltroClienteExistente, "cell 3 2,growx");
+				tfFiltroClienteExistente.setColumns(10);
 				
-				btnNewButton = new JButton("Buscar");
-				panel.add(btnNewButton, "cell 4 2,growx");
+				bBuscarClienteExistente = new JButton("Buscar");
+				panel.add(bBuscarClienteExistente, "cell 4 2,growx");
 				
-				btnNewButton_1 = new JButton("Mostrar todos");
-				panel.add(btnNewButton_1, "cell 5 2,growx");
+				bMostrarTodosClienteExistente = new JButton("Mostrar todos");
+				panel.add(bMostrarTodosClienteExistente, "cell 5 2,growx");
 				
 				JLabel lblNewLabel_1 = new JLabel("Nombre:");
 				panel.add(lblNewLabel_1, "cell 0 3,alignx trailing");
@@ -137,5 +140,14 @@ public class RegistrarEnvioView extends View {
 	}
 	public JTextField getTfDireccionNuevoCliente() {
 		return tfDireccionNuevoCliente;
+	}
+	public JTextField getTfFiltroClienteExistente() {
+		return tfFiltroClienteExistente;
+	}
+	public JButton getBBuscarClienteExistente() {
+		return bBuscarClienteExistente;
+	}
+	public JButton getBMostrarTodosClienteExistente() {
+		return bMostrarTodosClienteExistente;
 	}
 }

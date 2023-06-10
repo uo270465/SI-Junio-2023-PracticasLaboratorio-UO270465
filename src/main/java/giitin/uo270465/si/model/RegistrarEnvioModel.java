@@ -15,4 +15,9 @@ public class RegistrarEnvioModel extends Model {
 		final String QUERY = "SELECT * FROM clientes";
 		return db.executeQueryPojo(ClienteDTO.class, QUERY);
 	}
+
+	public List<ClienteDTO> getClientesFilterAnyColumn(String filter) {
+		final String QUERY = "SELECT * FROM clientes WHERE nombre LIKE '%"+filter+"%' OR email LIKE '%"+filter+"%' OR direccion LIKE '%"+filter+"%'";
+		return db.executeQueryPojo(ClienteDTO.class, QUERY);
+	}
 }
