@@ -1,21 +1,20 @@
 package giitin.uo270465.si.view;
 
-import giitin.uo270465.si.abs.View;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JLabel;
-import javax.swing.JToggleButton;
-import javax.swing.JScrollPane;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 
+import giitin.uo270465.si.abs.View;
+import net.miginfocom.swing.MigLayout;
+
 public class RegistrarEnvioView extends View{
-	private JTable table;
+	private static final long serialVersionUID = 1L;
+	private JTable tClientes;
 	public RegistrarEnvioView() {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -38,8 +37,8 @@ public class RegistrarEnvioView extends View{
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, "cell 1 2,grow");
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		tClientes = new JTable();
+		tClientes.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 			},
@@ -47,7 +46,13 @@ public class RegistrarEnvioView extends View{
 				"Nombre", "Email", "Direcci\u00F3n"
 			}
 		));
-		scrollPane.setViewportView(table);
+		tClientes.getColumnModel().getColumn(0).setPreferredWidth(51);
+		tClientes.getColumnModel().getColumn(1).setPreferredWidth(40);
+		tClientes.getColumnModel().getColumn(2).setPreferredWidth(58);
+		scrollPane.setViewportView(tClientes);
 	}
 
+	public JTable getTClientes() {
+		return tClientes;
+	}
 }
