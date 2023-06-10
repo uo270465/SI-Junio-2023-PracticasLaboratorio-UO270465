@@ -21,10 +21,16 @@ public abstract class Controller<M extends Model, V extends View> {
 
 	public void initView() {
 		JFrame fView = (JFrame) view;
-		fView.validate();
-		fView.pack();
 		fView.setVisible(true);
 
+
+	}
+	
+	public void updateView() {
+		JFrame fView = (JFrame) view;
+		fView.validate();
+		fView.pack();
+		
 		// Poner Pantalla en el medio
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		fView.setLocation(dim.width / 2 - fView.getSize().width / 2, dim.height / 2 - fView.getSize().height / 2);
