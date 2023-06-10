@@ -1,27 +1,23 @@
 package giitin.uo270465.si.util;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JPanel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import javax.swing.SpringLayout;
-import java.awt.Component;
-import javax.swing.Box;
+
+import giitin.uo270465.si.abs.View;
+import giitin.uo270465.si.controller.RegistrarEnvioController;
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -30,8 +26,9 @@ import javax.swing.Box;
  * No sigue MVC pues es solamente temporal para que durante el desarrollo se tenga posibilidad
  * de realizar acciones de inicializacion
  */
-public class SwingMain {
+public class SwingMain extends View {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JDateChooser dcFecha;
 	private final JLabel lblNewLabel = new JLabel("Fecha: ");
@@ -43,8 +40,7 @@ public class SwingMain {
 		EventQueue.invokeLater(new Runnable() { //NOSONAR codigo autogenerado
 			public void run() {
 				try {
-					SwingMain window = new SwingMain();
-					window.frame.setVisible(true);
+					new SwingMain();
 				} catch (Exception e) {
 					e.printStackTrace(); //NOSONAR codigo autogenerado
 				}
@@ -56,6 +52,7 @@ public class SwingMain {
 	 * Create the application.
 	 */
 	public SwingMain() {
+		super();
 		initialize();
 	}
 
@@ -63,14 +60,12 @@ public class SwingMain {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Main");
-		frame.setBounds(0, 0, 340, 353);
-		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		this.setTitle("Main");
+		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		this.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		frame.getContentPane().add(scrollPane);
+		this.getContentPane().add(scrollPane);
 		
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
@@ -94,8 +89,8 @@ public class SwingMain {
 		panel.add(btnEjecutarTkrun, "cell 1 5,grow");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				//CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
-				//controller.initController();
+				RegistrarEnvioController controller = new RegistrarEnvioController(dcFecha.getDate());
+				controller.initController();
 			}
 		});
 		btnCargarDatosIniciales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
@@ -111,8 +106,23 @@ public class SwingMain {
 				db.createDatabase(false);
 			}
 		});
+		this.initView();
+
+	}
+	
+	public void initView() {
+		JFrame fView = (JFrame)this;
+		fView.validate();
+		fView.pack();
+		fView.setVisible(true);
+		
+		// Poner Pantalla en el medio
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		fView.setLocation(dim.width/2-fView.getSize().width/2, dim.height/2-fView.getSize().height/2);
 	}
 
+
+	
 	public JFrame getFrame() { return this.frame; }
 	
 }
