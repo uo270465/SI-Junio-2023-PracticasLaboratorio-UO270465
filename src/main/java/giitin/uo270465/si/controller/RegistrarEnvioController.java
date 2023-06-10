@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import giitin.uo270465.si.abs.Controller;
+import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.model.RegistrarEnvioModel;
 import giitin.uo270465.si.view.RegistrarEnvioView;
@@ -58,11 +59,12 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	public void initView() {
 		
 		mostrarClientesTodos();
+		mostrarAlmacenesOficinasOrigenTodos();
 
 		view.getSpTClientes()
 				.setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 10));
 		
-		view.getSpCentroAlmacenOrigen().setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 10));
+		view.getSpTAlmacenesOficinasOrigen().setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 10));
 		selectClientesMode(0);
 		
 	}
@@ -121,6 +123,28 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		view.getSpTClientes().setVerticalScrollBarPolicy(
 				(clienteExistente ? JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED : JScrollPane.VERTICAL_SCROLLBAR_NEVER));
 		view.getTClientes().setEnabled(clienteExistente);
+	}
+	
+	
+	public DefaultTableModel getAlmacenesOficinasModel() {
+		return (DefaultTableModel) this.view.getTAlmacenesOficinasOrigen().getModel();
+	}
+	
+	public void cleanAlmacenesOficinasOrigenTable() {
+		DefaultTableModel tAlmacenesOficinasModel = getAlmacenesOficinasModel();
+
+		while (view.getTAlmacenesOficinasOrigen().getRowCount() > 0) {
+			tAlmacenesOficinasModel.removeRow(0);
+		}
+	}
+	
+	public void mostrarAlmacenesOficinasOrigenTodos() {
+		DefaultTableModel tAlmacenesOficinasOrigenModel = getAlmacenesOficinasModel();
+		cleanAlmacenesOficinasOrigenTable();
+
+		List<AlmacenOficinaDTO> almacenesOficinasOrigen = model.getAlmacenesOficinas();
+		for (AlmacenOficinaDTO almacenOficinaOrigen : almacenesOficinasOrigen)
+			tAlmacenesOficinasOrigenModel.addRow(new Object[] { almacenOficinaOrigen.getNombre(), almacenOficinaOrigen.getDireccion(), almacenOficinaOrigen.getCiudad() });
 	}
 
 }

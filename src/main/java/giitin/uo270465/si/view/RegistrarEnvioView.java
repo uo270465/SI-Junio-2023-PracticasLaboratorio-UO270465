@@ -35,8 +35,8 @@ public class RegistrarEnvioView extends View {
 	private JButton bMostrarTodosClienteExistente;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	private JScrollPane spCentroAlmacenOrigen;
-	private JTable tCentroAlmacenOrigen;
+	private JScrollPane spTAlmacenesOficinasOrigen;
+	private JTable tAlmacenesOficinasOrigen;
 	private JButton bNuevoEnvio;
 
 	public RegistrarEnvioView() {
@@ -118,14 +118,14 @@ public class RegistrarEnvioView extends View {
 		panel.add(tfDireccionNuevoCliente, "cell 1 5,growx");
 		tfDireccionNuevoCliente.setColumns(10);
 
-		lblNewLabel_3 = new JLabel("Seleccione centro o almacen de origen:");
+		lblNewLabel_3 = new JLabel("Seleccione almacen u oficina de origen:");
 		panel.add(lblNewLabel_3, "cell 0 7 2 1");
 
-		spCentroAlmacenOrigen = new JScrollPane();
-		panel.add(spCentroAlmacenOrigen, "cell 0 8 2 1,grow");
+		spTAlmacenesOficinasOrigen = new JScrollPane();
+		panel.add(spTAlmacenesOficinasOrigen, "cell 0 8 2 1,grow");
 
-		tCentroAlmacenOrigen = new JTable();
-		tCentroAlmacenOrigen.setModel(
+		tAlmacenesOficinasOrigen = new JTable();
+		tAlmacenesOficinasOrigen.setModel(
 				new DefaultTableModel(new Object[][] {}, new String[] { "Nombre", "Direcci\u00F3n", "Ciudad" }) {
 					boolean[] columnEditables = new boolean[] { false, false, false };
 
@@ -133,7 +133,7 @@ public class RegistrarEnvioView extends View {
 						return columnEditables[column];
 					}
 				});
-		spCentroAlmacenOrigen.setViewportView(tCentroAlmacenOrigen);
+		spTAlmacenesOficinasOrigen.setViewportView(tAlmacenesOficinasOrigen);
 
 		bNuevoEnvio = new JButton("Crear nuevo envío");
 		panel.add(bNuevoEnvio, "cell 0 9 6 1,growx");
@@ -184,12 +184,12 @@ public class RegistrarEnvioView extends View {
 		return bMostrarTodosClienteExistente;
 	}
 
-	public JScrollPane getSpCentroAlmacenOrigen() {
-		return spCentroAlmacenOrigen;
+	public JScrollPane getSpTAlmacenesOficinasOrigen() {
+		return spTAlmacenesOficinasOrigen;
 	}
 
-	public JTable getTCentroAlmacenOrigen() {
-		return tCentroAlmacenOrigen;
+	public JTable getTAlmacenesOficinasOrigen() {
+		return tAlmacenesOficinasOrigen;
 	}
 
 	public JButton getBNuevoEnvio() {
