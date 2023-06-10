@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -60,7 +61,7 @@ public class SwingMain extends View {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.setTitle("Main");
+		this.setTitle("Gestor de envíos");
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -72,6 +73,7 @@ public class SwingMain extends View {
 		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][grow]"));
 		
 		dcFecha = new JDateChooser();
+		dcFecha.setDate(new Date());
 		panel.add(dcFecha, "cell 1 1,alignx center,aligny center");
 		dcFecha.add(lblNewLabel, BorderLayout.WEST);
 		
@@ -85,7 +87,7 @@ public class SwingMain extends View {
 		JLabel lblNewLabel_1 = new JLabel("Funcionalidades:");
 		panel.add(lblNewLabel_1, "cell 1 4,grow");
 		
-		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
+		JButton btnEjecutarTkrun = new JButton("Registrar envío");
 		panel.add(btnEjecutarTkrun, "cell 1 5,grow");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -116,6 +118,7 @@ public class SwingMain extends View {
 		fView.pack();
 		fView.setVisible(true);
 		
+		this.setSize(300, this.getHeight());
 		// Poner Pantalla en el medio
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		fView.setLocation(dim.width/2-fView.getSize().width/2, dim.height/2-fView.getSize().height/2);
