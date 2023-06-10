@@ -1,8 +1,10 @@
 package giitin.uo270465.si.controller;
 
+import java.awt.Dimension;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import giitin.uo270465.si.abs.Controller;
@@ -18,7 +20,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 	@Override
 	public void initController() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -30,7 +32,11 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		List<ClienteDTO> clientes = model.getClientes();
 		for (ClienteDTO cliente : clientes)
 			tClientesModel.addRow(new Object[] { cliente.getNombre(), cliente.getEmail(), cliente.getDireccion() });
-
+		
+		JScrollPane spTClientes = view.getSpTClientes();
+		spTClientes.setMaximumSize(new Dimension(Integer.MAX_VALUE,view.getTfNombreNuevoCliente().getHeight()*6));
 	}
+	
+	
 
 }
