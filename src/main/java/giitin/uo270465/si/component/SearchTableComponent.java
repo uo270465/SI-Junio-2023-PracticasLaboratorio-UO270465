@@ -225,16 +225,8 @@ public class SearchTableComponent<DTO> extends JPanel {
 	public void setEnabled(boolean b) {
 		super.setEnabled(b);
 
-		if (!b) {
-			table.clearSelection();
-			clearSearch();
-			updateTable();
-			table.setForeground(Color.GRAY);
-		}
-		else {
-			table.setForeground(Color.BLACK);
-		}
-
+		table.setSelectionForeground((b?Color.BLACK:Color.GRAY));
+		table.setForeground((b?Color.BLACK:Color.GRAY));
 		bClear.setEnabled(b);
 		tfSearch.setEnabled(b);
 		spTable.setEnabled(b);
