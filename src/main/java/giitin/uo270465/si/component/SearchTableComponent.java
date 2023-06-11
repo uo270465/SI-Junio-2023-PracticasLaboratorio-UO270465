@@ -1,5 +1,6 @@
 package giitin.uo270465.si.component;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -228,6 +229,10 @@ public class SearchTableComponent<DTO> extends JPanel {
 			table.clearSelection();
 			clearSearch();
 			updateTable();
+			table.setForeground(Color.GRAY);
+		}
+		else {
+			table.setForeground(Color.BLACK);
 		}
 
 		bClear.setEnabled(b);
