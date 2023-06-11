@@ -16,7 +16,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 	@Override
 	public void initController() {
-
+		
+		
+		// Tab: Remitente
 		view.getTbNuevoClienteRemitenteMode().addActionListener(new ActionListener() {
 
 			@Override
@@ -32,12 +34,34 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				selectClientesRemitentesMode(1);
 			}
 		});
+		
+		// Tab: Destinatario
+		
+		view.getTbNuevoClienteDestinatarioMode().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				selectClientesDestinatariosMode(0);
+			}
+		});
+
+		view.getTbClienteExistenteDestinatarioMode().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				selectClientesDestinatariosMode(1);
+			}
+		});
 	}
 
 	@Override
 	public void initView() {
 
+		// Tab: Remitente
 		view.getStcClientesRemitentes().newTable(model.getClientes());
+		
+		// Tab: Destinantario
+		view.getStcClientesDestinatarios().newTable(model.getClientes());
 
 	}
 
@@ -57,6 +81,24 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		view.getTfDireccionRemitente().setEnabled(nuevoCliente);
 
 		view.getStcClientesRemitentes().setEnabled(clienteExistente);
+	}
+	
+	public void selectClientesDestinatariosMode(int mode) {
+		boolean nuevoCliente = true;
+		boolean clienteExistente = false;
+		if (mode != 0) {
+			nuevoCliente = !nuevoCliente;
+			clienteExistente = !clienteExistente;
+		}
+
+		view.getTbNuevoClienteDestinatarioMode().setSelected(nuevoCliente);
+		view.getTbClienteExistenteDestinatarioMode().setSelected(clienteExistente);
+
+		view.getTfNombreDestinatario().setEnabled(nuevoCliente);
+		view.getTfEmailDestinatario().setEnabled(nuevoCliente);
+		view.getTfDireccionDestinatario().setEnabled(nuevoCliente);
+
+		view.getStcClientesDestinatarios().setEnabled(clienteExistente);
 	}
 
 }

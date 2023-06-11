@@ -6,11 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.component.SearchTableComponent;
@@ -41,7 +38,12 @@ public class RegistrarEnvioView extends View {
 	private JScrollPane scrollPane_7;
 	private JPanel panel_7;
 	private SearchTableComponent<ClienteDTO> stcClientesRemitentes;
-	private JLabel lOpcionRemitente;
+	private JToggleButton tbNuevoClienteDestinatarioMode;
+	private JToggleButton tbClienteExistenteDestinatarioMode;
+	private JTextField tfNombreDestinatario;
+	private SearchTableComponent<ClienteDTO> stcClientesDestinatarios;
+	private JTextField tfEmailDestinatario;
+	private JTextField tfDireccionDestinatario;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -56,43 +58,40 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Remitente", null, scrollPane_1, null);
 
 		panel_1 = new JPanel();
-		panel_1.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][]"));
+		panel_1.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][]"));
 		scrollPane_1.setViewportView(panel_1);
 
-		lOpcionRemitente = new JLabel("Seleccione una opción:");
-		panel_1.add(lOpcionRemitente, "cell 0 0 3 1,aligny top");
-
 		tbNuevoClienteRemitenteMode = new JToggleButton("Nuevo cliente");
-		panel_1.add(tbNuevoClienteRemitenteMode, "flowx,cell 0 1 2 1,growx");
+		panel_1.add(tbNuevoClienteRemitenteMode, "flowx,cell 0 0 2 1,growx");
 
 		tbClienteExistenteRemitenteMode = new JToggleButton("Cliente Existente");
-		panel_1.add(tbClienteExistenteRemitenteMode, "cell 2 1,growx");
+		panel_1.add(tbClienteExistenteRemitenteMode, "cell 2 0,growx");
 
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		panel_1.add(lblNewLabel_1, "cell 0 2,alignx trailing");
+		panel_1.add(lblNewLabel_1, "cell 0 1,alignx trailing");
 
 		tfNombreRemitente = new JTextField();
 		tfNombreRemitente.setEnabled(false);
-		panel_1.add(tfNombreRemitente, "cell 1 2,growx");
+		panel_1.add(tfNombreRemitente, "cell 1 1,growx");
 		tfNombreRemitente.setColumns(10);
 
-		stcClientesRemitentes = new SearchTableComponent();
-		panel_1.add(stcClientesRemitentes, "cell 2 2 1 4,growx");
+		stcClientesRemitentes = new SearchTableComponent<ClienteDTO>();
+		panel_1.add(stcClientesRemitentes, "cell 2 1 1 4,growx");
 
 		JLabel lblNewLabel_1_1 = new JLabel("Email:");
-		panel_1.add(lblNewLabel_1_1, "cell 0 3,alignx trailing");
+		panel_1.add(lblNewLabel_1_1, "cell 0 2,alignx trailing");
 
 		tfEmailRemitente = new JTextField();
 		tfEmailRemitente.setEnabled(false);
-		panel_1.add(tfEmailRemitente, "cell 1 3,growx");
+		panel_1.add(tfEmailRemitente, "cell 1 2,growx");
 		tfEmailRemitente.setColumns(10);
 
 		JLabel lblNewLabel_1_2 = new JLabel("Dirección:");
-		panel_1.add(lblNewLabel_1_2, "cell 0 4,alignx trailing");
+		panel_1.add(lblNewLabel_1_2, "cell 0 3,alignx trailing");
 
 		tfDireccionRemitente = new JTextField();
 		tfDireccionRemitente.setEnabled(false);
-		panel_1.add(tfDireccionRemitente, "cell 1 4,growx");
+		panel_1.add(tfDireccionRemitente, "cell 1 3,growx");
 		tfDireccionRemitente.setColumns(10);
 
 		stcClientesRemitentes.setEnabled(false);
@@ -103,8 +102,49 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Destinatario", null, scrollPane_2, null);
 
 		panel_2 = new JPanel();
-		panel_2.setLayout(new MigLayout("", "[grow]", "[]"));
+		panel_2.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][]"));
 		scrollPane_2.setViewportView(panel_2);
+	
+
+		panel_2 = new JPanel();
+		panel_2.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][]"));
+		scrollPane_2.setViewportView(panel_2);
+
+		tbNuevoClienteDestinatarioMode = new JToggleButton("Nuevo cliente");
+		panel_2.add(tbNuevoClienteDestinatarioMode, "flowx,cell 0 0 2 1,growx");
+
+		tbClienteExistenteDestinatarioMode = new JToggleButton("Cliente Existente");
+		panel_2.add(tbClienteExistenteDestinatarioMode, "cell 2 0,growx");
+
+		JLabel lblNewLabel_2 = new JLabel("Nombre:");
+		panel_2.add(lblNewLabel_2, "cell 0 1,alignx trailing");
+
+		tfNombreDestinatario = new JTextField();
+		tfNombreDestinatario.setEnabled(false);
+		panel_2.add(tfNombreDestinatario, "cell 1 1,growx");
+		tfNombreDestinatario.setColumns(10);
+
+		stcClientesDestinatarios = new SearchTableComponent<ClienteDTO>();
+		panel_2.add(stcClientesDestinatarios, "cell 2 1 1 4,growx");
+
+		JLabel lblNewLabel_2_1 = new JLabel("Email:");
+		panel_2.add(lblNewLabel_2_1, "cell 0 2,alignx trailing");
+
+		tfEmailDestinatario = new JTextField();
+		tfEmailDestinatario.setEnabled(false);
+		panel_2.add(tfEmailDestinatario, "cell 1 2,growx");
+		tfEmailDestinatario.setColumns(10);
+
+		JLabel lblNewLabel_2_2 = new JLabel("Dirección:");
+		panel_2.add(lblNewLabel_2_2, "cell 0 3,alignx trailing");
+
+		tfDireccionDestinatario = new JTextField();
+		tfDireccionDestinatario.setEnabled(false);
+		panel_2.add(tfDireccionDestinatario, "cell 1 3,growx");
+		tfDireccionDestinatario.setColumns(10);
+
+		stcClientesDestinatarios.setEnabled(false);
+
 
 		// Tab: Origen
 
@@ -157,16 +197,16 @@ public class RegistrarEnvioView extends View {
 		this.dispose();
 	}
 
+	public JTabbedPane getTpRegistrarEnvio() {
+		return tpRegistrarEnvio;
+	}
+	
 	public JToggleButton getTbClienteExistenteRemitenteMode() {
 		return tbClienteExistenteRemitenteMode;
 	}
 
 	public JToggleButton getTbNuevoClienteRemitenteMode() {
 		return tbNuevoClienteRemitenteMode;
-	}
-
-	public JTabbedPane getTpRegistrarEnvio() {
-		return tpRegistrarEnvio;
 	}
 
 	public SearchTableComponent<ClienteDTO> getStcClientesRemitentes() {
@@ -184,7 +224,29 @@ public class RegistrarEnvioView extends View {
 	public JTextField getTfDireccionRemitente() {
 		return tfDireccionRemitente;
 	}
-	public JLabel getLOpcionRemitente() {
-		return lOpcionRemitente;
+	
+	public JToggleButton getTbClienteExistenteDestinatarioMode() {
+		return tbClienteExistenteDestinatarioMode;
 	}
+
+	public JToggleButton getTbNuevoClienteDestinatarioMode() {
+		return tbNuevoClienteDestinatarioMode;
+	}
+
+	public SearchTableComponent<ClienteDTO> getStcClientesDestinatarios() {
+		return stcClientesDestinatarios;
+	}
+
+	public JTextField getTfNombreDestinatario() {
+		return tfNombreDestinatario;
+	}
+
+	public JTextField getTfEmailDestinatario() {
+		return tfEmailDestinatario;
+	}
+
+	public JTextField getTfDireccionDestinatario() {
+		return tfDireccionDestinatario;
+	}
+
 }
