@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.ListSelectionModel;
@@ -19,6 +18,7 @@ import giitin.uo270465.si.component.SearchTableComponent;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.dto.TarifaDTO;
+import giitin.uo270465.si.dto.TransportistaVechiculoDTO;
 import net.miginfocom.swing.MigLayout;
 
 public class RegistrarEnvioView extends View {
@@ -71,6 +71,8 @@ public class RegistrarEnvioView extends View {
 	private JLabel lblNewLabel_13;
 	private SearchTableComponent<TarifaDTO> stcTarifa;
 	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_14;
+	private SearchTableComponent<TransportistaVechiculoDTO> stcTransportistaVehiculo;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -269,8 +271,15 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Transporte", null, scrollPane_6, null);
 
 		panel_6 = new JPanel();
-		panel_6.setLayout(new MigLayout());
+		panel_6.setLayout(new MigLayout("", "[grow]", "[][]"));
 		scrollPane_6.setViewportView(panel_6);
+		
+		lblNewLabel_14 = new JLabel("Seleccione un transportista para el envío:");
+		lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_6.add(lblNewLabel_14, "cell 0 0");
+		
+		stcTransportistaVehiculo = new SearchTableComponent<>(TransportistaVechiculoDTO.class);
+		panel_6.add(stcTransportistaVehiculo, "cell 0 1,growx");
 
 		// Tab: Confirmación
 
@@ -360,5 +369,8 @@ public class RegistrarEnvioView extends View {
 	}
 	public SearchTableComponent<TarifaDTO> getStcTarifa() {
 		return stcTarifa;
+	}
+	public SearchTableComponent<TransportistaVechiculoDTO> getStcTransportistaVehiculo() {
+		return stcTransportistaVehiculo;
 	}
 }

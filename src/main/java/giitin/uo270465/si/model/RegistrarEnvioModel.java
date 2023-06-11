@@ -30,7 +30,7 @@ public class RegistrarEnvioModel extends Model {
 	}
 	
 	public List<TransportistaVechiculoDTO> getTransportistasVehiculos(){
-		final String QUERY = "SELECT t.transportistaId, v.vehiculoId, t.nombre, t.email, v.tipo, v.capacidad FROM Transportistas INNER JOIN Vehiculos v ON t.vehiculoId = v.vehiculoId";
+		final String QUERY = "SELECT t.transportistaId, v.vehiculoId, t.nombre, t.email, v.tipo, v.capacidad FROM Transportistas t INNER JOIN Vehiculos v ON t.vehiculoId = v.vehiculoId";
 		return db.executeQueryPojo(TransportistaVechiculoDTO.class, QUERY);
 				
 	}

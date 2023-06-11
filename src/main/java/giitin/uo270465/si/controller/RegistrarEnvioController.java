@@ -89,6 +89,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		
 		// Tab: Detalles
 		view.getStcTarifa().newTable(model.getTarifas());
+		
+		// Tab: Transporte
+		view.getStcTransportistaVehiculo().newTable(model.getTransportistasVehiculos());
 
 	}
 
