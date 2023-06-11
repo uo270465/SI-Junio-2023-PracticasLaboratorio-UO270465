@@ -20,6 +20,7 @@ import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.dto.TarifaDTO;
 import giitin.uo270465.si.dto.TransportistaVechiculoDTO;
 import net.miginfocom.swing.MigLayout;
+import java.awt.Color;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
@@ -73,6 +74,21 @@ public class RegistrarEnvioView extends View {
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_14;
 	private SearchTableComponent<TransportistaVechiculoDTO> stcTransportistaVehiculo;
+	private JLabel lblNewLabel_15;
+	private JLabel lblNewLabel_16;
+	private JLabel lblNewLabel_17;
+	private JLabel lConfEstadoNombreRemitente;
+	private JLabel lConfDatosNombreRemitente;
+	private JLabel lblNewLabel_20;
+	private JLabel lConfDatosTipoRemitente;
+	private JLabel lConfEstadoTipoRemitente;
+	private JLabel lblNewLabel_23;
+	private JLabel lConfDatosEmailRemitente;
+	private JLabel lConfEstadoEmailRemitente;
+	private JLabel lblNewLabel_26;
+	private JLabel lConfDatosDireccionRemitente;
+	private JLabel lblNewLabel_28;
+	private JLabel lConfEstadoDireccionRemitente;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -87,7 +103,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Remitente", null, scrollPane_1, null);
 
 		panel_1 = new JPanel();
-		panel_1.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][]"));
+		panel_1.setLayout(new MigLayout("", "[fill][200px:n,grow][grow]", "[][][][][][]"));
 		scrollPane_1.setViewportView(panel_1);
 		
 		lblNewLabel = new JLabel("Establezca el remitente del envío:");
@@ -135,7 +151,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Destinatario", null, scrollPane_2, null);
 
 		panel_2 = new JPanel();
-		panel_2.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][]"));
+		panel_2.setLayout(new MigLayout("", "[fill][200px:n,grow][grow]", "[][][][][][]"));
 		scrollPane_2.setViewportView(panel_2);
 		
 		lblEstablezcaElDestinatario = new JLabel("Establezca el destinatario del envío:");
@@ -287,8 +303,59 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Confirmación", null, scrollPane_7, null);
 
 		panel_7 = new JPanel();
-		panel_7.setLayout(new MigLayout());
+		panel_7.setLayout(new MigLayout("", "[][][][][][][][]", "[][][][][][]"));
 		scrollPane_7.setViewportView(panel_7);
+		
+		lblNewLabel_28 = new JLabel("Instrucciones: Pase el ratón por encima de los campos que contengan el texto 'inválido' en rojo para obtener mas información acerca de los errores.");
+		lblNewLabel_28.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		panel_7.add(lblNewLabel_28, "cell 0 0 8 1");
+		
+		lblNewLabel_15 = new JLabel("Datos del remitente:");
+		lblNewLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_7.add(lblNewLabel_15, "cell 0 1 5 1");
+		
+		lblNewLabel_16 = new JLabel("Datos del destinatario:");
+		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_7.add(lblNewLabel_16, "cell 6 1");
+		
+		lblNewLabel_20 = new JLabel("Tipo: ");
+		panel_7.add(lblNewLabel_20, "cell 1 2,alignx right");
+		
+		lConfDatosTipoRemitente = new JLabel("tipo");
+		panel_7.add(lConfDatosTipoRemitente, "cell 2 2");
+		
+		lConfEstadoTipoRemitente = new JLabel("estado");
+		panel_7.add(lConfEstadoTipoRemitente, "cell 4 2");
+		
+		lblNewLabel_17 = new JLabel("Nombre: ");
+		panel_7.add(lblNewLabel_17, "cell 1 3,alignx right");
+		
+		lConfDatosNombreRemitente = new JLabel("nombre");
+		panel_7.add(lConfDatosNombreRemitente, "cell 2 3");
+		
+		lConfEstadoNombreRemitente = new JLabel("Válido");
+		lConfEstadoNombreRemitente.setForeground(Color.BLUE);
+		panel_7.add(lConfEstadoNombreRemitente, "cell 4 3");
+		
+		lblNewLabel_23 = new JLabel("Email: ");
+		panel_7.add(lblNewLabel_23, "cell 1 4,alignx right");
+		
+		lConfDatosEmailRemitente = new JLabel("email");
+		panel_7.add(lConfDatosEmailRemitente, "cell 2 4");
+		
+		lConfEstadoEmailRemitente = new JLabel("Válido");
+		lConfEstadoEmailRemitente.setForeground(Color.BLUE);
+		panel_7.add(lConfEstadoEmailRemitente, "cell 4 4");
+		
+		lblNewLabel_26 = new JLabel("Dirección: ");
+		panel_7.add(lblNewLabel_26, "cell 1 5");
+		
+		lConfDatosDireccionRemitente = new JLabel("dirección");
+		panel_7.add(lConfDatosDireccionRemitente, "cell 2 5");
+		
+		lConfEstadoDireccionRemitente = new JLabel("Válido");
+		lConfEstadoDireccionRemitente.setForeground(Color.BLUE);
+		panel_7.add(lConfEstadoDireccionRemitente, "cell 4 5");
 
 		this.dispose();
 	}
@@ -372,5 +439,29 @@ public class RegistrarEnvioView extends View {
 	}
 	public SearchTableComponent<TransportistaVechiculoDTO> getStcTransportistaVehiculo() {
 		return stcTransportistaVehiculo;
+	}
+	public JLabel getLConfEstadoNombreRemitente() {
+		return lConfEstadoNombreRemitente;
+	}
+	public JLabel getLConfEstadoTipoRemitente() {
+		return lConfEstadoTipoRemitente;
+	}
+	public JLabel getLConfEstadoEmailRemitente() {
+		return lConfEstadoEmailRemitente;
+	}
+	public JLabel getLConfEstadoDireccionRemitente() {
+		return lConfEstadoDireccionRemitente;
+	}
+	public JLabel getLConfDatosEmailRemitente() {
+		return lConfDatosEmailRemitente;
+	}
+	public JLabel getLConfDatosDireccionRemitente() {
+		return lConfDatosDireccionRemitente;
+	}
+	public JLabel getLConfDatosNombreRemitente() {
+		return lConfDatosNombreRemitente;
+	}
+	public JLabel getLConfDatosTipoRemitente() {
+		return lConfDatosTipoRemitente;
 	}
 }

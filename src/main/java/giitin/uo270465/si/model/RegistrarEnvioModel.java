@@ -33,10 +33,11 @@ public class RegistrarEnvioModel extends Model {
 	
 	public List<TransportistaVechiculoDTO> getTransportistasVehiculos(){
 		final String QUERY = "SELECT t.transportistaId, v.vehiculoId, t.nombre, t.email, v.tipo, v.capacidad FROM Transportistas t INNER JOIN Vehiculos v ON t.vehiculoId = v.vehiculoId";
-		List<TransportistaVechiculoDTO> l = db.executeQueryPojo(TransportistaVechiculoDTO.class, QUERY);
-		for (TransportistaVechiculoDTO tv: l) {
-			System.out.println(tv.getTransportistaId());
-		}
-		return l;
+		return db.executeQueryPojo(TransportistaVechiculoDTO.class, QUERY);
+	}
+	
+	public boolean isEmailTaken(String email) {
+		final String QUERY = "SELECT * FROM Clientes WHERE email = ?";
+		return db.executeQueryPojo(ClienteDTO.class, QUERY, email).size()>0;
 	}
 }
