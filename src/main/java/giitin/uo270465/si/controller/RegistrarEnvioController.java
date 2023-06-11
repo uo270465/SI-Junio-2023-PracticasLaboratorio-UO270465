@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import giitin.uo270465.si.abs.Controller;
 import giitin.uo270465.si.model.RegistrarEnvioModel;
 import giitin.uo270465.si.view.RegistrarEnvioView;
@@ -52,6 +55,21 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				selectClientesDestinatariosMode(1);
 			}
 		});
+		
+		// Tab: Origen
+		
+		// No se realiza nada para esta pestaña
+		
+		// Tab: Destino
+		
+		view.getCbEnviarDestinatarioDestino().addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				view.getStcAlmacenOficinaDestino().setEnabled(!view.getCbEnviarDestinatarioDestino().isSelected());
+				
+			}
+		});
 	}
 
 	@Override
@@ -65,6 +83,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		
 		// Tab: Origen
 		view.getStcAlmacenOficinaOrigen().newTable(model.getAlmacenesOficinas());
+		
+		// Tab: Destino
+		view.getStcAlmacenOficinaDestino().newTable(model.getAlmacenesOficinas());
 
 	}
 

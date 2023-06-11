@@ -14,7 +14,7 @@ import giitin.uo270465.si.component.SearchTableComponent;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JButton;
+import javax.swing.JCheckBox;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
@@ -49,6 +49,9 @@ public class RegistrarEnvioView extends View {
 	private JLabel lblNewLabel;
 	private JLabel lblEstablezcaElDestinatario;
 	private SearchTableComponent<AlmacenOficinaDTO> stcAlmacenOficinaOrigen;
+	private JLabel lblNewLabel_4;
+	private SearchTableComponent<AlmacenOficinaDTO> stcAlmacenOficinaDestino;
+	private JCheckBox cbEnviarDestinatarioDestino;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -84,7 +87,7 @@ public class RegistrarEnvioView extends View {
 		tfNombreRemitente.setColumns(10);
 
 		stcClientesRemitentes = new SearchTableComponent<>(ClienteDTO.class);
-		panel_1.add(stcClientesRemitentes, "cell 2 2 1 4,growx");
+		panel_1.add(stcClientesRemitentes, "cell 2 2 1 4,grow");
 
 		JLabel lblNewLabel_1_1 = new JLabel("Email:");
 		panel_1.add(lblNewLabel_1_1, "cell 0 3,alignx trailing");
@@ -172,8 +175,17 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Destino", null, scrollPane_4, null);
 
 		panel_4 = new JPanel();
-		panel_4.setLayout(new MigLayout());
+		panel_4.setLayout(new MigLayout("", "[grow][grow]", "[][]"));
 		scrollPane_4.setViewportView(panel_4);
+		
+		lblNewLabel_4 = new JLabel("Seleccione un destino para el envío:");
+		panel_4.add(lblNewLabel_4, "cell 0 0");
+		
+		cbEnviarDestinatarioDestino = new JCheckBox("Enviar a la dirección del destinatario");
+		panel_4.add(cbEnviarDestinatarioDestino, "cell 1 0,alignx right");
+		
+		stcAlmacenOficinaDestino = new SearchTableComponent<>(AlmacenOficinaDTO.class);
+		panel_4.add(stcAlmacenOficinaDestino, "cell 0 1 2 1,growx");
 
 		// Tab: Detalles
 
@@ -259,5 +271,12 @@ public class RegistrarEnvioView extends View {
 
 	public SearchTableComponent<AlmacenOficinaDTO> getStcAlmacenOficinaOrigen() {
 		return stcAlmacenOficinaOrigen;
+	}
+	
+	public SearchTableComponent<AlmacenOficinaDTO> getStcAlmacenOficinaDestino() {
+		return stcAlmacenOficinaDestino;
+	}
+	public JCheckBox getCbEnviarDestinatarioDestino() {
+		return cbEnviarDestinatarioDestino;
 	}
 }
