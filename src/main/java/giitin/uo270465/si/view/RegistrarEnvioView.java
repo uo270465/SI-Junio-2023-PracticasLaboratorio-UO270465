@@ -9,8 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.ListSelectionModel;
 
 import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.component.SearchTableComponent;
@@ -259,6 +261,7 @@ public class RegistrarEnvioView extends View {
 		
 		stcTarifa = new SearchTableComponent<>(TarifaDTO.class);
 		panel_5.add(stcTarifa, "cell 0 6 6 1,growx");
+		stcTarifa.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
 		// Tab: Transporte
 
