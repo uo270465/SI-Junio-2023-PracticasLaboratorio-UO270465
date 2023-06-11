@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class SearchTableComponent<DTO> extends JPanel {
 
@@ -32,6 +34,7 @@ public class SearchTableComponent<DTO> extends JPanel {
 
 	private List<DTO> tableDTOs;
 	private List<DTO> filterTableDTOs;
+	private DTO selectedDTO;
 
 	private String currentSearch;
 
@@ -81,32 +84,33 @@ public class SearchTableComponent<DTO> extends JPanel {
 
 		currentSearch = "";
 
+		selectedDTO = null;
+
 		ActionListener alSearch = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		};
-		
+
 		tfSearch.addActionListener(alSearch);
-		
+
 		tfSearch.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {
-				
-				
+
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				search(tfSearch.getText());
-				
+
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
@@ -116,8 +120,6 @@ public class SearchTableComponent<DTO> extends JPanel {
 				clearSearch();
 			}
 		});
-		
-		
 
 	}
 
@@ -161,7 +163,8 @@ public class SearchTableComponent<DTO> extends JPanel {
 		int i = 0;
 		for (DTO dto : this.tableDTOs) {
 			for (int j = 0; j < table.getColumnCount(); j++) {
-				if (((DefaultTableModel) table.getModel()).getValueAt(i, j).toString().toLowerCase().contains(currentSearch)) {
+				if (((DefaultTableModel) table.getModel()).getValueAt(i, j).toString().toLowerCase()
+						.contains(currentSearch)) {
 					filterTableDTOs.add(dto);
 					break;
 				}
@@ -190,6 +193,10 @@ public class SearchTableComponent<DTO> extends JPanel {
 	public void newTable(List<DTO> dtos) {
 		clearTable();
 		addDTOs(dtos);
+	}
+	
+	public DTO getSelectedDTO(int i) {
+		return getDTOByIndex(i);
 	}
 
 	public void updateTable() {
