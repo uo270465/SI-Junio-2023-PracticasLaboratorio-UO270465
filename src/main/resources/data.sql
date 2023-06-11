@@ -84,22 +84,22 @@ INSERT INTO Tarifas (concepto, precio) VALUES
 ('Tarifa de Fines de Semana', 15.00);
 
 -- Datos de Envíos
-INSERT INTO Envios (remitenteId, destinatarioId, origenId, destinoId, fechaSolicitud, fechaRecogida, peso, dimensiones, estado, transportistaId) VALUES
-(1, 2, 1, 4, '2023-06-01', '2023-06-02', 5.00, '30x30x30', 'Entregado', 1),
-(3, 4, 2, 5, '2023-06-02', NULL, 10.00, '50x50x50', 'En tránsito', 2),
-(5, 6, 3, 6, '2023-06-03', '2023-06-04', 15.00, '60x60x60', 'En tránsito', 3),
-(7, 8, 4, NULL, '2023-06-04', NULL, 20.00, '70x70x70', 'Esperando recogida', 4),
-(9, 10, 5, 7, '2023-06-05', '2023-06-06', 25.00, '80x80x80', 'Entregado', 5);
+INSERT INTO Envios (envioId, remitenteId, destinatarioId, origenId, destinoId, fechaSolicitud, fechaRecogida, peso, dimensiones, estado, transportistaId) VALUES
+('AB123', 1, 2, 1, 4, '2023-06-01', '2023-06-02', 5.00, '30x30x30', 'Entregado', 1),
+('BC234', 3, 4, 2, 5, '2023-06-02', NULL, 10.00, '50x50x50', 'En tránsito', 2),
+('CD345', 5, 6, 3, 6, '2023-06-03', '2023-06-04', 15.00, '60x60x60', 'En tránsito', 3),
+('DE456', 7, 8, 4, NULL, '2023-06-04', NULL, 20.00, '70x70x70', 'Esperando recogida', 4),
+('FG567', 9, 10, 5, 7, '2023-06-05', '2023-06-06', 25.00, '80x80x80', 'Entregado', 5);
 
 -- Datos de EnviosTarifas
 INSERT INTO EnviosTarifas (envioId, tarifaId) VALUES
-(1, 1),
-(1, 2),
-(2, 3),
-(3, 4),
-(4, 5),
-(5, 1),
-(5, 3);
+('AB123', 1),
+('AB123', 2),
+('BC234', 3),
+('CD345', 4),
+('DE456', 5),
+('FG567', 1),
+('FG567', 3);
 
 -- Datos de Movimientos
 INSERT INTO Movimientos (envioId, fechaHora, ubicacionId, estado) VALUES

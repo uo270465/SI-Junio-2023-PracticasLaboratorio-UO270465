@@ -45,7 +45,7 @@ CREATE TABLE Tarifas (
 -- Tabla Envios
 DROP TABLE IF EXISTS Envios;
 CREATE TABLE Envios (
-    envioId INTEGER PRIMARY KEY AUTOINCREMENT,
+    envioId TEXT PRIMARY KEY,
     remitenteId INTEGER NOT NULL,
     destinatarioId INTEGER NOT NULL,
     origenId INTEGER NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE Envios (
 -- Tabla EnviosTarifas
 DROP TABLE IF EXISTS EnviosTarifas;
 CREATE TABLE EnviosTarifas (
-    envioId INTEGER NOT NULL,
+    envioId TEXT NOT NULL,
     tarifaId INTEGER NOT NULL,
     PRIMARY KEY(envioId, tarifaId),
     FOREIGN KEY(envioId) REFERENCES Envios(envioId),
