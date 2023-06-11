@@ -243,9 +243,9 @@ public class SearchTableComponent<DTO> extends JPanel {
 				getModel().addRow(new Object[] { tarifa.getConcepto(), String.format("%.2f", tarifa.getPrecio()) });
 			} else if (type == TransportistaVechiculoDTO.class) {
 				TransportistaVechiculoDTO transportistaVechiculo = (TransportistaVechiculoDTO) dto;
-				getModel().addRow(new Object[] { transportistaVechiculo.getTransportistaNombre(),
-						transportistaVechiculo.getTransportistaEmail(), transportistaVechiculo.getVehiculoTipo(),
-						transportistaVechiculo.getVehiculoCapacidad() });
+				getModel().addRow(new Object[] { transportistaVechiculo.getNombre(),
+						transportistaVechiculo.getEmail(), transportistaVechiculo.getTipo(),
+						transportistaVechiculo.getCapacidad() });
 			} else {
 				throw new IllegalArgumentException(String.format("Parametric type %s is not supported on class %s",
 						type.getName(), this.getClass().getName()));

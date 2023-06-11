@@ -2,6 +2,8 @@ package giitin.uo270465.si.model;
 
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 import giitin.uo270465.si.abs.Model;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
@@ -31,7 +33,10 @@ public class RegistrarEnvioModel extends Model {
 	
 	public List<TransportistaVechiculoDTO> getTransportistasVehiculos(){
 		final String QUERY = "SELECT t.transportistaId, v.vehiculoId, t.nombre, t.email, v.tipo, v.capacidad FROM Transportistas t INNER JOIN Vehiculos v ON t.vehiculoId = v.vehiculoId";
-		return db.executeQueryPojo(TransportistaVechiculoDTO.class, QUERY);
-				
+		List<TransportistaVechiculoDTO> l = db.executeQueryPojo(TransportistaVechiculoDTO.class, QUERY);
+		for (TransportistaVechiculoDTO tv: l) {
+			System.out.println(tv.getTransportistaId());
+		}
+		return l;
 	}
 }
