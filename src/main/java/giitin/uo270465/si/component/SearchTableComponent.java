@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.dto.TarifaDTO;
+import giitin.uo270465.si.dto.TransportistaVechiculoDTO;
 import net.miginfocom.swing.MigLayout;
 
 public class SearchTableComponent<DTO> extends JPanel {
@@ -92,6 +93,17 @@ public class SearchTableComponent<DTO> extends JPanel {
 				}
 			});
 			lSearch.setText("Buscar tarifas: ");
+		} else if (type == TransportistaVechiculoDTO.class) {
+			table.setModel(new DefaultTableModel(new Object[][] {},
+					new String[] { "Nombre", "Email", "Tipo vehiculo", "Capacidad vehiculo" }) {
+				private static final long serialVersionUID = 1L;
+				boolean[] columnEditables = new boolean[] { false, false, false, false };
+
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
+			lSearch.setText("Buscar transportistas: ");
 		} else {
 			throw new IllegalArgumentException(String.format("Parametric type %s is not supported on class %s",
 					type.getName(), this.getClass().getName()));
@@ -229,6 +241,11 @@ public class SearchTableComponent<DTO> extends JPanel {
 			} else if (type == TarifaDTO.class) {
 				TarifaDTO tarifa = (TarifaDTO) dto;
 				getModel().addRow(new Object[] { tarifa.getConcepto(), String.format("%.2f", tarifa.getPrecio()) });
+			} else if (type == TransportistaVechiculoDTO.class) {
+				TransportistaVechiculoDTO transportistaVechiculo = (TransportistaVechiculoDTO) dto;
+				getModel().addRow(new Object[] { transportistaVechiculo.getTransportistaNombre(),
+						transportistaVechiculo.getTransportistaEmail(), transportistaVechiculo.getVehiculoTipo(),
+						transportistaVechiculo.getVehiculoCapacidad() });
 			} else {
 				throw new IllegalArgumentException(String.format("Parametric type %s is not supported on class %s",
 						type.getName(), this.getClass().getName()));
@@ -247,8 +264,8 @@ public class SearchTableComponent<DTO> extends JPanel {
 		spTable.setEnabled(b);
 		table.setEnabled(b);
 	}
-	
-	public void setSelectionMode(int selectioMode ) {
+
+	public void setSelectionMode(int selectioMode) {
 		table.setSelectionMode(selectioMode);
 	}
 
