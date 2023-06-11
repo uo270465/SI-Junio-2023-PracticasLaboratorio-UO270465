@@ -11,8 +11,10 @@ import javax.swing.JToggleButton;
 
 import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.component.SearchTableComponent;
+import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JButton;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
@@ -46,6 +48,7 @@ public class RegistrarEnvioView extends View {
 	private JTextField tfDireccionDestinatario;
 	private JLabel lblNewLabel;
 	private JLabel lblEstablezcaElDestinatario;
+	private SearchTableComponent<AlmacenOficinaDTO> stcAlmacenOficinaOrigen;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -154,11 +157,14 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Origen", null, scrollPane_3, null);
 
 		panel_3 = new JPanel();
-		panel_3.setLayout(new MigLayout("", "[]", "[][]"));
+		panel_3.setLayout(new MigLayout("", "[grow]", "[][]"));
 		scrollPane_3.setViewportView(panel_3);
 
 		lblNewLabel_3 = new JLabel("Seleccione un almacen/oficina de origen:");
 		panel_3.add(lblNewLabel_3, "cell 0 0 2 1");
+		
+		stcAlmacenOficinaOrigen = new SearchTableComponent<>(AlmacenOficinaDTO.class);
+		panel_3.add(stcAlmacenOficinaOrigen, "cell 0 1,growx");
 
 		// Tab: Destino
 
@@ -251,4 +257,7 @@ public class RegistrarEnvioView extends View {
 		return tfDireccionDestinatario;
 	}
 
+	public SearchTableComponent<AlmacenOficinaDTO> getStcAlmacenOficinaOrigen() {
+		return stcAlmacenOficinaOrigen;
+	}
 }
