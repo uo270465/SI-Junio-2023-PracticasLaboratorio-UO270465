@@ -54,7 +54,7 @@ public class RegistrarEnvioView extends View {
 	private JPanel panel_6;
 	private JScrollPane scrollPane_7;
 	private JPanel panel_7;
-	private JButton btnNewButton;
+	private SearchTableComponent<ClienteDTO> stcClientesDestinatario;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -143,12 +143,13 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Destinatario", null, scrollPane_2, null);
 
 		panel_2 = new JPanel();
-		panel_2.setLayout(new MigLayout());
+		panel_2.setLayout(new MigLayout("", "[grow]", "[]"));
 		scrollPane_2.setViewportView(panel_2);
 		
 		
-		SearchTableComponent<ClienteDTO> stcClientesDestino = new SearchTableComponent<>();
-		panel_2.add(stcClientesDestino, "cell 0 0");
+		
+		stcClientesDestinatario = new SearchTableComponent<ClienteDTO>();
+		panel_2.add(stcClientesDestinatario, "cell 0 0,grow");
 
 		// Tab: Origen
 
@@ -265,5 +266,8 @@ public class RegistrarEnvioView extends View {
 
 	public JTabbedPane getTpRegistrarEnvio() {
 		return tpRegistrarEnvio;
+	}
+	public SearchTableComponent<ClienteDTO> getStcClientesDestinatario() {
+		return stcClientesDestinatario;
 	}
 }

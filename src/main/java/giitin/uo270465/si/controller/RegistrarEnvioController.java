@@ -64,6 +64,8 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		view.getSpTClientes()
 				.setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 10));
 		
+		view.getStcClientesDestinatario().addDTOs(model.getClientes());
+		
 		view.getSpTAlmacenesOficinasOrigen().setMaximumSize(new Dimension(Integer.MAX_VALUE, view.getTfNombreNuevoCliente().getHeight() * 10));
 		selectClientesMode(0);
 		

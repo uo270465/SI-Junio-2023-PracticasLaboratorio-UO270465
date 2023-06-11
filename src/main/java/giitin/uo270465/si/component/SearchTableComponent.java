@@ -29,9 +29,12 @@ public class SearchTableComponent<DTO> extends JPanel {
 
 	private String currentSearch;
 
-	private Class<DTO> type;
+	@SuppressWarnings("unchecked")
+	private DTO dto = (DTO)(new Object());
+	@SuppressWarnings("unchecked")
+	private Class<DTO> type = (Class<DTO>) dto.getClass();
 
-	private Class<ClienteDTO> typeCliente;
+	private Class<ClienteDTO> typeCliente = ClienteDTO.class;
 
 	public SearchTableComponent() {
 		setLayout(new MigLayout("", "[][grow,fill][][]", "[][grow,fill]"));
