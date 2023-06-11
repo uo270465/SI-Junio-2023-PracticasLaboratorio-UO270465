@@ -1,40 +1,34 @@
 package giitin.uo270465.si.component;
 
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import giitin.uo270465.si.dto.ClienteDTO;
-import net.miginfocom.swing.MigLayout;
-
-import java.awt.KeyEventDispatcher;
-import java.awt.RenderingHints.Key;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
+import giitin.uo270465.si.dto.ClienteDTO;
+import net.miginfocom.swing.MigLayout;
 
 public class SearchTableComponent<DTO> extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JScrollPane spTable;
 	private JTable table;
 	private JTextField tfSearch;
+	private JButton bClear;
 
 	private List<DTO> tableDTOs;
 	private List<DTO> filterTableDTOs;
-	private DTO selectedDTO;
 
 	private String currentSearch;
 
@@ -55,16 +49,16 @@ public class SearchTableComponent<DTO> extends JPanel {
 		add(tfSearch, "cell 1 0");
 		tfSearch.setColumns(10);
 
-		JButton bClear = new JButton("Mostrar todos");
+		bClear = new JButton("Mostrar todos");
 		add(bClear, "cell 2 0");
 
-		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, "cell 0 1 3 1,grow");
+		spTable = new JScrollPane();
+		add(spTable, "cell 0 1 3 1,grow");
 
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		scrollPane.setViewportView(table);
+		spTable.setViewportView(table);
 
 		if (type.isInstance(typeCliente)) {
 			table.setModel(
@@ -83,8 +77,6 @@ public class SearchTableComponent<DTO> extends JPanel {
 		filterTableDTOs = new LinkedList<DTO>();
 
 		currentSearch = "";
-
-		selectedDTO = null;
 
 		ActionListener alSearch = new ActionListener() {
 			@Override
@@ -208,6 +200,22 @@ public class SearchTableComponent<DTO> extends JPanel {
 						((ClienteDTO) dto).getEmail(), ((ClienteDTO) dto).getDireccion() });
 			}
 		}
+	}
+	
+	@Override
+	public void setEnabled(boolean b) {
+		super.setEnabled(b);
+		
+		if (!b) {
+			table.clearSelection();
+			clearSearch();
+			updateTable();
+		}
+		
+		bClear.setEnabled(b);
+		tfSearch.setEnabled(b);
+		spTable.setEnabled(b);
+		table.setEnabled(b);
 	}
 
 }
