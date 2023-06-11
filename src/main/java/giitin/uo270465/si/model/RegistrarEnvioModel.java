@@ -6,6 +6,7 @@ import giitin.uo270465.si.abs.Model;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.dto.TarifaDTO;
+import giitin.uo270465.si.dto.TransportistaVechiculoDTO;
 
 public class RegistrarEnvioModel extends Model {
 
@@ -26,5 +27,11 @@ public class RegistrarEnvioModel extends Model {
 	public List<TarifaDTO> getTarifas() {
 		final String QUERY = "SELECT * FROM Tarifas";
 		return db.executeQueryPojo(TarifaDTO.class, QUERY);
+	}
+	
+	public List<TransportistaVechiculoDTO> getTransportistasVehiculos(){
+		final String QUERY = "SELECT t.transportistaId, v.vehiculoId, t.nombre, t.email, v.tipo, v.capacidad FROM Transportistas INNER JOIN Vehiculos v ON t.vehiculoId = v.vehiculoId";
+		return db.executeQueryPojo(TransportistaVechiculoDTO.class, QUERY);
+				
 	}
 }
