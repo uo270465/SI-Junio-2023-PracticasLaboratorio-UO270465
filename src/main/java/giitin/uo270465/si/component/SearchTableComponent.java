@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import net.miginfocom.swing.MigLayout;
 
@@ -32,14 +33,11 @@ public class SearchTableComponent<DTO> extends JPanel {
 
 	private String currentSearch;
 
-	@SuppressWarnings("unchecked")
-	private DTO dto = (DTO) (new Object());
-	@SuppressWarnings("unchecked")
-	private Class<DTO> type = (Class<DTO>) dto.getClass();
-
-	private Class<ClienteDTO> typeCliente = ClienteDTO.class;
-
-	public SearchTableComponent() {
+	private Class<DTO> type;
+	
+	public SearchTableComponent(Class<DTO> type) {
+		this.type = type;
+		
 		setLayout(new MigLayout("", "[][grow,fill][]", "[][grow,fill]"));
 
 		JLabel lSearch = new JLabel("Buscar: ");
@@ -60,7 +58,18 @@ public class SearchTableComponent<DTO> extends JPanel {
 
 		spTable.setViewportView(table);
 
-		if (type.isInstance(typeCliente)) {
+
+		if (type == ClienteDTO.class) {
+			table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nombre", "Email", "Direción" }) {
+				private static final long serialVersionUID = 1L;
+				boolean[] columnEditables = new boolean[] { false, false, false };
+
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
+			lSearch.setText("Buscar clientes: ");
+		} else if (type == AlmacenOficinaDTO.class) {
 			table.setModel(
 					new DefaultTableModel(new Object[][] {}, new String[] { "Nombre", "Direcci\u00F3n", "Ciudad" }) {
 						private static final long serialVersionUID = 1L;
@@ -70,7 +79,10 @@ public class SearchTableComponent<DTO> extends JPanel {
 							return columnEditables[column];
 						}
 					});
-			lSearch.setText("Buscar clientes: ");
+			lSearch.setText("Buscar almacenes y oficinas: ");
+
+		} else {
+			throw new IllegalArgumentException(String.format("Parametric type %s is not supported on class %s", type.getName(), this.getClass().getName()));
 		}
 
 		tableDTOs = new LinkedList<DTO>();
@@ -186,7 +198,7 @@ public class SearchTableComponent<DTO> extends JPanel {
 		clearTable();
 		addDTOs(dtos);
 	}
-	
+
 	public DTO getSelectedDTO(int i) {
 		return getDTOByIndex(i);
 	}
@@ -195,23 +207,29 @@ public class SearchTableComponent<DTO> extends JPanel {
 		tfSearch.setText(currentSearch);
 		clearModel();
 		for (DTO dto : filterTableDTOs) {
-			if (type.isInstance(typeCliente)) {
-				((DefaultTableModel) table.getModel()).addRow(new Object[] { ((ClienteDTO) dto).getNombre(),
-						((ClienteDTO) dto).getEmail(), ((ClienteDTO) dto).getDireccion() });
+			if (type == ClienteDTO.class) {
+				ClienteDTO cliente = (ClienteDTO)dto;
+				getModel().addRow(new Object[] { cliente.getNombre(), cliente.getEmail(), cliente.getDireccion() });
+			}else if (type == AlmacenOficinaDTO.class) {
+				AlmacenOficinaDTO almacenOficina = (AlmacenOficinaDTO)dto;
+				getModel().addRow(new Object[] { almacenOficina.getNombre(), almacenOficina.getDireccion(), almacenOficina.getCiudad() });
+			}
+			else {
+				throw new IllegalArgumentException(String.format("Parametric type %s is not supported on class %s", type.getName(), this.getClass().getName()));
 			}
 		}
 	}
-	
+
 	@Override
 	public void setEnabled(boolean b) {
 		super.setEnabled(b);
-		
+
 		if (!b) {
 			table.clearSelection();
 			clearSearch();
 			updateTable();
 		}
-		
+
 		bClear.setEnabled(b);
 		tfSearch.setEnabled(b);
 		spTable.setEnabled(b);

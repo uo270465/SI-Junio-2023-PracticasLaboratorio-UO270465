@@ -11,6 +11,7 @@ import javax.swing.JToggleButton;
 
 import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.component.SearchTableComponent;
+import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import net.miginfocom.swing.MigLayout;
 
@@ -75,7 +76,7 @@ public class RegistrarEnvioView extends View {
 		panel_1.add(tfNombreRemitente, "cell 1 1,growx");
 		tfNombreRemitente.setColumns(10);
 
-		stcClientesRemitentes = new SearchTableComponent<ClienteDTO>();
+		stcClientesRemitentes = new SearchTableComponent<>(ClienteDTO.class);
 		panel_1.add(stcClientesRemitentes, "cell 2 1 1 4,growx");
 
 		JLabel lblNewLabel_1_1 = new JLabel("Email:");
@@ -104,7 +105,6 @@ public class RegistrarEnvioView extends View {
 		panel_2 = new JPanel();
 		panel_2.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][]"));
 		scrollPane_2.setViewportView(panel_2);
-	
 
 		panel_2 = new JPanel();
 		panel_2.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][]"));
@@ -124,7 +124,7 @@ public class RegistrarEnvioView extends View {
 		panel_2.add(tfNombreDestinatario, "cell 1 1,growx");
 		tfNombreDestinatario.setColumns(10);
 
-		stcClientesDestinatarios = new SearchTableComponent<ClienteDTO>();
+		stcClientesDestinatarios = new SearchTableComponent<>(ClienteDTO.class);
 		panel_2.add(stcClientesDestinatarios, "cell 2 1 1 4,growx");
 
 		JLabel lblNewLabel_2_1 = new JLabel("Email:");
@@ -144,7 +144,6 @@ public class RegistrarEnvioView extends View {
 		tfDireccionDestinatario.setColumns(10);
 
 		stcClientesDestinatarios.setEnabled(false);
-
 
 		// Tab: Origen
 
@@ -200,7 +199,7 @@ public class RegistrarEnvioView extends View {
 	public JTabbedPane getTpRegistrarEnvio() {
 		return tpRegistrarEnvio;
 	}
-	
+
 	public JToggleButton getTbClienteExistenteRemitenteMode() {
 		return tbClienteExistenteRemitenteMode;
 	}
@@ -224,7 +223,7 @@ public class RegistrarEnvioView extends View {
 	public JTextField getTfDireccionRemitente() {
 		return tfDireccionRemitente;
 	}
-	
+
 	public JToggleButton getTbClienteExistenteDestinatarioMode() {
 		return tbClienteExistenteDestinatarioMode;
 	}
