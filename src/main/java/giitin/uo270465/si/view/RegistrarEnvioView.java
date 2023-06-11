@@ -15,6 +15,8 @@ import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JSpinner;
+import java.awt.Font;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
@@ -52,6 +54,18 @@ public class RegistrarEnvioView extends View {
 	private JLabel lblNewLabel_4;
 	private SearchTableComponent<AlmacenOficinaDTO> stcAlmacenOficinaDestino;
 	private JCheckBox cbEnviarDestinatarioDestino;
+	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_7;
+	private JLabel lblNewLabel_8;
+	private JLabel lblNewLabel_9;
+	private JSpinner sAlturaPaquete;
+	private JSpinner sAnturaXPaquete;
+	private JSpinner sPesoPaquete;
+	private JLabel lblNewLabel_10;
+	private JLabel lblNewLabel_11;
+	private JLabel lblNewLabel_12;
+	private JSpinner sAnchuraYPaquete;
+	private JLabel lblNewLabel_13;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -70,6 +84,7 @@ public class RegistrarEnvioView extends View {
 		scrollPane_1.setViewportView(panel_1);
 		
 		lblNewLabel = new JLabel("Establezca el remitente del envío:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel_1.add(lblNewLabel, "cell 0 0 3 1");
 
 		tbNuevoClienteRemitenteMode = new JToggleButton("Nuevo cliente");
@@ -117,6 +132,7 @@ public class RegistrarEnvioView extends View {
 		scrollPane_2.setViewportView(panel_2);
 		
 		lblEstablezcaElDestinatario = new JLabel("Establezca el destinatario del envío:");
+		lblEstablezcaElDestinatario.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel_2.add(lblEstablezcaElDestinatario, "cell 0 0 3 1");
 
 		tbNuevoClienteDestinatarioMode = new JToggleButton("Nuevo cliente");
@@ -164,7 +180,8 @@ public class RegistrarEnvioView extends View {
 		scrollPane_3.setViewportView(panel_3);
 
 		lblNewLabel_3 = new JLabel("Seleccione un almacen/oficina de origen:");
-		panel_3.add(lblNewLabel_3, "cell 0 0 2 1");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_3.add(lblNewLabel_3, "cell 0 0");
 		
 		stcAlmacenOficinaOrigen = new SearchTableComponent<>(AlmacenOficinaDTO.class);
 		panel_3.add(stcAlmacenOficinaOrigen, "cell 0 1,growx");
@@ -179,6 +196,7 @@ public class RegistrarEnvioView extends View {
 		scrollPane_4.setViewportView(panel_4);
 		
 		lblNewLabel_4 = new JLabel("Seleccione un destino para el envío:");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel_4.add(lblNewLabel_4, "cell 0 0");
 		
 		cbEnviarDestinatarioDestino = new JCheckBox("Enviar a la dirección del destinatario");
@@ -193,8 +211,45 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Detalles", null, scrollPane_5, null);
 
 		panel_5 = new JPanel();
-		panel_5.setLayout(new MigLayout());
+		panel_5.setLayout(new MigLayout("", "[][100px:n][][100px:n][]", "[][][][]"));
 		scrollPane_5.setViewportView(panel_5);
+		
+		lblNewLabel_5 = new JLabel("Detalles del envío:");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_5.add(lblNewLabel_5, "cell 0 0 5 1");
+		
+		lblNewLabel_7 = new JLabel("Altura del paquete: ");
+		panel_5.add(lblNewLabel_7, "cell 0 1,alignx trailing");
+		
+		sAlturaPaquete = new JSpinner();
+		panel_5.add(sAlturaPaquete, "cell 1 1,growx");
+		
+		lblNewLabel_10 = new JLabel(" centimetros");
+		panel_5.add(lblNewLabel_10, "cell 2 1 3 1");
+		
+		lblNewLabel_8 = new JLabel("Anchura del paquete: ");
+		panel_5.add(lblNewLabel_8, "cell 0 2,alignx trailing");
+		
+		sAnturaXPaquete = new JSpinner();
+		panel_5.add(sAnturaXPaquete, "cell 1 2,growx");
+		
+		lblNewLabel_11 = new JLabel(" centimetros   X  ");
+		panel_5.add(lblNewLabel_11, "cell 2 2");
+		
+		sAnchuraYPaquete = new JSpinner();
+		panel_5.add(sAnchuraYPaquete, "cell 3 2,growx");
+		
+		lblNewLabel_13 = new JLabel(" centimetros ");
+		panel_5.add(lblNewLabel_13, "cell 4 2");
+		
+		lblNewLabel_9 = new JLabel("Peso: ");
+		panel_5.add(lblNewLabel_9, "cell 0 3,alignx trailing");
+		
+		sPesoPaquete = new JSpinner();
+		panel_5.add(sPesoPaquete, "cell 1 3,growx");
+		
+		lblNewLabel_12 = new JLabel(" gramos ");
+		panel_5.add(lblNewLabel_12, "cell 2 3 3 1");
 
 		// Tab: Transporte
 
@@ -278,5 +333,17 @@ public class RegistrarEnvioView extends View {
 	}
 	public JCheckBox getCbEnviarDestinatarioDestino() {
 		return cbEnviarDestinatarioDestino;
+	}
+	public JSpinner getSPesoPaquete() {
+		return sPesoPaquete;
+	}
+	public JSpinner getSAnturaXPaquete() {
+		return sAnturaXPaquete;
+	}
+	public JSpinner getSAnchuraYPaquete() {
+		return sAnchuraYPaquete;
+	}
+	public JSpinner getSAlturaPaquete() {
+		return sAlturaPaquete;
 	}
 }
