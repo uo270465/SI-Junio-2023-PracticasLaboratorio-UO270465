@@ -247,5 +247,9 @@ public class SearchTableComponent<DTO> extends JPanel {
 		spTable.setEnabled(b);
 		table.setEnabled(b);
 	}
+	
+	public void setSelectionMode(int selectioMode ) {
+		table.setSelectionMode(selectioMode);
+	}
 
 }
