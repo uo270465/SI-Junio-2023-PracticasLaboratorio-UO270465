@@ -25,17 +25,11 @@ import javax.swing.JTabbedPane;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
-	private JTable tClientes;
 	private JToggleButton tbClienteExistenteRemitenteMode;
 	private JToggleButton tbNuevoClienteRemitenteMode;
 	private JTextField tfNombreNuevoCliente;
 	private JTextField tfEmailNuevoCliente;
 	private JTextField tfDireccionNuevoCliente;
-	private JScrollPane spTClientes;
-	private JTextField tfFiltroClienteRemitenteExistente;
-	private JButton bBuscarClienteRemitenteExistente;
-	private JButton bMostrarTodosClienteExistente;
-	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
 	private JScrollPane spTAlmacenesOficinasOrigen;
 	private JTable tAlmacenesOficinasOrigen;
@@ -55,6 +49,7 @@ public class RegistrarEnvioView extends View {
 	private JScrollPane scrollPane_7;
 	private JPanel panel_7;
 	private SearchTableComponent<ClienteDTO> stcClientesDestinatario;
+	private SearchTableComponent stcClientesRemitentes;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -69,18 +64,18 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Remitente", null, scrollPane_1, null);
 
 		panel_1 = new JPanel();
-		panel_1.setLayout(new MigLayout("", "[fill][grow][fill][grow][fill][fill]", "[][][][][][]"));
+		panel_1.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][]"));
 		scrollPane_1.setViewportView(panel_1);
 
 		JLabel lblNewLabel = new JLabel("Seleccione una opción:");
-		panel_1.add(lblNewLabel, "cell 0 0 6 1");
+		panel_1.add(lblNewLabel, "cell 0 0 3 1");
 
 		tbNuevoClienteRemitenteMode = new JToggleButton("Nuevo cliente");
 		tbNuevoClienteRemitenteMode.setSelected(true);
 		panel_1.add(tbNuevoClienteRemitenteMode, "flowx,cell 0 1 2 1,growx");
 
 		tbClienteExistenteRemitenteMode = new JToggleButton("Cliente Existente");
-		panel_1.add(tbClienteExistenteRemitenteMode, "cell 2 1 4 1,growx");
+		panel_1.add(tbClienteExistenteRemitenteMode, "cell 2 1,growx");
 				
 						JLabel lblNewLabel_1 = new JLabel("Nombre:");
 						panel_1.add(lblNewLabel_1, "cell 0 2,alignx trailing");
@@ -88,20 +83,9 @@ public class RegistrarEnvioView extends View {
 				tfNombreNuevoCliente = new JTextField();
 				panel_1.add(tfNombreNuevoCliente, "cell 1 2,growx");
 				tfNombreNuevoCliente.setColumns(10);
-
-		lblNewLabel_2 = new JLabel("Buscar clientes:");
-		panel_1.add(lblNewLabel_2, "cell 2 2,alignx trailing");
-
-		tfFiltroClienteRemitenteExistente = new JTextField();
-		tfFiltroClienteRemitenteExistente.setToolTipText("Introduzca un nombre, email o dirección");
-		panel_1.add(tfFiltroClienteRemitenteExistente, "cell 3 2,growx");
-		tfFiltroClienteRemitenteExistente.setColumns(10);
-
-		bBuscarClienteRemitenteExistente = new JButton("Buscar");
-		panel_1.add(bBuscarClienteRemitenteExistente, "cell 4 2,growx");
-
-		bMostrarTodosClienteExistente = new JButton("Mostrar todos");
-		panel_1.add(bMostrarTodosClienteExistente, "cell 5 2,growx");
+						
+						stcClientesRemitentes = new SearchTableComponent();
+						panel_1.add(stcClientesRemitentes, "cell 2 2 1 4,growx");
 				
 						JLabel lblNewLabel_1_1 = new JLabel("Email:");
 						panel_1.add(lblNewLabel_1_1, "cell 0 3,alignx trailing");
@@ -109,26 +93,6 @@ public class RegistrarEnvioView extends View {
 				tfEmailNuevoCliente = new JTextField();
 				panel_1.add(tfEmailNuevoCliente, "cell 1 3,growx");
 				tfEmailNuevoCliente.setColumns(10);
-
-		spTClientes = new JScrollPane();
-
-		panel_1.add(spTClientes, "cell 2 3 4 3,grow");
-
-		tClientes = new JTable();
-		tClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tClientes.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "Nombre", "Email", "Direcci\u00F3n" }) {
-					boolean[] columnEditables = new boolean[] { false, false, false };
-
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
-		tClientes.getColumnModel().getColumn(0).setPreferredWidth(51);
-		tClientes.getColumnModel().getColumn(1).setPreferredWidth(40);
-		tClientes.getColumnModel().getColumn(2).setPreferredWidth(58);
-		spTClientes.setViewportView(tClientes);
-		spTClientes.setSize(spTClientes.getWidth(), 100);
 				
 						JLabel lblNewLabel_1_2 = new JLabel("Dirección:");
 						panel_1.add(lblNewLabel_1_2, "cell 0 4,alignx trailing");
@@ -216,9 +180,7 @@ public class RegistrarEnvioView extends View {
 
 	}
 
-	public JTable getTClientes() {
-		return tClientes;
-	}
+
 
 	public JToggleButton getTbClienteExistenteMode() {
 		return tbClienteExistenteRemitenteMode;
@@ -228,9 +190,7 @@ public class RegistrarEnvioView extends View {
 		return tbNuevoClienteRemitenteMode;
 	}
 
-	public JScrollPane getSpTClientes() {
-		return spTClientes;
-	}
+
 
 	public JTextField getTfNombreNuevoCliente() {
 		return tfNombreNuevoCliente;
@@ -242,18 +202,6 @@ public class RegistrarEnvioView extends View {
 
 	public JTextField getTfDireccionNuevoCliente() {
 		return tfDireccionNuevoCliente;
-	}
-
-	public JTextField getTfFiltroClienteExistente() {
-		return tfFiltroClienteRemitenteExistente;
-	}
-
-	public JButton getBBuscarClienteExistente() {
-		return bBuscarClienteRemitenteExistente;
-	}
-
-	public JButton getBMostrarTodosClienteExistente() {
-		return bMostrarTodosClienteExistente;
 	}
 
 	public JScrollPane getSpTAlmacenesOficinasOrigen() {
@@ -269,5 +217,8 @@ public class RegistrarEnvioView extends View {
 	}
 	public SearchTableComponent<ClienteDTO> getStcClientesDestinatario() {
 		return stcClientesDestinatario;
+	}
+	public SearchTableComponent getStcClientesRemitentes() {
+		return stcClientesRemitentes;
 	}
 }
