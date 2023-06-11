@@ -1,10 +1,13 @@
 package giitin.uo270465.si.view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
@@ -13,10 +16,8 @@ import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.component.SearchTableComponent;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
+import giitin.uo270465.si.dto.TarifaDTO;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JSpinner;
-import java.awt.Font;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
@@ -66,6 +67,8 @@ public class RegistrarEnvioView extends View {
 	private JLabel lblNewLabel_12;
 	private JSpinner sAnchuraYPaquete;
 	private JLabel lblNewLabel_13;
+	private SearchTableComponent<TarifaDTO> stcTarifa;
+	private JLabel lblNewLabel_6;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -211,7 +214,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Detalles", null, scrollPane_5, null);
 
 		panel_5 = new JPanel();
-		panel_5.setLayout(new MigLayout("", "[][100px:n][][100px:n][]", "[][][][]"));
+		panel_5.setLayout(new MigLayout("", "[][100px:n][][100px:n][][grow]", "[][][][][][][]"));
 		scrollPane_5.setViewportView(panel_5);
 		
 		lblNewLabel_5 = new JLabel("Detalles del envío:");
@@ -250,6 +253,12 @@ public class RegistrarEnvioView extends View {
 		
 		lblNewLabel_12 = new JLabel(" gramos ");
 		panel_5.add(lblNewLabel_12, "cell 2 3 3 1");
+		
+		lblNewLabel_6 = new JLabel("Selecciona una o varias tarifas para el envío:");
+		panel_5.add(lblNewLabel_6, "cell 0 5 6 1");
+		
+		stcTarifa = new SearchTableComponent<>(TarifaDTO.class);
+		panel_5.add(stcTarifa, "cell 0 6 6 1,growx");
 
 		// Tab: Transporte
 
@@ -345,5 +354,8 @@ public class RegistrarEnvioView extends View {
 	}
 	public JSpinner getSAlturaPaquete() {
 		return sAlturaPaquete;
+	}
+	public SearchTableComponent<TarifaDTO> getStcTarifa() {
+		return stcTarifa;
 	}
 }
