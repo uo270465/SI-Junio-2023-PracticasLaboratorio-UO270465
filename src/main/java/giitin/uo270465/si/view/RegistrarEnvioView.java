@@ -10,6 +10,8 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 
 import giitin.uo270465.si.abs.View;
+import giitin.uo270465.si.component.SearchTableComponent;
+import giitin.uo270465.si.dto.ClienteDTO;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -52,6 +54,7 @@ public class RegistrarEnvioView extends View {
 	private JPanel panel_6;
 	private JScrollPane scrollPane_7;
 	private JPanel panel_7;
+	private JButton btnNewButton;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -142,6 +145,10 @@ public class RegistrarEnvioView extends View {
 		panel_2 = new JPanel();
 		panel_2.setLayout(new MigLayout());
 		scrollPane_2.setViewportView(panel_2);
+		
+		
+		SearchTableComponent<ClienteDTO> stcClientesDestino = new SearchTableComponent<>();
+		panel_2.add(stcClientesDestino, "cell 0 0");
 
 		// Tab: Origen
 
