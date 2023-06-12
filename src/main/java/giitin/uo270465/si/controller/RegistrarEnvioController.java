@@ -25,8 +25,8 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 	// Constantes generales
 
-	final String INVALIDO = "inválido";
-	final String VALIDO = "válido";
+	final String INVALIDO = "INVÁLIDO";
+	final String VALIDO = "VÁLIDO";
 
 	final Color C_INVALIDO = Color.RED;
 	final Color C_VALIDO = Color.BLUE;
@@ -44,6 +44,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	private final String TT_CLIENTE_INVALID_EMAIL = "El campo 'Email' contiene un formato inválido. El formato del email debe ser similar a: 'email@domain.tld'.";
 	private final String TT_CLIENTE_TAKEN_EMAIL = "El email elegido ya está en uso.";
 	private final String TT_CLIENTE_NO_DIRECCION = "El campo 'Dirección' no puede estar vacío.";
+	private final String TT_CLIENTE_REMITENTE_IGUAL_DESTINATARIO = "El remitente no puede ser el mismo que el destinatario.";
 
 	private final String DATOS_CLIENTE_NO_SELECCION = "No seleccionado";
 	private final String DATOS_CLIENTE_NUEVO = "Nuevo Cliente";
@@ -55,6 +56,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	// Constantes: AlmacenOficina
 
 	private final String TT_ALMACENOFICINA_NO_SELECCION = "No se ha seleccionado ningún almacen u oficina.";
+	private final String TT_ALMACENOFICINA_ORGEN_IGUAL_DESTINO = "El almacen u oficina de origen no puede igual al destino.";
 
 	// Constantes: Detalles
 
@@ -133,6 +135,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				if (view.getTpRegistrarEnvio().getSelectedIndex() == view.getTpRegistrarEnvio().getTabCount() - 1) {
 					ComprobarRegistrarEnvio();
 				}
+				updateView();
 			}
 		});
 
@@ -382,7 +385,8 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				ttEmailDestinatario = TT_CLIENTE_NO_EMAIL;
 			} else if (!PATTERN.matcher(datosEmailDestinatario).matches()) {
 				ttEmailDestinatario = TT_CLIENTE_INVALID_EMAIL;
-			} else if (model.isEmailTaken(datosEmailDestinatario)) {
+			} else if (model.isEmailTaken(datosEmailDestinatario)
+					|| datosEmailDestinatario.equals(datosEmailRemitente)) {
 				ttEmailDestinatario = TT_CLIENTE_TAKEN_EMAIL;
 			} else {
 				ttEmailDestinatario = NO_TT;
@@ -406,13 +410,22 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				datosEmailDestinatario = NO_DATOS;
 				datosEmailDestinatario = NO_DATOS;
 			} else {
-				ttTipoDestinatario = NO_DATOS;
-				ttNombreDestinatario = NO_DATOS;
-				ttEmailDestinatario = NO_DATOS;
-				ttDireccionDestinatario = NO_DATOS;
+				if (clienteDestinatario.getClienteId() == clienteRemitente.getClienteId()) {
+					ttTipoDestinatario = TT_CLIENTE_REMITENTE_IGUAL_DESTINATARIO;
+					ttNombreDestinatario = TT_CLIENTE_REMITENTE_IGUAL_DESTINATARIO;
+					ttEmailDestinatario = TT_CLIENTE_REMITENTE_IGUAL_DESTINATARIO;
+					ttDireccionDestinatario = TT_CLIENTE_REMITENTE_IGUAL_DESTINATARIO;
+				} else {
+					ttTipoDestinatario = NO_TT;
+					ttNombreDestinatario = NO_TT;
+					ttEmailDestinatario = NO_TT;
+					ttDireccionDestinatario = NO_TT;
+				}
+
 				datosNombreDestinatario = clienteDestinatario.getNombre();
 				datosEmailDestinatario = clienteDestinatario.getEmail();
 				datosDireccionDestinatario = clienteDestinatario.getDireccion();
+
 			}
 		}
 
@@ -482,15 +495,20 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 			ttNombreDestino = NO_TT;
 			ttDireccionDestino = (datosDireccionDestinatario.isBlank() ? TT_CLIENTE_NO_DIRECCION : NO_TT);
 			ttCiudadDestino = NO_TT;
-		}
-		if (almacenOficinaDestino != null) {
+		} else if (almacenOficinaDestino != null) {
 			datosNombreDestino = almacenOficinaDestino.getNombre();
 			datosDireccionDestino = almacenOficinaDestino.getDireccion();
 			datosCiudadDestino = almacenOficinaDestino.getCiudad();
 
-			ttNombreDestino = NO_TT;
-			ttDireccionDestino = NO_TT;
-			ttCiudadDestino = NO_TT;
+			if (almacenOficinaDestino.getAlmacenesOficinasId() == almacenOficinaOrigen.getAlmacenesOficinasId()) {
+				ttNombreDestino = TT_ALMACENOFICINA_ORGEN_IGUAL_DESTINO;
+				ttDireccionDestino = TT_ALMACENOFICINA_ORGEN_IGUAL_DESTINO;
+				ttCiudadDestino = TT_ALMACENOFICINA_ORGEN_IGUAL_DESTINO;
+			} else {
+				ttNombreDestino = NO_TT;
+				ttDireccionDestino = NO_TT;
+				ttCiudadDestino = NO_TT;
+			}
 		}
 
 		// TODO: Añadir método updateConfDatosEstado
