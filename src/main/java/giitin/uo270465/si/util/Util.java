@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
 
 import org.apache.commons.beanutils.BeanUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -136,5 +138,25 @@ public class Util {
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
 		return formatter.format(javaDate);
 	}
+	
+
+	public static String generarNumeroSeguimiento() {
+	    String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	    StringBuilder sb = new StringBuilder();
+	    
+	    // Generar dos letras mayúsculas aleatorias
+	    Random random = new Random();
+	    for (int i = 0; i < 2; i++) {
+	        char letra = letras.charAt(random.nextInt(letras.length()));
+	        sb.append(letra);
+	    }
+	    
+	    // Generar tres dígitos aleatorios
+	    int numero = random.nextInt(1000);
+	    sb.append(String.format("%03d", numero));
+	    
+	    return sb.toString();
+	}
+
 	
 }
