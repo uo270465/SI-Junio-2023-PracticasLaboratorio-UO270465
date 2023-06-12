@@ -4,15 +4,19 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 
 import giitin.uo270465.si.abs.Controller;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
+import giitin.uo270465.si.dto.TarifaDTO;
 import giitin.uo270465.si.model.RegistrarEnvioModel;
 import giitin.uo270465.si.view.RegistrarEnvioView;
 
@@ -56,7 +60,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	private final String TT_DETALLES_NO_ALTURA = "La altura del paquete tiene que ser mayor que 0";
 	private final String TT_DETALLES_NO_ANCHURA = "La anchura del paquete tiene que ser mayor que 0";
 	private final String TT_DETALLES_NO_PESO = "El peso del paquete tiene que ser mayor o igual que 10 gramos";
-
+	private final String TT_DETALLES_NO_TARIFAS = "Debes seleccionar al menos una tarifa para el envío";
 
 	// Datos: Remitente
 
@@ -98,6 +102,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	private int datosAnchuraX;
 	private int datosAnchuraY;
 	private int datosPeso;
+	private List<TarifaDTO> datosTatifas;
 
 	public RegistrarEnvioController(Date fecha) {
 		super(new RegistrarEnvioModel(), new RegistrarEnvioView(), fecha);
@@ -491,16 +496,29 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		datosAnchuraX = (int)view.getSAnchuraXPaquete().getValue();
 		datosAnchuraY = (int)view.getSAnchuraYPaquete().getValue();
 		datosPeso = (int)view.getSPesoPaquete().getValue();
+		datosTatifas = view.getStcTarifa().getSelectedDTOs();
 		
 		String ttAltura = (datosAltura>0?NO_TT:TT_DETALLES_NO_ALTURA);
 		String ttAnchuraX = (datosAnchuraX>0?NO_TT:TT_DETALLES_NO_ANCHURA);
 		String ttAnchuraY = (datosAnchuraY>0?NO_TT:TT_DETALLES_NO_ANCHURA);
 		String ttPeso = (datosPeso>=10?NO_TT:TT_DETALLES_NO_PESO);
+		String ttTarifas = (datosTatifas.size()>0?NO_TT:TT_DETALLES_NO_TARIFAS);
 		
 		b &= updateConfDatosEstado(view.getLConfDatosAltura(), view.getLConfEstadoAltura(), String.format("%d", datosAltura), ttAltura);
 		b &= updateConfDatosEstado(view.getLConfDatosAnchuraX(), view.getLConfEstadoAnchuraX(), String.format("%d", datosAnchuraX), ttAnchuraX);
 		b &= updateConfDatosEstado(view.getLConfDatosAnchuraY(), view.getLConfEstadoAnchuraY(), String.format("%d", datosAnchuraY), ttAnchuraY);
 		b &= updateConfDatosEstado(view.getLConfDatosPeso(), view.getLConfEstadoPeso(), String.format("%d", datosPeso), ttPeso);
+		
+		b &= updateConfDatosEstado(view.getLConfDatosTarifas(), view.getLConfEstadoTarifas(), "", ttTarifas);
+		JTable tTarifas = view.getTTarifasSeleccionadas();
+		double totalTarifas = 0;
+		while (tTarifas.getRowCount() > 0)
+			((DefaultTableModel)tTarifas.getModel()).removeRow(0);
+		for (TarifaDTO tarifa : datosTatifas) {
+			((DefaultTableModel)tTarifas.getModel()).addRow(new Object[] {tarifa.getConcepto(), String.format("%.2f", tarifa.getPrecio())});
+			totalTarifas+=tarifa.getPrecio();
+		}
+		view.getLPrecioTarifas().setText(String.format("%.2f", totalTarifas));
 		return b;
 	}
 }

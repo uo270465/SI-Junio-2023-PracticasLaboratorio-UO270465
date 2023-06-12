@@ -270,5 +270,14 @@ public class SearchTableComponent<DTO> extends JPanel {
 	public void setSelectionMode(int selectioMode) {
 		table.setSelectionMode(selectioMode);
 	}
+	
+	public List<DTO> getSelectedDTOs() {
+		int indexes[] = table.getSelectedRows();
+		List<DTO> dtos = new LinkedList<>();
+		for (int i = 0; i < indexes.length; i++) {
+			dtos.add(filterTableDTOs.get(indexes[i]));
+		}
+		return dtos;
+	}
 
 }

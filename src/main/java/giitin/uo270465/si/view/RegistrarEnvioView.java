@@ -23,6 +23,10 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.JTable;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.table.DefaultTableModel;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
@@ -145,13 +149,20 @@ public class RegistrarEnvioView extends View {
 	private JLabel lConfEstadoAnchuraY;
 	private JLabel lConfEstadoPeso;
 	private JLabel lblNewLabel_40;
+	private JLabel lConfEstadoTarifas;
+	private JScrollPane scrollPane;
+	private JTable tTarifasSeleccionadas;
+	private JLabel lConfDatosTarifas;
+	private JLabel lblNewLabel_41;
+	private JLabel lblNewLabel_42;
+	private JLabel lPrecioTarifas;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		tpRegistrarEnvio = new JTabbedPane(JTabbedPane.TOP);
-		getContentPane().add(tpRegistrarEnvio, BorderLayout.NORTH);
+		getContentPane().add(tpRegistrarEnvio, BorderLayout.CENTER);
 
 		// Tab: Remitente
 
@@ -159,7 +170,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Remitente", null, scrollPane_1, null);
 
 		panel_1 = new JPanel();
-		panel_1.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][]"));
+		panel_1.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][grow]"));
 		scrollPane_1.setViewportView(panel_1);
 		
 		lblNewLabel = new JLabel("Establezca el remitente del envío:");
@@ -207,7 +218,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Destinatario", null, scrollPane_2, null);
 
 		panel_2 = new JPanel();
-		panel_2.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][]"));
+		panel_2.setLayout(new MigLayout("", "[fill][grow][grow]", "[][][][][][grow]"));
 		scrollPane_2.setViewportView(panel_2);
 		
 		lblEstablezcaElDestinatario = new JLabel("Establezca el destinatario del envío:");
@@ -229,7 +240,7 @@ public class RegistrarEnvioView extends View {
 		tfNombreDestinatario.setColumns(10);
 
 		stcClientesDestinatarios = new SearchTableComponent<>(ClienteDTO.class);
-		panel_2.add(stcClientesDestinatarios, "cell 2 2 1 4,growx");
+		panel_2.add(stcClientesDestinatarios, "cell 2 2 1 4,grow");
 
 		JLabel lblNewLabel_2_1 = new JLabel("Email:");
 		panel_2.add(lblNewLabel_2_1, "cell 0 3,alignx trailing");
@@ -255,7 +266,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Origen", null, scrollPane_3, null);
 
 		panel_3 = new JPanel();
-		panel_3.setLayout(new MigLayout("", "[grow]", "[][]"));
+		panel_3.setLayout(new MigLayout("", "[grow]", "[][grow]"));
 		scrollPane_3.setViewportView(panel_3);
 
 		lblNewLabel_3 = new JLabel("Seleccione un almacen/oficina de origen:");
@@ -263,7 +274,7 @@ public class RegistrarEnvioView extends View {
 		panel_3.add(lblNewLabel_3, "cell 0 0");
 		
 		stcAlmacenOficinaOrigen = new SearchTableComponent<>(AlmacenOficinaDTO.class);
-		panel_3.add(stcAlmacenOficinaOrigen, "cell 0 1,growx");
+		panel_3.add(stcAlmacenOficinaOrigen, "cell 0 1,grow");
 
 		// Tab: Destino
 
@@ -271,7 +282,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Destino", null, scrollPane_4, null);
 
 		panel_4 = new JPanel();
-		panel_4.setLayout(new MigLayout("", "[grow][grow]", "[][]"));
+		panel_4.setLayout(new MigLayout("", "[grow][grow]", "[][grow,fill]"));
 		scrollPane_4.setViewportView(panel_4);
 		
 		lblNewLabel_4 = new JLabel("Seleccione un destino para el envío:");
@@ -282,7 +293,7 @@ public class RegistrarEnvioView extends View {
 		panel_4.add(cbEnviarDestinatarioDestino, "cell 1 0,alignx right");
 		
 		stcAlmacenOficinaDestino = new SearchTableComponent<>(AlmacenOficinaDTO.class);
-		panel_4.add(stcAlmacenOficinaDestino, "cell 0 1 2 1,growx");
+		panel_4.add(stcAlmacenOficinaDestino, "cell 0 1 2 1,grow");
 
 		// Tab: Detalles
 
@@ -290,7 +301,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Detalles", null, scrollPane_5, null);
 
 		panel_5 = new JPanel();
-		panel_5.setLayout(new MigLayout("", "[][100px:n][][100px:n][][grow]", "[][][][][][][]"));
+		panel_5.setLayout(new MigLayout("", "[][100px:n][][100px:n][][grow]", "[][][][][][][grow]"));
 		scrollPane_5.setViewportView(panel_5);
 		
 		lblNewLabel_5 = new JLabel("Detalles del envío:");
@@ -343,7 +354,7 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Transporte", null, scrollPane_6, null);
 
 		panel_6 = new JPanel();
-		panel_6.setLayout(new MigLayout("", "[grow]", "[][]"));
+		panel_6.setLayout(new MigLayout("", "[grow]", "[][grow]"));
 		scrollPane_6.setViewportView(panel_6);
 		
 		lblNewLabel_14 = new JLabel("Seleccione un transportista para el envío:");
@@ -351,7 +362,7 @@ public class RegistrarEnvioView extends View {
 		panel_6.add(lblNewLabel_14, "cell 0 0");
 		
 		stcTransportistaVehiculo = new SearchTableComponent<>(TransportistaVechiculoDTO.class);
-		panel_6.add(stcTransportistaVehiculo, "cell 0 1,growx");
+		panel_6.add(stcTransportistaVehiculo, "cell 0 1,grow");
 
 		// Tab: Confirmación
 
@@ -359,19 +370,19 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Confirmación", null, scrollPane_7, null);
 
 		panel_7 = new JPanel();
-		panel_7.setLayout(new MigLayout("", "[][][][][][grow][][][]", "[][][][][][][][][][][][][][][][][][][]"));
+		panel_7.setLayout(new MigLayout("", "[grow][][][][::40px][grow][][][][grow]", "[][][][][][][][][][][][][][][][][][][][::80px][]"));
 		scrollPane_7.setViewportView(panel_7);
 		
 		lblNewLabel_28 = new JLabel("Instrucciones: Pase el ratón por encima de los campos que contengan el texto 'inválido' en rojo para obtener mas información acerca de los errores.");
 		lblNewLabel_28.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		panel_7.add(lblNewLabel_28, "cell 0 0 9 1");
+		panel_7.add(lblNewLabel_28, "cell 0 0 10 1,alignx center");
 		
 		verticalStrut = Box.createVerticalStrut(20);
 		panel_7.add(verticalStrut, "cell 5 1");
 		
 		lblNewLabel_15 = new JLabel("Datos del remitente:");
 		lblNewLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel_7.add(lblNewLabel_15, "cell 0 2 5 1");
+		panel_7.add(lblNewLabel_15, "cell 1 2 4 1");
 		
 		lblNewLabel_16 = new JLabel("Datos del destinatario:");
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -581,7 +592,42 @@ public class RegistrarEnvioView extends View {
 		panel_7.add(lConfEstadoPeso, "cell 4 17");
 		
 		lblNewLabel_40 = new JLabel("Tarifas aplicadas:");
-		panel_7.add(lblNewLabel_40, "cell 1 18");
+		panel_7.add(lblNewLabel_40, "cell 1 18,alignx right");
+		
+		lConfDatosTarifas = new JLabel("");
+		panel_7.add(lConfDatosTarifas, "cell 2 18");
+		
+		lConfEstadoTarifas = new JLabel("estado");
+		panel_7.add(lConfEstadoTarifas, "cell 4 18");
+		
+		scrollPane = new JScrollPane();
+		panel_7.add(scrollPane, "cell 1 19 4 1,alignx leading,aligny baseline");
+		
+		tTarifasSeleccionadas = new JTable();
+		tTarifasSeleccionadas.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Concepto", "Precio (\u20AC)"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		scrollPane.setViewportView(tTarifasSeleccionadas);
+		
+		lblNewLabel_41 = new JLabel("Total: ");
+		panel_7.add(lblNewLabel_41, "cell 1 20,alignx right");
+		
+		lPrecioTarifas = new JLabel("15.00");
+		panel_7.add(lPrecioTarifas, "cell 2 20");
+		
+		lblNewLabel_42 = new JLabel("€");
+		panel_7.add(lblNewLabel_42, "cell 3 20");
 
 		this.dispose();
 	}
@@ -773,5 +819,17 @@ public class RegistrarEnvioView extends View {
 	}
 	public JLabel getLConfEstadoPeso() {
 		return lConfEstadoPeso;
+	}
+	public JLabel getLConfDatosTarifas() {
+		return lConfDatosTarifas;
+	}
+	public JLabel getLConfEstadoTarifas() {
+		return lConfEstadoTarifas;
+	}
+	public JTable getTTarifasSeleccionadas() {
+		return tTarifasSeleccionadas;
+	}
+	public JLabel getLPrecioTarifas() {
+		return lPrecioTarifas;
 	}
 }
