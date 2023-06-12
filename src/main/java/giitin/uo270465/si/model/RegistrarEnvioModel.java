@@ -2,8 +2,6 @@ package giitin.uo270465.si.model;
 
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-
 import giitin.uo270465.si.abs.Model;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;

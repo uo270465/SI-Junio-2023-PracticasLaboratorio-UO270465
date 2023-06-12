@@ -11,9 +11,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import giitin.uo270465.si.abs.Controller;
+import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.model.RegistrarEnvioModel;
-import giitin.uo270465.si.util.UnexpectedException;
 import giitin.uo270465.si.view.RegistrarEnvioView;
 
 public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, RegistrarEnvioView> {
@@ -28,6 +28,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 	private final String NO_TT = "";
 	private final String NO_DATOS = "";
+	private final String GUION_DATOS = "-----";
 
 	// Constantes: Cliente
 
@@ -35,9 +36,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	private final String TT_CLIENTE_NO_SELECCION = "No se ha seleccionado ningún cliente";
 	private final String TT_CLIENTE_NO_NOMBRE = "El campo 'Nombre' no puede estar vacío.";
 	private final String TT_CLIENTE_NO_EMAIL = "El campo 'Email' no puede estar vacío.";
-	private final String TT_CLIENTE_INVALID_EMAIL = "El campo 'Email' contiene un formato inválido. El formato del email debe ser similar a: 'email@domain.tld'";
-	private final String TT_CLIENTE_TAKEN_EMAIL = "El email elegido ya está en uso";
-	private final String TT_CLIENTE_NO_DIRECCION = "El campo 'Dirección' no puede estar vacío";
+	private final String TT_CLIENTE_INVALID_EMAIL = "El campo 'Email' contiene un formato inválido. El formato del email debe ser similar a: 'email@domain.tld'.";
+	private final String TT_CLIENTE_TAKEN_EMAIL = "El email elegido ya está en uso.";
+	private final String TT_CLIENTE_NO_DIRECCION = "El campo 'Dirección' no puede estar vacío.";
 
 	private final String DATOS_CLIENTE_NO_SELECCION = "No seleccionado";
 	private final String DATOS_CLIENTE_NUEVO = "Nuevo Cliente";
@@ -48,6 +49,12 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 	// Constantes: AlmacenOficina
 
+	private final String TT_ALMACENOFICINA_NO_SELECCION = "No se ha seleccionado ningún almacen u oficina.";
+	
+	private final String DATOS_ALMACENOFICINA_NOMBRE_ENVIAR_DESTINATARIO = "Seleccionada dirección del destinatario";
+
+	// Datos: Remitente
+
 	private boolean nuevoClienteRemitenteMode;
 	private boolean clienteExistenteRemitenteMode;
 	private String datosTipoRemitente;
@@ -55,6 +62,30 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	private String datosEmailRemitente;
 	private String datosDireccionRemitente;
 	private ClienteDTO clienteRemitente;
+
+	// Datos: Destinatario
+
+	private boolean nuevoClienteDestinatarioMode;
+	private boolean clienteExistenteDestinatarioMode;
+	private String datosTipoDestinatario;
+	private String datosNombreDestinatario;
+	private String datosEmailDestinatario;
+	private String datosDireccionDestinatario;
+	private ClienteDTO clienteDestinatario;
+
+	// Datos: Origen
+
+	private String datosNombreOrigen;
+	private String datosDireccionOrigen;
+	private String datosCiudadOrigen;
+	private AlmacenOficinaDTO almacenOficinaOrigen;
+	
+	// Datos: Destino
+	
+	private String datosNombreDestino;
+	private String datosDireccionDestino;
+	private String datosCiudadDestino;
+	private AlmacenOficinaDTO almacenOficinaDestino;
 
 	public RegistrarEnvioController(Date fecha) {
 		super(new RegistrarEnvioModel(), new RegistrarEnvioView(), fecha);
@@ -206,6 +237,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		boolean b = true;
 
 		b &= ComprobarRemitente();
+		b &= ComprobarDestinatario();
+		b &= ComprobarOrigen();
+		b &= ComprobarDestino();
 
 		return b;
 	}
@@ -219,13 +253,12 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		datosNombreRemitente = NO_DATOS;
 		datosEmailRemitente = NO_DATOS;
 		datosDireccionRemitente = NO_DATOS;
-		clienteRemitente = null;
-		
+		clienteRemitente = view.getStcClientesRemitentes().getSelectedDTO();
+
 		String ttTipoRemitente = TT_CLIENTE_NO_MODO;
 		String ttNombreRemitente = TT_CLIENTE_NO_MODO;
 		String ttEmailRemitente = TT_CLIENTE_NO_MODO;
 		String ttDireccionRemitente = TT_CLIENTE_NO_MODO;
-
 
 		if (nuevoClienteRemitenteMode) {
 			datosTipoRemitente = DATOS_CLIENTE_NUEVO;
@@ -256,7 +289,6 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		} else if (clienteExistenteRemitenteMode) {
 			datosTipoRemitente = DATOS_CLIENTE_EXISTENTE;
 			ttTipoRemitente = NO_TT;
-			clienteRemitente = view.getStcClientesRemitentes().getSelectedDTO();
 			if (clienteRemitente == null) {
 				ttTipoRemitente = TT_CLIENTE_NO_SELECCION;
 				ttNombreRemitente = TT_CLIENTE_NO_SELECCION;
@@ -285,6 +317,157 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		b &= updateConfDatosEstado(view.getLConfDatosDireccionRemitente(), view.getLConfEstadoDireccionRemitente(),
 				datosDireccionRemitente, ttDireccionRemitente);
 
+		return b;
+	}
+
+	public boolean ComprobarDestinatario() {
+		boolean b = true;
+
+		nuevoClienteDestinatarioMode = view.getTbNuevoClienteDestinatarioMode().isSelected();
+		clienteExistenteDestinatarioMode = view.getTbClienteExistenteDestinatarioMode().isSelected();
+		datosTipoDestinatario = DATOS_CLIENTE_NO_SELECCION;
+		datosNombreDestinatario = NO_DATOS;
+		datosEmailDestinatario = NO_DATOS;
+		datosDireccionDestinatario = NO_DATOS;
+		clienteDestinatario = view.getStcClientesDestinatarios().getSelectedDTO();
+
+		String ttTipoDestinatario = TT_CLIENTE_NO_MODO;
+		String ttNombreDestinatario = TT_CLIENTE_NO_MODO;
+		String ttEmailDestinatario = TT_CLIENTE_NO_MODO;
+		String ttDireccionDestinatario = TT_CLIENTE_NO_MODO;
+
+		if (nuevoClienteDestinatarioMode) {
+			datosTipoDestinatario = DATOS_CLIENTE_NUEVO;
+			ttTipoDestinatario = NO_TT;
+			datosNombreDestinatario = view.getTfNombreDestinatario().getText();
+			if (datosNombreDestinatario.isBlank()) {
+				ttNombreDestinatario = TT_CLIENTE_NO_NOMBRE;
+			} else {
+				ttNombreDestinatario = NO_TT;
+			}
+			datosEmailDestinatario = view.getTfEmailDestinatario().getText();
+			if (datosEmailDestinatario.isBlank()) {
+				ttEmailDestinatario = TT_CLIENTE_NO_EMAIL;
+			} else if (!PATTERN.matcher(datosEmailDestinatario).matches()) {
+				ttEmailDestinatario = TT_CLIENTE_INVALID_EMAIL;
+			} else if (model.isEmailTaken(datosEmailDestinatario)) {
+				ttEmailDestinatario = TT_CLIENTE_TAKEN_EMAIL;
+			} else {
+				ttEmailDestinatario = NO_TT;
+			}
+
+			datosDireccionDestinatario = view.getTfDireccionDestinatario().getText();
+			if (datosDireccionDestinatario.isBlank()) {
+				ttDireccionDestinatario = TT_CLIENTE_NO_DIRECCION;
+			} else {
+				ttDireccionDestinatario = NO_TT;
+			}
+		} else if (clienteExistenteDestinatarioMode) {
+			datosTipoDestinatario = DATOS_CLIENTE_EXISTENTE;
+			ttTipoDestinatario = NO_TT;
+			if (clienteDestinatario == null) {
+				ttTipoDestinatario = TT_CLIENTE_NO_SELECCION;
+				ttNombreDestinatario = TT_CLIENTE_NO_SELECCION;
+				ttEmailDestinatario = TT_CLIENTE_NO_SELECCION;
+				ttDireccionDestinatario = TT_CLIENTE_NO_SELECCION;
+				datosNombreDestinatario = NO_DATOS;
+				datosEmailDestinatario = NO_DATOS;
+				datosEmailDestinatario = NO_DATOS;
+			} else {
+				ttTipoDestinatario = NO_DATOS;
+				ttNombreDestinatario = NO_DATOS;
+				ttEmailDestinatario = NO_DATOS;
+				ttDireccionDestinatario = NO_DATOS;
+				datosNombreDestinatario = clienteDestinatario.getNombre();
+				datosEmailDestinatario = clienteDestinatario.getEmail();
+				datosDireccionDestinatario = clienteDestinatario.getDireccion();
+			}
+		}
+
+		b &= updateConfDatosEstado(view.getLConfDatosTipoDestinatario(), view.getLConfEstadoTipoDestinatario(),
+				datosTipoDestinatario, ttTipoDestinatario);
+		b &= updateConfDatosEstado(view.getLConfDatosNombreDestinatario(), view.getLConfEstadoNombreDestinatario(),
+				datosNombreDestinatario, ttNombreDestinatario);
+		b &= updateConfDatosEstado(view.getLConfDatosEmailDestinatario(), view.getLConfEstadoEmailDestinatario(),
+				datosEmailDestinatario, ttEmailDestinatario);
+		b &= updateConfDatosEstado(view.getLConfDatosDireccionDestinatario(),
+				view.getLConfEstadoDireccionDestinatario(), datosDireccionDestinatario, ttDireccionDestinatario);
+
+		return b;
+	}
+
+	public boolean ComprobarOrigen() {
+		boolean b = true;
+
+		almacenOficinaOrigen = view.getStcAlmacenOficinaOrigen().getSelectedDTO();
+
+		datosNombreOrigen = NO_DATOS;
+		datosDireccionOrigen = NO_DATOS;
+		datosCiudadOrigen = NO_DATOS;
+
+		String ttNombreOrigen = TT_ALMACENOFICINA_NO_SELECCION;
+		String ttDireccionOrigen = TT_ALMACENOFICINA_NO_SELECCION;
+		String ttCiudadOrigen = TT_ALMACENOFICINA_NO_SELECCION;
+
+		if (almacenOficinaOrigen != null) {
+			datosNombreOrigen = almacenOficinaOrigen.getNombre();
+			datosDireccionOrigen = almacenOficinaOrigen.getDireccion();
+			datosCiudadOrigen = almacenOficinaOrigen.getCiudad();
+
+			ttNombreOrigen = NO_TT;
+			ttDireccionOrigen = NO_TT;
+			ttCiudadOrigen = NO_TT;
+		}
+
+		// TODO: Añadir método updateConfDatosEstado
+		b &= updateConfDatosEstado(view.getLConfDatosNombreOrigen(), view.getLConfEstadoNombreOrigen(),
+				datosNombreOrigen, ttNombreOrigen);
+		b &= updateConfDatosEstado(view.getLConfDatosDireccionOrigen(), view.getLConfEstadoDireccionOrigen(),
+				datosDireccionOrigen, ttDireccionOrigen);
+		b &= updateConfDatosEstado(view.getLConfDatosCiudadOrigen(), view.getLConfEstadoCiudadOrigen(),
+				datosCiudadOrigen, ttCiudadOrigen);
+		return b;
+	}
+	
+	public boolean ComprobarDestino() {
+		boolean b = true;
+
+		almacenOficinaDestino = view.getStcAlmacenOficinaDestino().getSelectedDTO();
+
+		datosNombreDestino = NO_DATOS;
+		datosDireccionDestino = NO_DATOS;
+		datosCiudadDestino = NO_DATOS;
+
+		String ttNombreDestino = TT_ALMACENOFICINA_NO_SELECCION;
+		String ttDireccionDestino = TT_ALMACENOFICINA_NO_SELECCION;
+		String ttCiudadDestino = TT_ALMACENOFICINA_NO_SELECCION;
+
+		if (view.getCbEnviarDestinatarioDestino().isSelected()) {
+			datosNombreDestino = GUION_DATOS;
+			datosDireccionDestino = datosDireccionDestinatario;
+			datosCiudadDestino = GUION_DATOS;
+			
+			ttNombreDestino = NO_TT;
+			ttDireccionDestino = (datosDireccionDestinatario.isBlank()?TT_CLIENTE_NO_DIRECCION:NO_TT);
+			ttCiudadDestino = NO_TT;
+		}
+		if (almacenOficinaDestino != null) {
+			datosNombreDestino = almacenOficinaDestino.getNombre();
+			datosDireccionDestino = almacenOficinaDestino.getDireccion();
+			datosCiudadDestino = almacenOficinaDestino.getCiudad();
+
+			ttNombreDestino = NO_TT;
+			ttDireccionDestino = NO_TT;
+			ttCiudadDestino = NO_TT;
+		}
+
+		// TODO: Añadir método updateConfDatosEstado
+		b &= updateConfDatosEstado(view.getLConfDatosNombreDestino(), view.getLConfEstadoNombreDestino(),
+				datosNombreDestino, ttNombreDestino);
+		b &= updateConfDatosEstado(view.getLConfDatosDireccionDestino(), view.getLConfEstadoDireccionDestino(),
+				datosDireccionDestino, ttDireccionDestino);
+		b &= updateConfDatosEstado(view.getLConfDatosCiudadDestino(), view.getLConfEstadoCiudadDestino(),
+				datosCiudadDestino, ttCiudadDestino);
 		return b;
 	}
 }
