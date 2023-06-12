@@ -276,6 +276,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		b &= comprobarDetalles();
 		b &= comprobarTransporte();
 
+		view.getLMensajeErrorConfirmacion().setVisible(!b);
+		view.getBRegistrarEnvio().setEnabled(b);
+		
 		return b;
 	}
 

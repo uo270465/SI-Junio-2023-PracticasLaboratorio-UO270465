@@ -27,6 +27,7 @@ import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
 
 public class RegistrarEnvioView extends View {
 	private static final long serialVersionUID = 1L;
@@ -93,7 +94,7 @@ public class RegistrarEnvioView extends View {
 	private JLabel lConfEstadoEmailRemitente;
 	private JLabel lblNewLabel_26;
 	private JLabel lConfDatosDireccionRemitente;
-	private JLabel lblNewLabel_28;
+	private JLabel lMensajeErrorConfirmacion;
 	private JLabel lConfEstadoDireccionRemitente;
 	private JLabel lblNewLabel_18;
 	private JLabel lblNewLabel_19;
@@ -168,6 +169,7 @@ public class RegistrarEnvioView extends View {
 	private JLabel lConfEstadoEmailTransportista;
 	private JLabel lConfEstadoTipoVehiculoTransportista;
 	private JLabel lConfEstadoCapacidadVehiculoTransportista;
+	private JButton bRegistrarEnvio;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -382,12 +384,13 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Confirmación", null, scrollPane_7, null);
 
 		panel_7 = new JPanel();
-		panel_7.setLayout(new MigLayout("", "[grow][][][][::40px][grow][][][][grow]", "[][][][][][][][][][][][][][][][][][][][::80px][]"));
+		panel_7.setLayout(new MigLayout("", "[grow][][][][::40px][grow][][][][grow]", "[][][][][][][][][][][][][][][][][][][][::80px][][]"));
 		scrollPane_7.setViewportView(panel_7);
 		
-		lblNewLabel_28 = new JLabel("Instrucciones: Pase el ratón por encima de los campos que contengan el texto 'inválido' en rojo para obtener mas información acerca de los errores.");
-		lblNewLabel_28.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		panel_7.add(lblNewLabel_28, "cell 0 0 10 1,alignx center");
+		lMensajeErrorConfirmacion = new JLabel("<html><center>Se han detectado errores en uno o varios campos introducidos.<br>Pase el ratón por encima de los campos que contengan el texto 'INVÁLIDO' para obtener mas información acerca de los errores.</center></html>");
+		lMensajeErrorConfirmacion.setForeground(Color.RED);
+		lMensajeErrorConfirmacion.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panel_7.add(lMensajeErrorConfirmacion, "cell 0 0 10 1,alignx center");
 		
 		verticalStrut = Box.createVerticalStrut(20);
 		panel_7.add(verticalStrut, "cell 5 1");
@@ -676,6 +679,9 @@ public class RegistrarEnvioView extends View {
 		
 		lblNewLabel_42 = new JLabel("€");
 		panel_7.add(lblNewLabel_42, "cell 3 20");
+		
+		bRegistrarEnvio = new JButton("Registrar envío");
+		panel_7.add(bRegistrarEnvio, "cell 0 21 10 1,growx");
 
 		this.dispose();
 	}
@@ -903,5 +909,11 @@ public class RegistrarEnvioView extends View {
 	}
 	public JLabel getLConfEstadoNombreTransportista() {
 		return lConfEstadoNombreTransportista;
+	}
+	public JButton getBRegistrarEnvio() {
+		return bRegistrarEnvio;
+	}
+	public JLabel getLMensajeErrorConfirmacion() {
+		return lMensajeErrorConfirmacion;
 	}
 }
