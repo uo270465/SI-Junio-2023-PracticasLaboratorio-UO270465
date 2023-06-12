@@ -50,23 +50,23 @@ public class RegistrarEnvioModel extends Model {
 		return true;
 	}
 
-	public boolean addEnvio( int remitenteId, int destinatarioId, int origenId, int destinoId,
-			String fechaSolicitud, Date fechaRecogida, double peso, String dimensiones, String estado,
-			int transportistaId) {
+	public boolean addEnvio(int remitenteId, int destinatarioId, int origenId, int destinoId, Date fechaSolicitud,
+			double peso, String dimensiones, String estado, int transportistaId) {
 		if (fechaSolicitud == null || estado == null) {
 			return false;
 		}
 		String QUERY = "INSERT INTO Envios (envioId, remitenteId, destinatarioId, origenId, destinoId, "
 				+ "fechaSolicitud, peso, dimensiones, estado, transportistaId) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		db.executeUpdate(QUERY, Util.generarNumeroSeguimiento(), remitenteId, destinatarioId, origenId, (destinoId<0?null:destinoId), fechaSolicitud,
-				fechaRecogida, peso, dimensiones, estado, transportistaId);
+		db.executeUpdate(QUERY, Util.generarNumeroSeguimiento(), remitenteId, destinatarioId, origenId,
+				(destinoId < 0 ? null : destinoId), Util.dateToIsoString(fechaSolicitud), peso, dimensiones, estado,
+				transportistaId);
 		return true;
 	}
-	
+
 	public ClienteDTO getClienteByEmail(String email) {
-	    final String QUERY = "SELECT * FROM Clientes WHERE email = ?";
-	    return db.executeQueryPojo(ClienteDTO.class, QUERY, email).get(0);
+		final String QUERY = "SELECT * FROM Clientes WHERE email = ?";
+		return db.executeQueryPojo(ClienteDTO.class, QUERY, email).get(0);
 	}
 
 }

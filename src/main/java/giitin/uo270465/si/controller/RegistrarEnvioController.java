@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -119,8 +120,11 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	private String datosTipoVechiculoTransportista;
 	private double datosCapacidadVechiculoTransportista;
 
+	private boolean datosCorrectos;
+
 	public RegistrarEnvioController(Date fecha) {
 		super(new RegistrarEnvioModel(), new RegistrarEnvioView(), fecha);
+		datosCorrectos = false;
 	}
 
 	@Override
@@ -133,7 +137,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				if (view.getTpRegistrarEnvio().getSelectedIndex() == view.getTpRegistrarEnvio().getTabCount() - 1) {
-					ComprobarRegistrarEnvio();
+					datosCorrectos = ComprobarRegistrarEnvio();
 				}
 				updateView();
 			}
@@ -185,6 +189,16 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				view.getStcAlmacenOficinaDestino().setEnabled(!view.getCbEnviarDestinatarioDestino().isSelected());
+
+			}
+		});
+
+		view.getBRegistrarEnvio().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RegistrarEnvio();
+				JOptionPane.showMessageDialog(null, "Envío registrado con exito.");
 
 			}
 		});
@@ -278,7 +292,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 		view.getLMensajeErrorConfirmacion().setVisible(!b);
 		view.getBRegistrarEnvio().setEnabled(b);
-		
+
 		return b;
 	}
 
@@ -413,7 +427,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				datosEmailDestinatario = NO_DATOS;
 				datosEmailDestinatario = NO_DATOS;
 			} else {
-				if (clienteDestinatario.getClienteId() == clienteRemitente.getClienteId()) {
+				if (clienteRemitente != null && clienteDestinatario.getClienteId() == clienteRemitente.getClienteId()) {
 					ttTipoDestinatario = TT_CLIENTE_REMITENTE_IGUAL_DESTINATARIO;
 					ttNombreDestinatario = TT_CLIENTE_REMITENTE_IGUAL_DESTINATARIO;
 					ttEmailDestinatario = TT_CLIENTE_REMITENTE_IGUAL_DESTINATARIO;
@@ -591,5 +605,32 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				String.format("%.2f", datosCapacidadVechiculoTransportista), ttTransporte);
 
 		return b;
+	}
+
+	public void RegistrarEnvio() {
+		if (!datosCorrectos)
+			return;
+
+		int idRemitente;
+		if (nuevoClienteRemitenteMode) {
+			model.addCliente(datosNombreRemitente, datosEmailRemitente, datosDireccionRemitente);
+			idRemitente = model.getClienteByEmail(datosEmailRemitente).getClienteId();
+		} else {
+			idRemitente = clienteRemitente.getClienteId();
+		}
+
+		int idDestinatario;
+		if (nuevoClienteDestinatarioMode) {
+			model.addCliente(datosNombreDestinatario, datosEmailDestinatario, datosDireccionDestinatario);
+			idDestinatario = model.getClienteByEmail(datosEmailDestinatario).getClienteId();
+		} else {
+			idDestinatario = clienteDestinatario.getClienteId();
+		}
+
+		model.addEnvio(idRemitente, idDestinatario, almacenOficinaOrigen.getAlmacenesOficinasId(),
+				(view.getCbEnviarDestinatarioDestino().isSelected() ? -1
+						: almacenOficinaDestino.getAlmacenesOficinasId()),
+				this.fecha, datosPeso, String.format("%dx%dx%d", datosAltura, datosAnchuraX, datosAnchuraY),
+				"En tránsito", transportistaVehiculo.getTransportistaId());
 	}
 }
