@@ -197,8 +197,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RegistrarEnvio();
-				JOptionPane.showMessageDialog(null, "Envío registrado con exito.");
+				String seguimiento = RegistrarEnvio();
+				JOptionPane.showMessageDialog(null, "<html><center>Envío registrado con exito.<br>"
+						+ "Nº de seguimiento:    " + seguimiento + "</center></html>");
 
 			}
 		});
@@ -607,9 +608,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		return b;
 	}
 
-	public void RegistrarEnvio() {
+	public String RegistrarEnvio() {
 		if (!datosCorrectos)
-			return;
+			return "Error";
 
 		int idRemitente;
 		if (nuevoClienteRemitenteMode) {
@@ -627,10 +628,15 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 			idDestinatario = clienteDestinatario.getClienteId();
 		}
 
-		model.addEnvio(idRemitente, idDestinatario, almacenOficinaOrigen.getAlmacenesOficinasId(),
+		String seguimiento = model.addEnvio(idRemitente, idDestinatario, almacenOficinaOrigen.getAlmacenesOficinasId(),
 				(view.getCbEnviarDestinatarioDestino().isSelected() ? -1
 						: almacenOficinaDestino.getAlmacenesOficinasId()),
 				this.fecha, datosPeso, String.format("%dx%dx%d", datosAltura, datosAnchuraX, datosAnchuraY),
 				"En tránsito", transportistaVehiculo.getTransportistaId());
+
+		for (TarifaDTO tarifa : datosTatifas) {
+			model.addEnvioTarfa(seguimiento, tarifa.getTarifaId());
+		}
+		return seguimiento;
 	}
 }

@@ -50,23 +50,29 @@ public class RegistrarEnvioModel extends Model {
 		return true;
 	}
 
-	public boolean addEnvio(int remitenteId, int destinatarioId, int origenId, int destinoId, Date fechaSolicitud,
+	public String addEnvio(int remitenteId, int destinatarioId, int origenId, int destinoId, Date fechaSolicitud,
 			double peso, String dimensiones, String estado, int transportistaId) {
 		if (fechaSolicitud == null || estado == null) {
-			return false;
+			return "";
 		}
 		String QUERY = "INSERT INTO Envios (envioId, remitenteId, destinatarioId, origenId, destinoId, "
 				+ "fechaSolicitud, peso, dimensiones, estado, transportistaId) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		db.executeUpdate(QUERY, Util.generarNumeroSeguimiento(), remitenteId, destinatarioId, origenId,
+		String numeroSeguimiento = Util.generarNumeroSeguimiento();
+		db.executeUpdate(QUERY, numeroSeguimiento, remitenteId, destinatarioId, origenId,
 				(destinoId < 0 ? null : destinoId), Util.dateToIsoString(fechaSolicitud), peso, dimensiones, estado,
 				transportistaId);
-		return true;
+		return numeroSeguimiento;
 	}
 
 	public ClienteDTO getClienteByEmail(String email) {
 		final String QUERY = "SELECT * FROM Clientes WHERE email = ?";
 		return db.executeQueryPojo(ClienteDTO.class, QUERY, email).get(0);
+	}
+	
+	public void addEnvioTarfa(String envioId, int tarifaId) {
+		final String QUERY = "INSERT INTO EnviosTarifas (envioId, tarifaId) VALUES (?, ?)";
+		db.executeUpdate(QUERY, envioId, tarifaId);
 	}
 
 }
