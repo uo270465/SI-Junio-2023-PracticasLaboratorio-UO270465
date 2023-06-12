@@ -1,0 +1,13 @@
+digraph G {
+    "Consejería de Educación";
+    "Centros educativos";
+    "Unidades";
+    "Alumnos";
+    "Asignación preliminar";
+    "Gestión de reclamaciones";
+    
+    "Consejería de Educación" -> "Centros educativos";
+    "Centros educativos" -> "Unidades";
+    "Alumnos" -> "Asignación preliminar";
+    "Asignación preliminar" -> "Gestión de reclamaciones";
+}

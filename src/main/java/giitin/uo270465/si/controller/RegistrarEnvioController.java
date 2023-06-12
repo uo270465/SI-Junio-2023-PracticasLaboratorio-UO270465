@@ -50,8 +50,13 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	// Constantes: AlmacenOficina
 
 	private final String TT_ALMACENOFICINA_NO_SELECCION = "No se ha seleccionado ningún almacen u oficina.";
+		
+	// Constantes: Detalles
 	
-	private final String DATOS_ALMACENOFICINA_NOMBRE_ENVIAR_DESTINATARIO = "Seleccionada dirección del destinatario";
+	private final String TT_DETALLES_NO_ALTURA = "La altura del paquete tiene que ser mayor que 0";
+	private final String TT_DETALLES_NO_ANCHURA = "La anchura del paquete tiene que ser mayor que 0";
+	private final String TT_DETALLES_NO_PESO = "El peso del paquete tiene que ser mayor o igual que 10 gramos";
+
 
 	// Datos: Remitente
 
@@ -86,6 +91,13 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	private String datosDireccionDestino;
 	private String datosCiudadDestino;
 	private AlmacenOficinaDTO almacenOficinaDestino;
+	
+	// Datos: Detalles
+	
+	private int datosAltura;
+	private int datosAnchuraX;
+	private int datosAnchuraY;
+	private int datosPeso;
 
 	public RegistrarEnvioController(Date fecha) {
 		super(new RegistrarEnvioModel(), new RegistrarEnvioView(), fecha);
@@ -240,6 +252,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		b &= ComprobarDestinatario();
 		b &= ComprobarOrigen();
 		b &= ComprobarDestino();
+		b &= comprobarDetalles();
 
 		return b;
 	}
@@ -468,6 +481,26 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				datosDireccionDestino, ttDireccionDestino);
 		b &= updateConfDatosEstado(view.getLConfDatosCiudadDestino(), view.getLConfEstadoCiudadDestino(),
 				datosCiudadDestino, ttCiudadDestino);
+		return b;
+	}
+	
+	public boolean comprobarDetalles() {
+		boolean b = true;
+		
+		datosAltura = (int)view.getSAlturaPaquete().getValue();
+		datosAnchuraX = (int)view.getSAnchuraXPaquete().getValue();
+		datosAnchuraY = (int)view.getSAnchuraYPaquete().getValue();
+		datosPeso = (int)view.getSPesoPaquete().getValue();
+		
+		String ttAltura = (datosAltura>0?NO_TT:TT_DETALLES_NO_ALTURA);
+		String ttAnchuraX = (datosAnchuraX>0?NO_TT:TT_DETALLES_NO_ANCHURA);
+		String ttAnchuraY = (datosAnchuraY>0?NO_TT:TT_DETALLES_NO_ANCHURA);
+		String ttPeso = (datosPeso>=10?NO_TT:TT_DETALLES_NO_PESO);
+		
+		b &= updateConfDatosEstado(view.getLConfDatosAltura(), view.getLConfEstadoAltura(), String.format("%d", datosAltura), ttAltura);
+		b &= updateConfDatosEstado(view.getLConfDatosAnchuraX(), view.getLConfEstadoAnchuraX(), String.format("%d", datosAnchuraX), ttAnchuraX);
+		b &= updateConfDatosEstado(view.getLConfDatosAnchuraY(), view.getLConfEstadoAnchuraY(), String.format("%d", datosAnchuraY), ttAnchuraY);
+		b &= updateConfDatosEstado(view.getLConfDatosPeso(), view.getLConfEstadoPeso(), String.format("%d", datosPeso), ttPeso);
 		return b;
 	}
 }

@@ -65,7 +65,7 @@ public class RegistrarEnvioView extends View {
 	private JLabel lblNewLabel_8;
 	private JLabel lblNewLabel_9;
 	private JSpinner sAlturaPaquete;
-	private JSpinner sAnturaXPaquete;
+	private JSpinner sAnchuraXPaquete;
 	private JSpinner sPesoPaquete;
 	private JLabel lblNewLabel_10;
 	private JLabel lblNewLabel_11;
@@ -125,6 +125,26 @@ public class RegistrarEnvioView extends View {
 	private JLabel lConfEstadoNombreDestino;
 	private JLabel lConfEstadoDireccionDestino;
 	private JLabel lConfEstadoCiudadDestino;
+	private JLabel lblNewLabel_34;
+	private JLabel lblNewLabel_35;
+	private Component verticalStrut_2;
+	private JLabel lblNewLabel_36;
+	private JLabel lblNewLabel_37;
+	private JLabel lblNewLabel_38;
+	private JLabel lblNewLabel_39;
+	private JLabel lConfDatosAltura;
+	private JLabel lConfDatosAnchuraX;
+	private JLabel lConfDatosAnchuraY;
+	private JLabel lConfDatosPeso;
+	private JLabel lblNewLabel_44;
+	private JLabel lblNewLabel_45;
+	private JLabel lblNewLabel_46;
+	private JLabel lblNewLabel_47;
+	private JLabel lConfEstadoAltura;
+	private JLabel lConfEstadoAnchuraX;
+	private JLabel lConfEstadoAnchuraY;
+	private JLabel lConfEstadoPeso;
+	private JLabel lblNewLabel_40;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -277,7 +297,7 @@ public class RegistrarEnvioView extends View {
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel_5.add(lblNewLabel_5, "cell 0 0 5 1");
 		
-		lblNewLabel_7 = new JLabel("Altura del paquete: ");
+		lblNewLabel_7 = new JLabel("Altura paquete: ");
 		panel_5.add(lblNewLabel_7, "cell 0 1,alignx trailing");
 		
 		sAlturaPaquete = new JSpinner();
@@ -286,11 +306,11 @@ public class RegistrarEnvioView extends View {
 		lblNewLabel_10 = new JLabel(" centimetros");
 		panel_5.add(lblNewLabel_10, "cell 2 1 3 1");
 		
-		lblNewLabel_8 = new JLabel("Anchura del paquete: ");
+		lblNewLabel_8 = new JLabel("Anchura paquete: ");
 		panel_5.add(lblNewLabel_8, "cell 0 2,alignx trailing");
 		
-		sAnturaXPaquete = new JSpinner();
-		panel_5.add(sAnturaXPaquete, "cell 1 2,growx");
+		sAnchuraXPaquete = new JSpinner();
+		panel_5.add(sAnchuraXPaquete, "cell 1 2,growx");
 		
 		lblNewLabel_11 = new JLabel(" centimetros   X  ");
 		panel_5.add(lblNewLabel_11, "cell 2 2");
@@ -339,167 +359,229 @@ public class RegistrarEnvioView extends View {
 		tpRegistrarEnvio.addTab("Confirmación", null, scrollPane_7, null);
 
 		panel_7 = new JPanel();
-		panel_7.setLayout(new MigLayout("", "[][][][][grow][][][]", "[][][][][][][][][][][][][]"));
+		panel_7.setLayout(new MigLayout("", "[][][][][][grow][][][]", "[][][][][][][][][][][][][][][][][][][]"));
 		scrollPane_7.setViewportView(panel_7);
 		
 		lblNewLabel_28 = new JLabel("Instrucciones: Pase el ratón por encima de los campos que contengan el texto 'inválido' en rojo para obtener mas información acerca de los errores.");
 		lblNewLabel_28.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		panel_7.add(lblNewLabel_28, "cell 0 0 8 1");
+		panel_7.add(lblNewLabel_28, "cell 0 0 9 1");
 		
 		verticalStrut = Box.createVerticalStrut(20);
-		panel_7.add(verticalStrut, "cell 4 1");
+		panel_7.add(verticalStrut, "cell 5 1");
 		
 		lblNewLabel_15 = new JLabel("Datos del remitente:");
 		lblNewLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel_7.add(lblNewLabel_15, "cell 0 2 4 1");
+		panel_7.add(lblNewLabel_15, "cell 0 2 5 1");
 		
 		lblNewLabel_16 = new JLabel("Datos del destinatario:");
 		lblNewLabel_16.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel_7.add(lblNewLabel_16, "cell 5 2");
+		panel_7.add(lblNewLabel_16, "cell 6 2");
 		
 		lblNewLabel_20 = new JLabel("Tipo: ");
 		panel_7.add(lblNewLabel_20, "cell 1 3,alignx right");
 		
 		lConfDatosTipoRemitente = new JLabel("tipo");
-		panel_7.add(lConfDatosTipoRemitente, "cell 2 3");
+		panel_7.add(lConfDatosTipoRemitente, "cell 2 3 2 1");
 		
 		lConfEstadoTipoRemitente = new JLabel("estado");
 
-		panel_7.add(lConfEstadoTipoRemitente, "cell 3 3");
+		panel_7.add(lConfEstadoTipoRemitente, "cell 4 3");
 		
 		lblNewLabel_18 = new JLabel("Tipo: ");
-		panel_7.add(lblNewLabel_18, "cell 5 3");
+		panel_7.add(lblNewLabel_18, "cell 6 3,alignx right");
 		
 		lConfDatosTipoDestinatario = new JLabel("tipo");
-		panel_7.add(lConfDatosTipoDestinatario, "cell 6 3");
+		panel_7.add(lConfDatosTipoDestinatario, "cell 7 3");
 		
 		lConfEstadoTipoDestinatario = new JLabel("estado");
-		panel_7.add(lConfEstadoTipoDestinatario, "cell 7 3");
+		panel_7.add(lConfEstadoTipoDestinatario, "cell 8 3");
 		
 		lblNewLabel_17 = new JLabel("Nombre: ");
 		panel_7.add(lblNewLabel_17, "cell 1 4,alignx right");
 		
 		lConfDatosNombreRemitente = new JLabel("nombre");
-		panel_7.add(lConfDatosNombreRemitente, "cell 2 4");
+		panel_7.add(lConfDatosNombreRemitente, "cell 2 4 2 1");
 		
 		lConfEstadoNombreRemitente = new JLabel("Válido");
 		lConfEstadoNombreRemitente.setForeground(Color.BLUE);
-		panel_7.add(lConfEstadoNombreRemitente, "cell 3 4");
+		panel_7.add(lConfEstadoNombreRemitente, "cell 4 4");
 		
 		lblNewLabel_19 = new JLabel("Nombre: ");
-		panel_7.add(lblNewLabel_19, "cell 5 4");
+		panel_7.add(lblNewLabel_19, "cell 6 4,alignx right");
 		
 		lConfDatosNombreDestinatario = new JLabel("nombre");
-		panel_7.add(lConfDatosNombreDestinatario, "cell 6 4");
+		panel_7.add(lConfDatosNombreDestinatario, "cell 7 4");
 		
 		lConfEstadoNombreDestinatario = new JLabel("Válido");
 		lConfEstadoNombreDestinatario.setForeground(Color.BLUE);
-		panel_7.add(lConfEstadoNombreDestinatario, "cell 7 4");
+		panel_7.add(lConfEstadoNombreDestinatario, "cell 8 4");
 		
 		lblNewLabel_23 = new JLabel("Email: ");
 		panel_7.add(lblNewLabel_23, "cell 1 5,alignx right");
 		
 		lConfDatosEmailRemitente = new JLabel("email");
-		panel_7.add(lConfDatosEmailRemitente, "cell 2 5");
+		panel_7.add(lConfDatosEmailRemitente, "cell 2 5 2 1");
 		
 		lConfEstadoEmailRemitente = new JLabel("Válido");
 		lConfEstadoEmailRemitente.setForeground(Color.BLUE);
-		panel_7.add(lConfEstadoEmailRemitente, "cell 3 5");
+		panel_7.add(lConfEstadoEmailRemitente, "cell 4 5");
 		
 		lblNewLabel_21 = new JLabel("Email: ");
-		panel_7.add(lblNewLabel_21, "cell 5 5");
+		panel_7.add(lblNewLabel_21, "cell 6 5,alignx right");
 		
 		lConfDatosEmailDestinatario = new JLabel("email");
-		panel_7.add(lConfDatosEmailDestinatario, "cell 6 5");
+		panel_7.add(lConfDatosEmailDestinatario, "cell 7 5");
 		
 		lConfEstadoEmailDestinatario = new JLabel("Válido");
 		lConfEstadoEmailDestinatario.setForeground(Color.BLUE);
-		panel_7.add(lConfEstadoEmailDestinatario, "cell 7 5");
+		panel_7.add(lConfEstadoEmailDestinatario, "cell 8 5");
 		
 		lblNewLabel_26 = new JLabel("Dirección: ");
-		panel_7.add(lblNewLabel_26, "cell 1 6");
+		panel_7.add(lblNewLabel_26, "cell 1 6,alignx right");
 		
 		lConfDatosDireccionRemitente = new JLabel("dirección");
-		panel_7.add(lConfDatosDireccionRemitente, "cell 2 6");
+		panel_7.add(lConfDatosDireccionRemitente, "cell 2 6 2 1");
 		
 		lConfEstadoDireccionRemitente = new JLabel("Válido");
 		lConfEstadoDireccionRemitente.setForeground(Color.BLUE);
-		panel_7.add(lConfEstadoDireccionRemitente, "cell 3 6");
+		panel_7.add(lConfEstadoDireccionRemitente, "cell 4 6");
 		
 		lblNewLabel_22 = new JLabel("Dirección: ");
-		panel_7.add(lblNewLabel_22, "cell 5 6");
+		panel_7.add(lblNewLabel_22, "cell 6 6,alignx right");
 		
 		lConfDatosDireccionDestinatario = new JLabel("dirección");
-		panel_7.add(lConfDatosDireccionDestinatario, "cell 6 6");
+		panel_7.add(lConfDatosDireccionDestinatario, "cell 7 6");
 		
 		lConfEstadoDireccionDestinatario = new JLabel("Válido");
 		lConfEstadoDireccionDestinatario.setForeground(Color.BLUE);
-		panel_7.add(lConfEstadoDireccionDestinatario, "cell 7 6");
+		panel_7.add(lConfEstadoDireccionDestinatario, "cell 8 6");
 		
 		verticalStrut_1 = Box.createVerticalStrut(20);
-		panel_7.add(verticalStrut_1, "cell 4 7");
+		panel_7.add(verticalStrut_1, "cell 5 7");
 		
 		lblNewLabel_24 = new JLabel("Datos de origen:");
 		lblNewLabel_24.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel_7.add(lblNewLabel_24, "cell 1 8 3 1");
+		panel_7.add(lblNewLabel_24, "cell 1 8 4 1");
 		
 		lblNewLabel_25 = new JLabel("Datos de destino");
 		lblNewLabel_25.setFont(new Font("Tahoma", Font.BOLD, 11));
-		panel_7.add(lblNewLabel_25, "cell 5 8 3 1");
+		panel_7.add(lblNewLabel_25, "cell 6 8 3 1");
 		
 		lblNewLabel_27 = new JLabel("Nombre: ");
-		panel_7.add(lblNewLabel_27, "cell 1 9");
+		panel_7.add(lblNewLabel_27, "cell 1 9,alignx right");
 		
 		lConfDatosNombreOrigen = new JLabel("nombre");
-		panel_7.add(lConfDatosNombreOrigen, "cell 2 9");
+		panel_7.add(lConfDatosNombreOrigen, "cell 2 9 2 1");
 		
 		lConfEstadoNombreOrigen = new JLabel("estado");
-		panel_7.add(lConfEstadoNombreOrigen, "cell 3 9,aligny top");
+		panel_7.add(lConfEstadoNombreOrigen, "cell 4 9,aligny top");
 		
 		lblNewLabel_31 = new JLabel("Nombre: ");
-		panel_7.add(lblNewLabel_31, "cell 5 9");
+		panel_7.add(lblNewLabel_31, "cell 6 9,alignx right");
 		
 		lConfDatosNombreDestino = new JLabel("nombre");
-		panel_7.add(lConfDatosNombreDestino, "cell 6 9");
+		panel_7.add(lConfDatosNombreDestino, "cell 7 9");
 		
 		lConfEstadoNombreDestino = new JLabel("estado");
-		panel_7.add(lConfEstadoNombreDestino, "cell 7 9");
+		panel_7.add(lConfEstadoNombreDestino, "cell 8 9");
 		
 		lblNewLabel_29 = new JLabel("Dirección: ");
-		panel_7.add(lblNewLabel_29, "cell 1 10");
+		panel_7.add(lblNewLabel_29, "cell 1 10,alignx right");
 		
 		lConfDatosDireccionOrigen = new JLabel("dirección");
-		panel_7.add(lConfDatosDireccionOrigen, "cell 2 10");
+		panel_7.add(lConfDatosDireccionOrigen, "cell 2 10 2 1");
 		
 		lConfEstadoDireccionOrigen = new JLabel("estado");
-		panel_7.add(lConfEstadoDireccionOrigen, "cell 3 10");
+		panel_7.add(lConfEstadoDireccionOrigen, "cell 4 10");
 		
 		lblNewLabel_32 = new JLabel("Dirección: ");
-		panel_7.add(lblNewLabel_32, "cell 5 10");
+		panel_7.add(lblNewLabel_32, "cell 6 10,alignx right");
 		
 		lConfDatosDireccionDestino = new JLabel("dirección");
-		panel_7.add(lConfDatosDireccionDestino, "cell 6 10");
+		panel_7.add(lConfDatosDireccionDestino, "cell 7 10");
 		
 		lConfEstadoDireccionDestino = new JLabel("estado");
-		panel_7.add(lConfEstadoDireccionDestino, "cell 7 10");
+		panel_7.add(lConfEstadoDireccionDestino, "cell 8 10");
 		
 		lblNewLabel_30 = new JLabel("Ciudad: ");
-		panel_7.add(lblNewLabel_30, "cell 1 11");
+		panel_7.add(lblNewLabel_30, "cell 1 11,alignx right");
 		
 		lConfDatosCiudadOrigen = new JLabel("ciudad");
-		panel_7.add(lConfDatosCiudadOrigen, "cell 2 11");
+		panel_7.add(lConfDatosCiudadOrigen, "cell 2 11 2 1");
 		
 		lConfEstadoCiudadOrigen = new JLabel("estado");
-		panel_7.add(lConfEstadoCiudadOrigen, "cell 3 11");
+		panel_7.add(lConfEstadoCiudadOrigen, "cell 4 11");
 		
 		lblNewLabel_33 = new JLabel("Ciudad: ");
-		panel_7.add(lblNewLabel_33, "cell 5 11");
+		panel_7.add(lblNewLabel_33, "cell 6 11,alignx right");
 		
 		lConfDatosCiudadDestino = new JLabel("ciudad");
-		panel_7.add(lConfDatosCiudadDestino, "cell 6 11");
+		panel_7.add(lConfDatosCiudadDestino, "cell 7 11");
 		
 		lConfEstadoCiudadDestino = new JLabel("estado");
-		panel_7.add(lConfEstadoCiudadDestino, "cell 7 11");
+		panel_7.add(lConfEstadoCiudadDestino, "cell 8 11");
+		
+		verticalStrut_2 = Box.createVerticalStrut(20);
+		panel_7.add(verticalStrut_2, "cell 5 12");
+		
+		lblNewLabel_34 = new JLabel("Detalles:");
+		lblNewLabel_34.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_7.add(lblNewLabel_34, "cell 1 13 4 1");
+		
+		lblNewLabel_35 = new JLabel("Transporte:");
+		lblNewLabel_35.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_7.add(lblNewLabel_35, "cell 6 13");
+		
+		lblNewLabel_36 = new JLabel("Altura paquete: ");
+		panel_7.add(lblNewLabel_36, "cell 1 14,alignx right");
+		
+		lConfDatosAltura = new JLabel("10000");
+		panel_7.add(lConfDatosAltura, "cell 2 14");
+		
+		lblNewLabel_44 = new JLabel("cm");
+		panel_7.add(lblNewLabel_44, "cell 3 14");
+		
+		lConfEstadoAltura = new JLabel("estado");
+		panel_7.add(lConfEstadoAltura, "cell 4 14");
+		
+		lblNewLabel_37 = new JLabel("Anchura paquete 1: ");
+		panel_7.add(lblNewLabel_37, "cell 1 15,alignx right");
+		
+		lConfDatosAnchuraX = new JLabel("10000");
+		panel_7.add(lConfDatosAnchuraX, "cell 2 15");
+		
+		lblNewLabel_45 = new JLabel("cm");
+		panel_7.add(lblNewLabel_45, "cell 3 15");
+		
+		lConfEstadoAnchuraX = new JLabel("estado");
+		panel_7.add(lConfEstadoAnchuraX, "cell 4 15");
+		
+		lblNewLabel_38 = new JLabel("Anchura paquete 2: ");
+		panel_7.add(lblNewLabel_38, "cell 1 16,alignx right");
+		
+		lConfDatosAnchuraY = new JLabel("10000");
+		panel_7.add(lConfDatosAnchuraY, "cell 2 16");
+		
+		lblNewLabel_46 = new JLabel("cm");
+		panel_7.add(lblNewLabel_46, "cell 3 16");
+		
+		lConfEstadoAnchuraY = new JLabel("estado");
+		panel_7.add(lConfEstadoAnchuraY, "cell 4 16");
+		
+		lblNewLabel_39 = new JLabel("Peso paquete: ");
+		panel_7.add(lblNewLabel_39, "cell 1 17,alignx right");
+		
+		lConfDatosPeso = new JLabel("10000");
+		panel_7.add(lConfDatosPeso, "cell 2 17");
+		
+		lblNewLabel_47 = new JLabel("g");
+		panel_7.add(lblNewLabel_47, "cell 3 17");
+		
+		lConfEstadoPeso = new JLabel("estado");
+		panel_7.add(lConfEstadoPeso, "cell 4 17");
+		
+		lblNewLabel_40 = new JLabel("Tarifas aplicadas:");
+		panel_7.add(lblNewLabel_40, "cell 1 18");
 
 		this.dispose();
 	}
@@ -569,8 +651,8 @@ public class RegistrarEnvioView extends View {
 	public JSpinner getSPesoPaquete() {
 		return sPesoPaquete;
 	}
-	public JSpinner getSAnturaXPaquete() {
-		return sAnturaXPaquete;
+	public JSpinner getSAnchuraXPaquete() {
+		return sAnchuraXPaquete;
 	}
 	public JSpinner getSAnchuraYPaquete() {
 		return sAnchuraYPaquete;
@@ -667,5 +749,29 @@ public class RegistrarEnvioView extends View {
 	}
 	public JLabel getLConfEstadoNombreOrigen() {
 		return lConfEstadoNombreOrigen;
+	}
+	public JLabel getLConfEstadoAnchuraY() {
+		return lConfEstadoAnchuraY;
+	}
+	public JLabel getLConfDatosAnchuraY() {
+		return lConfDatosAnchuraY;
+	}
+	public JLabel getLConfDatosPeso() {
+		return lConfDatosPeso;
+	}
+	public JLabel getLConfEstadoAltura() {
+		return lConfEstadoAltura;
+	}
+	public JLabel getLConfDatosAltura() {
+		return lConfDatosAltura;
+	}
+	public JLabel getLConfEstadoAnchuraX() {
+		return lConfEstadoAnchuraX;
+	}
+	public JLabel getLConfDatosAnchuraX() {
+		return lConfDatosAnchuraX;
+	}
+	public JLabel getLConfEstadoPeso() {
+		return lConfEstadoPeso;
 	}
 }
