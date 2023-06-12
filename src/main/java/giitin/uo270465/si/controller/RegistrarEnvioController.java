@@ -17,6 +17,7 @@ import giitin.uo270465.si.abs.Controller;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.dto.TarifaDTO;
+import giitin.uo270465.si.dto.TransportistaVechiculoDTO;
 import giitin.uo270465.si.model.RegistrarEnvioModel;
 import giitin.uo270465.si.view.RegistrarEnvioView;
 
@@ -54,13 +55,17 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	// Constantes: AlmacenOficina
 
 	private final String TT_ALMACENOFICINA_NO_SELECCION = "No se ha seleccionado ningún almacen u oficina.";
-		
+
 	// Constantes: Detalles
-	
-	private final String TT_DETALLES_NO_ALTURA = "La altura del paquete tiene que ser mayor que 0";
-	private final String TT_DETALLES_NO_ANCHURA = "La anchura del paquete tiene que ser mayor que 0";
-	private final String TT_DETALLES_NO_PESO = "El peso del paquete tiene que ser mayor o igual que 10 gramos";
-	private final String TT_DETALLES_NO_TARIFAS = "Debes seleccionar al menos una tarifa para el envío";
+
+	private final String TT_DETALLES_NO_ALTURA = "La altura del paquete tiene que ser mayor que 0.";
+	private final String TT_DETALLES_NO_ANCHURA = "La anchura del paquete tiene que ser mayor que 0.";
+	private final String TT_DETALLES_NO_PESO = "El peso del paquete tiene que ser mayor o igual que 10 gramos.";
+	private final String TT_DETALLES_NO_TARIFAS = "Debes seleccionar al menos una tarifa para el envío.";
+
+	// Constantes: Transporte
+
+	private final String TT_TRANSPORTE_NO_TRANSPORTISTA = "Debes seleccionar un transportista.";
 
 	// Datos: Remitente
 
@@ -88,21 +93,29 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 	private String datosDireccionOrigen;
 	private String datosCiudadOrigen;
 	private AlmacenOficinaDTO almacenOficinaOrigen;
-	
+
 	// Datos: Destino
-	
+
 	private String datosNombreDestino;
 	private String datosDireccionDestino;
 	private String datosCiudadDestino;
 	private AlmacenOficinaDTO almacenOficinaDestino;
-	
+
 	// Datos: Detalles
-	
+
 	private int datosAltura;
 	private int datosAnchuraX;
 	private int datosAnchuraY;
 	private int datosPeso;
 	private List<TarifaDTO> datosTatifas;
+
+	// Datos: Transporte
+
+	private TransportistaVechiculoDTO transportistaVehiculo;
+	private String datosNombreTransportista;
+	private String datosEmailTransportista;
+	private String datosTipoVechiculoTransportista;
+	private double datosCapacidadVechiculoTransportista;
 
 	public RegistrarEnvioController(Date fecha) {
 		super(new RegistrarEnvioModel(), new RegistrarEnvioView(), fecha);
@@ -258,6 +271,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 		b &= ComprobarOrigen();
 		b &= ComprobarDestino();
 		b &= comprobarDetalles();
+		b &= comprobarTransporte();
 
 		return b;
 	}
@@ -446,7 +460,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				datosCiudadOrigen, ttCiudadOrigen);
 		return b;
 	}
-	
+
 	public boolean ComprobarDestino() {
 		boolean b = true;
 
@@ -464,9 +478,9 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 			datosNombreDestino = GUION_DATOS;
 			datosDireccionDestino = datosDireccionDestinatario;
 			datosCiudadDestino = GUION_DATOS;
-			
+
 			ttNombreDestino = NO_TT;
-			ttDireccionDestino = (datosDireccionDestinatario.isBlank()?TT_CLIENTE_NO_DIRECCION:NO_TT);
+			ttDireccionDestino = (datosDireccionDestinatario.isBlank() ? TT_CLIENTE_NO_DIRECCION : NO_TT);
 			ttCiudadDestino = NO_TT;
 		}
 		if (almacenOficinaDestino != null) {
@@ -488,37 +502,73 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				datosCiudadDestino, ttCiudadDestino);
 		return b;
 	}
-	
+
 	public boolean comprobarDetalles() {
 		boolean b = true;
-		
-		datosAltura = (int)view.getSAlturaPaquete().getValue();
-		datosAnchuraX = (int)view.getSAnchuraXPaquete().getValue();
-		datosAnchuraY = (int)view.getSAnchuraYPaquete().getValue();
-		datosPeso = (int)view.getSPesoPaquete().getValue();
+
+		datosAltura = (int) view.getSAlturaPaquete().getValue();
+		datosAnchuraX = (int) view.getSAnchuraXPaquete().getValue();
+		datosAnchuraY = (int) view.getSAnchuraYPaquete().getValue();
+		datosPeso = (int) view.getSPesoPaquete().getValue();
 		datosTatifas = view.getStcTarifa().getSelectedDTOs();
-		
-		String ttAltura = (datosAltura>0?NO_TT:TT_DETALLES_NO_ALTURA);
-		String ttAnchuraX = (datosAnchuraX>0?NO_TT:TT_DETALLES_NO_ANCHURA);
-		String ttAnchuraY = (datosAnchuraY>0?NO_TT:TT_DETALLES_NO_ANCHURA);
-		String ttPeso = (datosPeso>=10?NO_TT:TT_DETALLES_NO_PESO);
-		String ttTarifas = (datosTatifas.size()>0?NO_TT:TT_DETALLES_NO_TARIFAS);
-		
-		b &= updateConfDatosEstado(view.getLConfDatosAltura(), view.getLConfEstadoAltura(), String.format("%d", datosAltura), ttAltura);
-		b &= updateConfDatosEstado(view.getLConfDatosAnchuraX(), view.getLConfEstadoAnchuraX(), String.format("%d", datosAnchuraX), ttAnchuraX);
-		b &= updateConfDatosEstado(view.getLConfDatosAnchuraY(), view.getLConfEstadoAnchuraY(), String.format("%d", datosAnchuraY), ttAnchuraY);
-		b &= updateConfDatosEstado(view.getLConfDatosPeso(), view.getLConfEstadoPeso(), String.format("%d", datosPeso), ttPeso);
-		
+
+		String ttAltura = (datosAltura > 0 ? NO_TT : TT_DETALLES_NO_ALTURA);
+		String ttAnchuraX = (datosAnchuraX > 0 ? NO_TT : TT_DETALLES_NO_ANCHURA);
+		String ttAnchuraY = (datosAnchuraY > 0 ? NO_TT : TT_DETALLES_NO_ANCHURA);
+		String ttPeso = (datosPeso >= 10 ? NO_TT : TT_DETALLES_NO_PESO);
+		String ttTarifas = (datosTatifas.size() > 0 ? NO_TT : TT_DETALLES_NO_TARIFAS);
+
+		b &= updateConfDatosEstado(view.getLConfDatosAltura(), view.getLConfEstadoAltura(),
+				String.format("%d", datosAltura), ttAltura);
+		b &= updateConfDatosEstado(view.getLConfDatosAnchuraX(), view.getLConfEstadoAnchuraX(),
+				String.format("%d", datosAnchuraX), ttAnchuraX);
+		b &= updateConfDatosEstado(view.getLConfDatosAnchuraY(), view.getLConfEstadoAnchuraY(),
+				String.format("%d", datosAnchuraY), ttAnchuraY);
+		b &= updateConfDatosEstado(view.getLConfDatosPeso(), view.getLConfEstadoPeso(), String.format("%d", datosPeso),
+				ttPeso);
+
 		b &= updateConfDatosEstado(view.getLConfDatosTarifas(), view.getLConfEstadoTarifas(), "", ttTarifas);
 		JTable tTarifas = view.getTTarifasSeleccionadas();
 		double totalTarifas = 0;
 		while (tTarifas.getRowCount() > 0)
-			((DefaultTableModel)tTarifas.getModel()).removeRow(0);
+			((DefaultTableModel) tTarifas.getModel()).removeRow(0);
 		for (TarifaDTO tarifa : datosTatifas) {
-			((DefaultTableModel)tTarifas.getModel()).addRow(new Object[] {tarifa.getConcepto(), String.format("%.2f", tarifa.getPrecio())});
-			totalTarifas+=tarifa.getPrecio();
+			((DefaultTableModel) tTarifas.getModel())
+					.addRow(new Object[] { tarifa.getConcepto(), String.format("%.2f", tarifa.getPrecio()) });
+			totalTarifas += tarifa.getPrecio();
 		}
 		view.getLPrecioTarifas().setText(String.format("%.2f", totalTarifas));
+		return b;
+	}
+
+	public boolean comprobarTransporte() {
+		boolean b = true;
+
+		transportistaVehiculo = view.getStcTransportistaVehiculo().getSelectedDTO();
+
+		String ttTransporte = (transportistaVehiculo == null ? TT_TRANSPORTE_NO_TRANSPORTISTA : NO_TT);
+		datosNombreTransportista = "";
+		datosEmailTransportista = "";
+		datosTipoVechiculoTransportista = "";
+		datosCapacidadVechiculoTransportista = 0.0;
+
+		if (transportistaVehiculo != null) {
+			datosNombreTransportista = transportistaVehiculo.getNombre();
+			datosEmailTransportista = transportistaVehiculo.getEmail();
+			datosTipoVechiculoTransportista = transportistaVehiculo.getTipo();
+			datosCapacidadVechiculoTransportista = transportistaVehiculo.getCapacidad();
+		}
+
+		b &= updateConfDatosEstado(view.getLConfDatosNombreTransportista(), view.getLConfEstadoNombreTransportista(),
+				datosNombreTransportista, ttTransporte);
+		b &= updateConfDatosEstado(view.getLConfDatosEmailTransportista(), view.getLConfEstadoEmailTransportista(),
+				datosEmailTransportista, ttTransporte);
+		b &= updateConfDatosEstado(view.getLConfDatosTipoVehiculoTransportista(),
+				view.getLConfEstadoTipoVehiculoTransportista(), datosTipoVechiculoTransportista, ttTransporte);
+		b &= updateConfDatosEstado(view.getLConfDatosCapacidadVehiculoTransportista(),
+				view.getLConfEstadoCapacidadVehiculoTransportista(),
+				String.format("%.2f", datosCapacidadVechiculoTransportista), ttTransporte);
+
 		return b;
 	}
 }

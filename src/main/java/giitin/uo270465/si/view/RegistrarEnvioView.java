@@ -156,6 +156,18 @@ public class RegistrarEnvioView extends View {
 	private JLabel lblNewLabel_41;
 	private JLabel lblNewLabel_42;
 	private JLabel lPrecioTarifas;
+	private JLabel lblNewLabel_43;
+	private JLabel lblNewLabel_48;
+	private JLabel lblNewLabel_49;
+	private JLabel lblNewLabel_50;
+	private JLabel lConfDatosNombreTransportista;
+	private JLabel lConfDatosEmailTransportista;
+	private JLabel lConfDatosTipoVehiculoTransportista;
+	private JLabel lConfDatosCapacidadVehiculoTransportista;
+	private JLabel lConfEstadoNombreTransportista;
+	private JLabel lConfEstadoEmailTransportista;
+	private JLabel lConfEstadoTipoVehiculoTransportista;
+	private JLabel lConfEstadoCapacidadVehiculoTransportista;
 
 	public RegistrarEnvioView() {
 		setTitle("Registrar envío");
@@ -555,6 +567,15 @@ public class RegistrarEnvioView extends View {
 		lConfEstadoAltura = new JLabel("estado");
 		panel_7.add(lConfEstadoAltura, "cell 4 14");
 		
+		lblNewLabel_43 = new JLabel("Nombre: ");
+		panel_7.add(lblNewLabel_43, "cell 6 14,alignx right");
+		
+		lConfDatosNombreTransportista = new JLabel("nombre");
+		panel_7.add(lConfDatosNombreTransportista, "cell 7 14");
+		
+		lConfEstadoNombreTransportista = new JLabel("estado");
+		panel_7.add(lConfEstadoNombreTransportista, "cell 8 14");
+		
 		lblNewLabel_37 = new JLabel("Anchura paquete 1: ");
 		panel_7.add(lblNewLabel_37, "cell 1 15,alignx right");
 		
@@ -566,6 +587,15 @@ public class RegistrarEnvioView extends View {
 		
 		lConfEstadoAnchuraX = new JLabel("estado");
 		panel_7.add(lConfEstadoAnchuraX, "cell 4 15");
+		
+		lblNewLabel_48 = new JLabel("Email:");
+		panel_7.add(lblNewLabel_48, "cell 6 15,alignx right");
+		
+		lConfDatosEmailTransportista = new JLabel("email");
+		panel_7.add(lConfDatosEmailTransportista, "cell 7 15");
+		
+		lConfEstadoEmailTransportista = new JLabel("estado");
+		panel_7.add(lConfEstadoEmailTransportista, "cell 8 15");
 		
 		lblNewLabel_38 = new JLabel("Anchura paquete 2: ");
 		panel_7.add(lblNewLabel_38, "cell 1 16,alignx right");
@@ -579,6 +609,15 @@ public class RegistrarEnvioView extends View {
 		lConfEstadoAnchuraY = new JLabel("estado");
 		panel_7.add(lConfEstadoAnchuraY, "cell 4 16");
 		
+		lblNewLabel_49 = new JLabel("Tipo vehiculo:");
+		panel_7.add(lblNewLabel_49, "cell 6 16,alignx right");
+		
+		lConfDatosTipoVehiculoTransportista = new JLabel("tipovehiculo");
+		panel_7.add(lConfDatosTipoVehiculoTransportista, "cell 7 16");
+		
+		lConfEstadoTipoVehiculoTransportista = new JLabel("estado");
+		panel_7.add(lConfEstadoTipoVehiculoTransportista, "cell 8 16");
+		
 		lblNewLabel_39 = new JLabel("Peso paquete: ");
 		panel_7.add(lblNewLabel_39, "cell 1 17,alignx right");
 		
@@ -590,6 +629,15 @@ public class RegistrarEnvioView extends View {
 		
 		lConfEstadoPeso = new JLabel("estado");
 		panel_7.add(lConfEstadoPeso, "cell 4 17");
+		
+		lblNewLabel_50 = new JLabel("Capacidad vehiculo:");
+		panel_7.add(lblNewLabel_50, "cell 6 17,alignx right");
+		
+		lConfDatosCapacidadVehiculoTransportista = new JLabel("capacidad");
+		panel_7.add(lConfDatosCapacidadVehiculoTransportista, "cell 7 17");
+		
+		lConfEstadoCapacidadVehiculoTransportista = new JLabel("estado");
+		panel_7.add(lConfEstadoCapacidadVehiculoTransportista, "cell 8 17");
 		
 		lblNewLabel_40 = new JLabel("Tarifas aplicadas:");
 		panel_7.add(lblNewLabel_40, "cell 1 18,alignx right");
@@ -612,7 +660,7 @@ public class RegistrarEnvioView extends View {
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, true
+				false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -831,5 +879,29 @@ public class RegistrarEnvioView extends View {
 	}
 	public JLabel getLPrecioTarifas() {
 		return lPrecioTarifas;
+	}
+	public JLabel getLConfDatosCapacidadVehiculoTransportista() {
+		return lConfDatosCapacidadVehiculoTransportista;
+	}
+	public JLabel getLConfDatosTipoVehiculoTransportista() {
+		return lConfDatosTipoVehiculoTransportista;
+	}
+	public JLabel getLConfDatosEmailTransportista() {
+		return lConfDatosEmailTransportista;
+	}
+	public JLabel getLConfEstadoEmailTransportista() {
+		return lConfEstadoEmailTransportista;
+	}
+	public JLabel getLConfDatosNombreTransportista() {
+		return lConfDatosNombreTransportista;
+	}
+	public JLabel getLConfEstadoTipoVehiculoTransportista() {
+		return lConfEstadoTipoVehiculoTransportista;
+	}
+	public JLabel getLConfEstadoCapacidadVehiculoTransportista() {
+		return lConfEstadoCapacidadVehiculoTransportista;
+	}
+	public JLabel getLConfEstadoNombreTransportista() {
+		return lConfEstadoNombreTransportista;
 	}
 }
