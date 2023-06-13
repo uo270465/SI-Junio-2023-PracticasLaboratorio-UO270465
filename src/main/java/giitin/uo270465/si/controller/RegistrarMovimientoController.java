@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import com.toedter.calendar.JDateChooser;
 
 import giitin.uo270465.si.abs.Controller;
+import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.EnvioDTO;
 import giitin.uo270465.si.dto.MovimientoDTO;
@@ -22,8 +23,8 @@ public class RegistrarMovimientoController extends Controller<RegistrarMovimient
 
 	private MovimientoDTO ultimoMovimientoSeleccionado;
 
-	public RegistrarMovimientoController(Date fecha) {
-		super(new RegistrarMovimientoModel(), new RegistrarMovimientoView(), fecha);
+	public RegistrarMovimientoController(View parent, Date fecha) {
+		super(new RegistrarMovimientoModel(), new RegistrarMovimientoView(parent), fecha);
 	}
 
 	@Override

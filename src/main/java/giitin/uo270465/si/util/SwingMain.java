@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import com.toedter.calendar.JDateChooser;
 
 import giitin.uo270465.si.abs.View;
+import giitin.uo270465.si.controller.RealizarSeguimientoController;
 import giitin.uo270465.si.controller.RegistrarEnvioController;
 import giitin.uo270465.si.controller.RegistrarMovimientoController;
 import net.miginfocom.swing.MigLayout;
@@ -74,7 +75,7 @@ public class SwingMain extends View {
 
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][][grow]"));
+		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][][][grow]"));
 
 		dcFecha = new JDateChooser();
 		dcFecha.setDate(new Date());
@@ -95,7 +96,12 @@ public class SwingMain extends View {
 
 		JButton bRegistrarMovimiento = new JButton("Registrar movimiento");
 		panel.add(bRegistrarMovimiento, "cell 1 6");
+		
+		JButton bRealizarSeguimiento = new JButton("Realizar seguimiento");
+		panel.add(bRealizarSeguimiento, "cell 1 7");
 
+		View THIS = this;
+		
 		btnCargarDatosIniciales.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				Database db = new Database();
@@ -112,7 +118,7 @@ public class SwingMain extends View {
 
 		bRegistrarEnvio.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				RegistrarEnvioController controller = new RegistrarEnvioController(getFecha());
+				RegistrarEnvioController controller = new RegistrarEnvioController(THIS, getFecha());
 				controller.initController();
 			}
 		});
@@ -121,7 +127,16 @@ public class SwingMain extends View {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RegistrarMovimientoController controller = new RegistrarMovimientoController(getFecha());
+				RegistrarMovimientoController controller = new RegistrarMovimientoController(THIS, getFecha());
+				controller.initController();
+
+			}
+		});
+		bRealizarSeguimiento.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RealizarSeguimientoController controller = new RealizarSeguimientoController(THIS, getFecha());
 				controller.initController();
 
 			}

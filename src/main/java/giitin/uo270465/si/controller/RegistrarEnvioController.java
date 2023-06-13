@@ -15,6 +15,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import giitin.uo270465.si.abs.Controller;
+import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.dto.TarifaDTO;
@@ -122,8 +123,8 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 
 	private boolean datosCorrectos;
 
-	public RegistrarEnvioController(Date fecha) {
-		super(new RegistrarEnvioModel(), new RegistrarEnvioView(), fecha);
+	public RegistrarEnvioController(View parent, Date fecha) {
+		super(new RegistrarEnvioModel(), new RegistrarEnvioView(parent), fecha);
 		datosCorrectos = false;
 	}
 
@@ -200,7 +201,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				String seguimiento = RegistrarEnvio();
 				JOptionPane.showMessageDialog(null, "<html><center>Envío registrado con exito.<br>"
 						+ "Nº de seguimiento:    " + seguimiento + "</center></html>");
-
+				view.dispose();
 			}
 		});
 	}

@@ -172,6 +172,7 @@ public class RegistrarEnvioView extends View {
 	private JButton bRegistrarEnvio;
 
 	public RegistrarEnvioView() {
+		super();
 		setTitle("Registrar envío");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -684,6 +685,11 @@ public class RegistrarEnvioView extends View {
 		panel_7.add(bRegistrarEnvio, "cell 0 21 10 1,growx");
 
 		this.dispose();
+	}
+	
+	public RegistrarEnvioView(View parent) {
+		this();
+		this.initParent(parent);
 	}
 
 	public JTabbedPane getTpRegistrarEnvio() {

@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 
 public class RegistrarMovimientoView extends View{
+	
 	public RegistrarMovimientoView() {
 		setTitle("Registrar movimiento");
 		
@@ -63,6 +64,11 @@ public class RegistrarMovimientoView extends View{
 		bRegistrarMovimiento = new JButton("Registrar movimiento");
 		bRegistrarMovimiento.setEnabled(false);
 		panel.add(bRegistrarMovimiento, "cell 0 8 2 1,growx");
+	}
+	
+	public RegistrarMovimientoView(View parent) {
+		this();
+		this.initParent(parent);
 	}
 
 	private static final long serialVersionUID = 1L;
