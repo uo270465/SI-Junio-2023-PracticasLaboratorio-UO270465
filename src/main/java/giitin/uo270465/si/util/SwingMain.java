@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import com.toedter.calendar.JDateChooser;
 
 import giitin.uo270465.si.abs.View;
+import giitin.uo270465.si.controller.EntregarEnvioController;
 import giitin.uo270465.si.controller.RealizarSeguimientoController;
 import giitin.uo270465.si.controller.RegistrarEnvioController;
 import giitin.uo270465.si.controller.RegistrarMovimientoController;
@@ -96,15 +97,15 @@ public class SwingMain extends View {
 
 		JButton bRegistrarMovimiento = new JButton("Registrar movimiento");
 		panel.add(bRegistrarMovimiento, "cell 1 6");
-		
+
 		JButton bRealizarSeguimiento = new JButton("Realizar seguimiento");
 		panel.add(bRealizarSeguimiento, "cell 1 7");
-		
-		JButton bEntregarPaquete = new JButton("Entregar paquete");
-		panel.add(bEntregarPaquete, "cell 1 8");
+
+		JButton bEntregarEnvio = new JButton("Entregar envío");
+		panel.add(bEntregarEnvio, "cell 1 8");
 
 		View THIS = this;
-		
+
 		btnCargarDatosIniciales.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				Database db = new Database();
@@ -144,7 +145,16 @@ public class SwingMain extends View {
 
 			}
 		});
-		
+
+		bEntregarEnvio.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EntregarEnvioController controller = new EntregarEnvioController(THIS, getFecha());
+				controller.initController();
+			}
+		});
+
 		this.initView();
 
 	}
