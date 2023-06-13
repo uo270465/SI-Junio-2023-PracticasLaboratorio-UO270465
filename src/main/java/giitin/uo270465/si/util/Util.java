@@ -126,7 +126,7 @@ public class Util {
 	 */
 	public static Date isoStringToDate(String isoDateString) {
 		try {
-		return new SimpleDateFormat("yyyy-MM-dd").parse(isoDateString);
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(isoDateString);
 		} catch (ParseException e) {
 			throw new ApplicationException("Formato ISO incorrecto para fecha: "+isoDateString);
 		}
@@ -135,7 +135,7 @@ public class Util {
 	 * Convierte fecha java a un string formato iso (para display o uso en sql) 
 	 */
 	public static String dateToIsoString(Date javaDate) {
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return formatter.format(javaDate);
 	}
 	
