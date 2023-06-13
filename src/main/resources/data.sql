@@ -82,10 +82,7 @@ INSERT INTO AlmacenesOficinas (nombre, direccion, ciudad) VALUES
 ('Almacén Gijón 3', 'Calle de la Arena, 250, Gijón', 'Gijón'),
 ('Almacén Avilés 4', 'Calle de la Cámara, 300, Avilés', 'Avilés'),
 ('Almacén Oviedo 4', 'Calle del Sol, 350, Oviedo', 'Oviedo'),
-('Almacén Gijón 4', 'Calle del Mar, 400, Gijón', 'Gijón');
--- Datos de AlmacenesOficinas
-INSERT INTO AlmacenesOficinas (nombre, direccion, ciudad) VALUES
--- Almacenes y oficinas en Madrid
+('Almacén Gijón 4', 'Calle del Mar, 400, Gijón', 'Gijón'),
 ('Oficina Central Madrid', 'Calle Gran Vía, 1, Madrid', 'Madrid'),
 ('Almacén Madrid 1', 'Calle Serrano, 50, Madrid', 'Madrid'),
 ('Almacén Madrid 2', 'Avenida Castellana, 100, Madrid', 'Madrid'),
@@ -102,7 +99,6 @@ INSERT INTO AlmacenesOficinas (nombre, direccion, ciudad) VALUES
 ('Almacén Madrid 13', 'Calle Hortaleza, 1200, Madrid', 'Madrid'),
 ('Almacén Madrid 14', 'Avenida de Chamartín, 1300, Madrid', 'Madrid'),
 ('Almacén Madrid 15', 'Calle Goya, 1400, Madrid', 'Madrid'),
--- Almacenes y oficinas en Barcelona
 ('Oficina Central Barcelona', 'Passeig de Gràcia, 1, Barcelona', 'Barcelona'),
 ('Almacén Barcelona 1', 'Rambla de Catalunya, 50, Barcelona', 'Barcelona'),
 ('Almacén Barcelona 2', 'Avinguda Diagonal, 100, Barcelona', 'Barcelona'),
@@ -119,7 +115,6 @@ INSERT INTO AlmacenesOficinas (nombre, direccion, ciudad) VALUES
 ('Almacén Barcelona 13', 'Carrer Marina, 1200, Barcelona', 'Barcelona'),
 ('Almacén Barcelona 14', 'Avinguda Diagonal Mar, 1300, Barcelona', 'Barcelona'),
 ('Almacén Barcelona 15', 'Carrer Ramon Trias Fargas, 1400, Barcelona', 'Barcelona'),
--- Almacenes y oficinas en Valencia
 ('Oficina Central Valencia', 'Carrer Colón, 1, Valencia', 'Valencia'),
 ('Almacén Valencia 1', 'Avinguda del Puerto, 50, Valencia', 'Valencia'),
 ('Almacén Valencia 2', 'Carrer de Xàtiva, 100, Valencia', 'Valencia'),
@@ -136,7 +131,6 @@ INSERT INTO AlmacenesOficinas (nombre, direccion, ciudad) VALUES
 ('Almacén Valencia 13', 'Carrer de les Barques, 1200, Valencia', 'Valencia'),
 ('Almacén Valencia 14', 'Avinguda del Port, 1300, Valencia', 'Valencia'),
 ('Almacén Valencia 15', 'Carrer Eugènia Viñes, 1400, Valencia', 'Valencia'),
--- Almacenes y oficinas en Sevilla
 ('Oficina Central Sevilla', 'Calle Sierpes, 1, Sevilla', 'Sevilla'),
 ('Almacén Sevilla 1', 'Avenida de la Constitución, 50, Sevilla', 'Sevilla'),
 ('Almacén Sevilla 2', 'Calle Tetuán, 100, Sevilla', 'Sevilla'),
@@ -153,7 +147,6 @@ INSERT INTO AlmacenesOficinas (nombre, direccion, ciudad) VALUES
 ('Almacén Sevilla 13', 'Calle San Jacinto, 1200, Sevilla', 'Sevilla'),
 ('Almacén Sevilla 14', 'Avenida de la Buhaira, 1300, Sevilla', 'Sevilla'),
 ('Almacén Sevilla 15', 'Calle Asunción, 1400, Sevilla', 'Sevilla'),
--- Almacenes y oficinas en Bilbao
 ('Oficina Central Bilbao', 'Gran Vía, 1, Bilbao', 'Bilbao'),
 ('Almacén Bilbao 1', 'Calle de Rodríguez Arias, 50, Bilbao', 'Bilbao'),
 ('Almacén Bilbao 2', 'Avenida de Abandoibarra, 100, Bilbao', 'Bilbao'),
@@ -169,12 +162,7 @@ INSERT INTO AlmacenesOficinas (nombre, direccion, ciudad) VALUES
 ('Almacén Bilbao 12', 'Plaza Moyúa, 1100, Bilbao', 'Bilbao'),
 ('Almacén Bilbao 13', 'Calle Licenciado Poza, 1200, Bilbao', 'Bilbao'),
 ('Almacén Bilbao 14', 'Avenida Sabino Arana, 1300, Bilbao', 'Bilbao'),
-('Almacén Bilbao 15', 'Calle Iparraguirre, 1400, Bilbao', 'Bilbao'),
--- Continuar añadiendo más almacenes y oficinas en distintas ubicaciones de España
-...
-
-
-
+('Almacén Bilbao 15', 'Calle Iparraguirre, 1400, Bilbao', 'Bilbao');
 
 -- Datos de Tarifas
 INSERT INTO Tarifas (concepto, precio) VALUES

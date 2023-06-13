@@ -73,8 +73,8 @@ public class RealizarSeguimientoController extends Controller<RealizarSeguimient
 		}
 
 		String textoDestino = String.format("%sDestino del envío: %s",
-				(envio.getFechaRecogida() == null ? "" : "["+envio.getFechaRecogida()+"] "),
-				(envio.getDestinoId() != null ? almacenesOficinasById.get(envio.getDestinoId())
+				(envio.getFechaRecogida() == null ? "" : "[" + envio.getFechaRecogida() + "] "),
+				(envio.getDestinoId() != null ? almacenesOficinasById.get(envio.getDestinoId()).getNombre()
 						: model.getClienteById(envio.getDestinatarioId()).getDireccion()));
 
 		if (envio.getFechaRecogida() == null) {
@@ -83,10 +83,16 @@ public class RealizarSeguimientoController extends Controller<RealizarSeguimient
 
 		seguimientoListModel.clear();
 		seguimientoListModel.addAll(detalles);
-		if (envio.getFechaRecogida() == null) {
-			seguimientoListModel.addElement("El envío está en camino");
-		}
 		seguimientoListModel.addElement(textoDestino);
+		if (envio.getDestinoId() == almacenesOficinasById
+				.get((movimientos.get(movimientos.size() - 1).getUbicacionId())).getAlmacenesOficinasId()
+				&& envio.getFechaRecogida() == null) {
+			seguimientoListModel.addElement("El envío está listo para su recogida");
+		} else if (envio.getFechaRecogida() == null) {
+			seguimientoListModel.addElement("El envío está en camino");
+		} else {
+			seguimientoListModel.addElement("El envío ha sido entregado");
+		}
 		this.updateView();
 	}
 

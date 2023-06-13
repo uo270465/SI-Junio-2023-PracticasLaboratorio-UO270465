@@ -18,13 +18,17 @@ public class RegistrarMovimientoModel extends Model {
 	}
 
 	public List<EnvioDTO> getEnvios() {
-		String QUERY = "SELECT * FROM Envios where fechaRecogida IS NULL";
+		//String QUERY = "SELECT * FROM Envios where fechaRecogida IS NULL AND destinoId";
+		String QUERY = "SELECT e.* FROM Envios e " +
+				"JOIN (SELECT envioId, MAX(fechaHora) as UltimaFecha FROM Movimientos GROUP BY envioId) m " +
+				"ON e.envioId = m.envioId " +
+				"JOIN Movimientos mo ON m.envioId = mo.envioId AND m.UltimaFecha = mo.fechaHora " +
+				"WHERE e.fechaRecogida IS NULL AND mo.ubicacionId != e.destinoId";
 		return db.executeQueryPojo(EnvioDTO.class, QUERY);
 	}
 
 	public MovimientoDTO getUltimoMovimiento(String EnvioId) {
-		String QUERY = "SELECT * " + "FROM Movimientos " + "WHERE envioId = ? " + "ORDER BY movimientoId DESC "
-				+ "LIMIT 1 ";
+		String QUERY = "SELECT * FROM Movimientos WHERE envioId = ? ORDER BY movimientoId DESC LIMIT 1 ";
 		// return db.executeQueryMap(QUERY, EnvioId).get(0).get("estado").toString();
 		List<MovimientoDTO> movimientos = db.executeQueryPojo(MovimientoDTO.class, QUERY, EnvioId);
 		if (movimientos.size() == 0) {
