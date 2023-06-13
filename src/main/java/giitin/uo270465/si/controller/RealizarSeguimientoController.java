@@ -84,7 +84,7 @@ public class RealizarSeguimientoController extends Controller<RealizarSeguimient
 		seguimientoListModel.clear();
 		seguimientoListModel.addAll(detalles);
 		seguimientoListModel.addElement(textoDestino);
-		if (envio.getDestinoId() == almacenesOficinasById
+		if (envio.getDestinoId() != null && envio.getDestinoId() == almacenesOficinasById
 				.get((movimientos.get(movimientos.size() - 1).getUbicacionId())).getAlmacenesOficinasId()
 				&& envio.getFechaRecogida() == null) {
 			seguimientoListModel.addElement("El envío está listo para su recogida");

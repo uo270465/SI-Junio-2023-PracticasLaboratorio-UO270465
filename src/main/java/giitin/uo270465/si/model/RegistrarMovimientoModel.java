@@ -16,15 +16,24 @@ public class RegistrarMovimientoModel extends Model {
 	public RegistrarMovimientoModel() {
 		super();
 	}
-
+/*
 	public List<EnvioDTO> getEnvios() {
 		//String QUERY = "SELECT * FROM Envios where fechaRecogida IS NULL AND destinoId";
 		String QUERY = "SELECT e.* FROM Envios e " +
 				"JOIN (SELECT envioId, MAX(fechaHora) as UltimaFecha FROM Movimientos GROUP BY envioId) m " +
 				"ON e.envioId = m.envioId " +
-				"JOIN Movimientos mo ON m.envioId = mo.envioId AND m.UltimaFecha = mo.fechaHora " +
+				"JOIN Movimientos mo ON m.envioId = mo.envioId AND m.UltimaFecha = mo.fechaHora "+
 				"WHERE e.fechaRecogida IS NULL AND mo.ubicacionId != e.destinoId";
 		return db.executeQueryPojo(EnvioDTO.class, QUERY);
+	}
+*/
+	public List<EnvioDTO> getEnvios() {
+	    String QUERY = "SELECT e.* FROM Envios e " +
+	            "LEFT JOIN (SELECT envioId, MAX(fechaHora) as UltimaFecha FROM Movimientos GROUP BY envioId) m " +
+	            "ON e.envioId = m.envioId " +
+	            "LEFT JOIN Movimientos mo ON m.envioId = mo.envioId AND m.UltimaFecha = mo.fechaHora "+
+	            "WHERE e.fechaRecogida IS NULL AND (mo.ubicacionId != e.destinoId OR e.destinoId IS NULL)";
+	    return db.executeQueryPojo(EnvioDTO.class, QUERY);
 	}
 
 	public MovimientoDTO getUltimoMovimiento(String EnvioId) {
