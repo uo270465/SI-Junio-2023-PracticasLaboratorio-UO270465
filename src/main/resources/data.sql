@@ -103,15 +103,15 @@ INSERT INTO EnviosTarifas (envioId, tarifaId) VALUES
 
 -- Datos de Movimientos
 INSERT INTO Movimientos (envioId, fechaHora, ubicacionId, estado) VALUES
-(1, '2023-06-02 08:00:00', 1, 'Recogido'),
-(1, '2023-06-03 09:00:00', 2, 'En tránsito'),
-(1, '2023-06-04 10:00:00', 4, 'Entregado'),
-(2, '2023-06-03 11:00:00', 2, 'Recogido'),
-(2, '2023-06-04 12:00:00', 3, 'En tránsito'),
-(3, '2023-06-04 13:00:00', 3, 'Recogido'),
-(3, '2023-06-05 14:00:00', 4, 'En tránsito'),
-(3, '2023-06-06 15:00:00', 6, 'En tránsito'),
-(4, '2023-06-05 16:00:00', 4, 'Esperando recogida'),
-(5, '2023-06-06 17:00:00', 5, 'Recogido'),
-(5, '2023-06-07 18:00:00', 6, 'En tránsito'),
-(5, '2023-06-08 19:00:00', 7, 'Entregado');
+('AB123', '2023-06-02 08:00:00', 1, 'Recogido'),
+('AB123', '2023-06-03 09:00:00', 2, 'En tránsito'),
+('AB123', '2023-06-04 10:00:00', 4, 'Entregado'),
+('AB123', '2023-06-03 11:00:00', 2, 'Recogido'),
+('AB123', '2023-06-04 12:00:00', 3, 'En tránsito'),
+('BC234', '2023-06-04 13:00:00', 3, 'Recogido'),
+('BC234', '2023-06-05 14:00:00', 4, 'En tránsito'),
+('BC234', '2023-06-06 15:00:00', 6, 'En tránsito'),
+('CD345', '2023-06-05 16:00:00', 4, 'Esperando recogida'),
+('FG567', '2023-06-06 17:00:00', 5, 'Recogido'),
+('FG567', '2023-06-07 18:00:00', 6, 'En tránsito'),
+('FG567', '2023-06-08 19:00:00', 7, 'Entregado');

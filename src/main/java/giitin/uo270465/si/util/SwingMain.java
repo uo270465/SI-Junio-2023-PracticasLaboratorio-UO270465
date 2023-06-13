@@ -18,6 +18,7 @@ import com.toedter.calendar.JDateChooser;
 
 import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.controller.RegistrarEnvioController;
+import giitin.uo270465.si.controller.RegistrarMovimientoController;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -70,7 +71,7 @@ public class SwingMain extends View {
 		
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][grow]"));
+		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][][grow]"));
 		
 		dcFecha = new JDateChooser();
 		dcFecha.setDate(new Date());
@@ -87,14 +88,12 @@ public class SwingMain extends View {
 		JLabel lblNewLabel_1 = new JLabel("Funcionalidades:");
 		panel.add(lblNewLabel_1, "cell 1 4,grow");
 		
-		JButton btnEjecutarTkrun = new JButton("Registrar envío");
-		panel.add(btnEjecutarTkrun, "cell 1 5,grow");
-		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-				RegistrarEnvioController controller = new RegistrarEnvioController(dcFecha.getDate());
-				controller.initController();
-			}
-		});
+		JButton bRegistrarEnvio = new JButton("Registrar envío");
+		panel.add(bRegistrarEnvio, "cell 1 5,grow");
+		
+		JButton bRegistrarMovimiento = new JButton("Registrar movimiento");
+		panel.add(bRegistrarMovimiento, "cell 1 6");
+
 		btnCargarDatosIniciales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				Database db=new Database();
@@ -106,6 +105,23 @@ public class SwingMain extends View {
 			public void actionPerformed(ActionEvent e) {
 				Database db=new Database();
 				db.createDatabase(false);
+			}
+		});
+		
+		bRegistrarEnvio.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				RegistrarEnvioController controller = new RegistrarEnvioController(dcFecha.getDate());
+				controller.initController();
+			}
+		});
+		
+		bRegistrarMovimiento.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RegistrarMovimientoController controller = new RegistrarMovimientoController(dcFecha.getDate());
+				controller.initController();
+				
 			}
 		});
 		this.initView();

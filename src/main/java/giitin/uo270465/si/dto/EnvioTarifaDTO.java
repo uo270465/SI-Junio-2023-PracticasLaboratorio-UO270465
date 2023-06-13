@@ -2,21 +2,21 @@ package giitin.uo270465.si.dto;
 
 public class EnvioTarifaDTO {
 
-    private int envioId;
+    private String envioId;
     private int tarifaId;
 
     public EnvioTarifaDTO() {}
 
-    public EnvioTarifaDTO(int envioId, int tarifaId) {
+    public EnvioTarifaDTO(String envioId, int tarifaId) {
         this.envioId = envioId;
         this.tarifaId = tarifaId;
     }
 
-    public int getEnvioId() {
+    public String getEnvioId() {
         return envioId;
     }
 
-    public void setEnvioId(int envioId) {
+    public void setEnvioId(String envioId) {
         this.envioId = envioId;
     }
 

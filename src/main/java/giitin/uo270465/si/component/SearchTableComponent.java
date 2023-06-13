@@ -15,10 +15,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
+import giitin.uo270465.si.dto.EnvioDTO;
 import giitin.uo270465.si.dto.TarifaDTO;
 import giitin.uo270465.si.dto.TransportistaVechiculoDTO;
 import net.miginfocom.swing.MigLayout;
@@ -30,6 +32,7 @@ public class SearchTableComponent<DTO> extends JPanel {
 	private JTable table;
 	private JTextField tfSearch;
 	private JButton bClear;
+	private JLabel lSearch;
 
 	private List<DTO> tableDTOs;
 	private List<DTO> filterTableDTOs;
@@ -43,7 +46,7 @@ public class SearchTableComponent<DTO> extends JPanel {
 
 		setLayout(new MigLayout("", "[][grow,fill][]", "[][grow,fill]"));
 
-		JLabel lSearch = new JLabel("Buscar: ");
+		lSearch = new JLabel("Buscar: ");
 		add(lSearch, "cell 0 0,alignx trailing");
 
 		tfSearch = new JTextField();
@@ -104,6 +107,17 @@ public class SearchTableComponent<DTO> extends JPanel {
 				}
 			});
 			lSearch.setText("Buscar transportistas: ");
+		} else if (type == EnvioDTO.class) {
+			table.setModel(new DefaultTableModel(new Object[][] {},
+					new String[] { "Nº Seguimiento", "Fecha solicitud", "Peso(g)", "Dimensiones(cm)", "Estado" }) {
+				private static final long serialVersionUID = 1L;
+				boolean[] columnEditables = new boolean[] { false, false, false, false, false };
+
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
+			lSearch.setText("Buscar envios: ");
 		} else {
 			throw new IllegalArgumentException(String.format("Parametric type %s is not supported on class %s",
 					type.getName(), this.getClass().getName()));
@@ -248,6 +262,10 @@ public class SearchTableComponent<DTO> extends JPanel {
 				TransportistaVechiculoDTO transportistaVechiculo = (TransportistaVechiculoDTO) dto;
 				getModel().addRow(new Object[] { transportistaVechiculo.getNombre(), transportistaVechiculo.getEmail(),
 						transportistaVechiculo.getTipo(), transportistaVechiculo.getCapacidad() });
+			} else if (type == EnvioDTO.class) {
+				EnvioDTO envio = (EnvioDTO) dto;
+				getModel().addRow(new Object[] { envio.getEnvioId(), envio.getFechaSolicitud(), envio.getPeso(),
+						envio.getDimensiones(), envio.getEstado()});
 			} else {
 				throw new IllegalArgumentException(String.format("Parametric type %s is not supported on class %s",
 						type.getName(), this.getClass().getName()));
@@ -261,6 +279,7 @@ public class SearchTableComponent<DTO> extends JPanel {
 
 		table.setSelectionForeground((b ? Color.BLACK : Color.GRAY));
 		table.setForeground((b ? Color.BLACK : Color.GRAY));
+		lSearch.setForeground((b ? Color.BLACK : Color.GRAY));
 		bClear.setEnabled(b);
 		tfSearch.setEnabled(b);
 		spTable.setEnabled(b);
@@ -270,7 +289,7 @@ public class SearchTableComponent<DTO> extends JPanel {
 	public void setSelectionMode(int selectioMode) {
 		table.setSelectionMode(selectioMode);
 	}
-	
+
 	public List<DTO> getSelectedDTOs() {
 		int indexes[] = table.getSelectedRows();
 		List<DTO> dtos = new LinkedList<>();
@@ -280,4 +299,8 @@ public class SearchTableComponent<DTO> extends JPanel {
 		return dtos;
 	}
 
+	public void addListSelectionListener(ListSelectionListener listener) {
+		table.getSelectionModel().addListSelectionListener(listener);
+	}
+	
 }

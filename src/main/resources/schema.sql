@@ -77,7 +77,7 @@ CREATE TABLE EnviosTarifas (
 DROP TABLE IF EXISTS Movimientos;
 CREATE TABLE Movimientos (
     movimientoId INTEGER PRIMARY KEY AUTOINCREMENT,
-    envioId INTEGER NOT NULL,
+    envioId TEXT NOT NULL,
     fechaHora TEXT NOT NULL,
     ubicacionId INTEGER NOT NULL,
     estado TEXT NOT NULL,

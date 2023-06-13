@@ -632,7 +632,7 @@ public class RegistrarEnvioController extends Controller<RegistrarEnvioModel, Re
 				(view.getCbEnviarDestinatarioDestino().isSelected() ? -1
 						: almacenOficinaDestino.getAlmacenesOficinasId()),
 				this.fecha, datosPeso, String.format("%dx%dx%d", datosAltura, datosAnchuraX, datosAnchuraY),
-				"En tránsito", transportistaVehiculo.getTransportistaId());
+				"Pendiente", transportistaVehiculo.getTransportistaId());
 
 		for (TarifaDTO tarifa : datosTatifas) {
 			model.addEnvioTarfa(seguimiento, tarifa.getTarifaId());

@@ -3,14 +3,14 @@ package giitin.uo270465.si.dto;
 public class MovimientoDTO {
 
     private int movimientoId;
-    private int envioId;
+    private String envioId;
     private String fechaHora;
     private int ubicacionId;
     private String estado;
 
     public MovimientoDTO() {}
 
-    public MovimientoDTO(int movimientoId, int envioId, String fechaHora, int ubicacionId, String estado) {
+    public MovimientoDTO(int movimientoId, String envioId, String fechaHora, int ubicacionId, String estado) {
         this.movimientoId = movimientoId;
         this.envioId = envioId;
         this.fechaHora = fechaHora;
@@ -26,11 +26,11 @@ public class MovimientoDTO {
         this.movimientoId = movimientoId;
     }
 
-    public int getEnvioId() {
+    public String getEnvioId() {
         return envioId;
     }
 
-    public void setEnvioId(int envioId) {
+    public void setEnvioId(String envioId) {
         this.envioId = envioId;
     }
 

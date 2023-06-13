@@ -2,7 +2,7 @@ package giitin.uo270465.si.dto;
 
 public class EnvioDTO {
 
-	private int envioId;
+	private String envioId;
 	private int remitenteId;
 	private int destinatarioId;
 	private int origenId;
@@ -17,7 +17,7 @@ public class EnvioDTO {
 	public EnvioDTO() {
 	}
 
-	public EnvioDTO(int envioId, int remitenteId, int destinatarioId, int origenId, Integer destinoId,
+	public EnvioDTO(String envioId, int remitenteId, int destinatarioId, int origenId, Integer destinoId,
 			String fechaSolicitud, String fechaRecogida, double peso, String dimensiones, String estado,
 			int transportistaId) {
 		this.envioId = envioId;
@@ -33,11 +33,11 @@ public class EnvioDTO {
 		this.transportistaId = transportistaId;
 	}
 
-	public int getEnvioId() {
+	public String getEnvioId() {
 		return envioId;
 	}
 
-	public void setEnvioId(int envioId) {
+	public void setEnvioId(String envioId) {
 		this.envioId = envioId;
 	}
 
