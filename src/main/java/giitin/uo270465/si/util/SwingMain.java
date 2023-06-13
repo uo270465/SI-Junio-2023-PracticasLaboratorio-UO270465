@@ -75,7 +75,7 @@ public class SwingMain extends View {
 
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][][][grow]"));
+		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][][][][grow]"));
 
 		dcFecha = new JDateChooser();
 		dcFecha.setDate(new Date());
@@ -99,6 +99,9 @@ public class SwingMain extends View {
 		
 		JButton bRealizarSeguimiento = new JButton("Realizar seguimiento");
 		panel.add(bRealizarSeguimiento, "cell 1 7");
+		
+		JButton bEntregarPaquete = new JButton("Entregar paquete");
+		panel.add(bEntregarPaquete, "cell 1 8");
 
 		View THIS = this;
 		
@@ -141,6 +144,7 @@ public class SwingMain extends View {
 
 			}
 		});
+		
 		this.initView();
 
 	}
