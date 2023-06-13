@@ -94,27 +94,7 @@ INSERT INTO Tarifas (concepto, precio) VALUES
 ('Tarifa Prioritaria', 25.00),
 ('Tarifa Económica', 12.00),
 ('Tarifa Especial', 35.00),
-('Tarifa Aérea', 45.00),
-('Tarifa Personalizada', 55.00),
-('Tarifa de Envío Nocturno', 18.00),
-('Tarifa de Entrega Programada', 22.00),
-('Tarifa de Envío Urgente', 28.00),
-('Tarifa de Envío Internacional', 60.00),
-('Tarifa de Envío Regional', 32.00),
-('Tarifa de Envío Nacional', 40.00),
-('Tarifa de Envío Prioritario', 30.00),
-('Tarifa de Envío Express', 25.00),
-('Tarifa de Envío Económico', 15.00),
-('Tarifa de Envío Rápido', 35.00),
-('Tarifa de Envío Especial', 42.00),
-('Tarifa de Envío Puerta a Puerta', 50.00),
-('Tarifa de Envío Aéreo', 55.00),
-('Tarifa de Envío Marítimo', 60.00),
-('Tarifa de Envío Terrestre', 38.00),
-('Tarifa de Envío Urgente Internacional', 80.00),
-('Tarifa de Envío Regular', 20.00),
-('Tarifa de Envío VIP', 70.00);
-
+('Tarifa Personalizada', 55.00);
 
 
 
