@@ -13,49 +13,58 @@ INSERT INTO Clientes (nombre, email, direccion) VALUES
 
 -- Datos de Vehículos
 INSERT INTO Vehiculos (tipo, capacidad) VALUES
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000),
-('Furgoneta', 500),
-('Camión', 2000);
+('Furgoneta - Renault Kangoo', 540),
+('Furgoneta - Ford Transit', 490),
+('Furgoneta - Citroën Berlingo', 520),
+('Camión - Renault T-Series', 2050),
+('Camión - Ford Cargo', 1980),
+('Furgoneta - Renault Master', 530),
+('Furgoneta - Ford Custom', 510),
+('Camión - Citroën Jumper', 2020),
+('Furgoneta - Renault Trafic', 540),
+('Camión - DAF XF', 2070),
+('Camión - MAN TGX', 2030),
+('Furgoneta - Citroën Jumpy', 520),
+('Camión - Scania R-Series', 2050),
+('Furgoneta - Renault Express', 500),
+('Camión - Volvo FH', 1980),
+('Furgoneta - Ford Connect', 520),
+('Camión - DAF CF', 2060),
+('Furgoneta - Renault Kangoo Z.E.', 530),
+('Camión - MAN TGS', 2020),
+('Furgoneta - Citroën SpaceTourer', 500),
+('Camión - Scania P-Series', 1990),
+('Furgoneta - Renault Zoe', 510),
+('Camión - Volvo FM', 2070),
+('Furgoneta - Ford Tourneo', 520),
+('Camión - DAF LF', 2030);
+
+
 
 -- Datos de Transportistas
 INSERT INTO Transportistas (nombre, vehiculoId, email) VALUES
-('Transportista 1', 1, 'transportista1@gmail.com'),
-('Transportista 2', 2, 'transportista2@gmail.com'),
-('Transportista 3', 3, 'transportista3@gmail.com'),
-('Transportista 4', 4, 'transportista4@gmail.com'),
-('Transportista 5', 5, 'transportista5@gmail.com'),
-('Transportista 6', 6, 'transportista6@gmail.com'),
-('Transportista 7', 7, 'transportista7@gmail.com'),
-('Transportista 8', 8, 'transportista8@gmail.com'),
-('Transportista 9', 9, 'transportista9@gmail.com'),
-('Transportista 10', 10, 'transportista10@gmail.com'),
-('Transportista 11', 11, 'transportista11@gmail.com'),
-('Transportista 12', 12, 'transportista12@gmail.com'),
-('Transportista 13', 13, 'transportista13@gmail.com'),
-('Transportista 14', 14, 'transportista14@gmail.com'),
-('Transportista 15', 15, 'transportista15@gmail.com'),
-('Transportista 16', 16, 'transportista16@gmail.com'),
-('Transportista 17', 17, 'transportista17@gmail.com'),
-('Transportista 18', 18, 'transportista18@gmail.com'),
-('Transportista 19', 19, 'transportista19@gmail.com'),
-('Transportista 20', 20, 'transportista20@gmail.com');
+('Juan Pérez', 1, 'jperez@transp.com'),
+('María García', 2, 'mgarcia@transp.com'),
+('Carlos Rodríguez', 3, 'crodriguez@transp.com'),
+('Ana López', 4, 'alopez@transp.com'),
+('Pedro Martínez', 5, 'pmartinez@transp.com'),
+('Laura Sánchez', 6, 'lsanchez@transp.com'),
+('Miguel Torres', 7, 'mtorres@transp.com'),
+('Sofía Ramírez', 8, 'sramirez@transp.com'),
+('Luis Herrera', 9, 'lherrera@transp.com'),
+('Carmen Fernández', 10, 'cfernandez@transp.com'),
+('Roberto Morales', 11, 'rmorales@transp.com'),
+('Elena Castro', 12, 'ecastro@transp.com'),
+('Mario Jiménez', 13, 'mjimenez@transp.com'),
+('Silvia Gómez', 14, 'sgomez@transp.com'),
+('Andrés Vargas', 15, 'avargas@transp.com'),
+('Gabriela Ortega', 16, 'gortega@transp.com'),
+('Javier Ríos', 17, 'jrios@transp.com'),
+('Valeria Paredes', 18, 'vparedes@transp.com'),
+('Óscar Núñez', 19, 'onunez@transp.com'),
+('Diana Navarro', 20, 'dnavarro@transp.com');
+
+
 
 -- Datos de AlmacenesOficinas
 INSERT INTO AlmacenesOficinas (nombre, direccion, ciudad) VALUES
@@ -81,37 +90,34 @@ INSERT INTO Tarifas (concepto, precio) VALUES
 ('Tarifa Urgente', 20.00),
 ('Tarifa de Gran Volumen', 30.00),
 ('Tarifa Internacional', 50.00),
-('Tarifa de Fines de Semana', 15.00);
+('Tarifa de Fines de Semana', 15.00),
+('Tarifa Prioritaria', 25.00),
+('Tarifa Económica', 12.00),
+('Tarifa Especial', 35.00),
+('Tarifa Aérea', 45.00),
+('Tarifa Personalizada', 55.00),
+('Tarifa de Envío Nocturno', 18.00),
+('Tarifa de Entrega Programada', 22.00),
+('Tarifa de Envío Urgente', 28.00),
+('Tarifa de Envío Internacional', 60.00),
+('Tarifa de Envío Regional', 32.00),
+('Tarifa de Envío Nacional', 40.00),
+('Tarifa de Envío Prioritario', 30.00),
+('Tarifa de Envío Express', 25.00),
+('Tarifa de Envío Económico', 15.00),
+('Tarifa de Envío Rápido', 35.00),
+('Tarifa de Envío Especial', 42.00),
+('Tarifa de Envío Puerta a Puerta', 50.00),
+('Tarifa de Envío Aéreo', 55.00),
+('Tarifa de Envío Marítimo', 60.00),
+('Tarifa de Envío Terrestre', 38.00),
+('Tarifa de Envío Urgente Internacional', 80.00),
+('Tarifa de Envío Regular', 20.00),
+('Tarifa de Envío VIP', 70.00);
 
--- Datos de Envíos
-INSERT INTO Envios (envioId, remitenteId, destinatarioId, origenId, destinoId, fechaSolicitud, fechaRecogida, peso, dimensiones, estado, transportistaId) VALUES
-('AB123', 1, 2, 1, 4, '2023-06-01', '2023-06-02', 5.00, '30x30x30', 'Entregado', 1),
-('BC234', 3, 4, 2, 5, '2023-06-02', NULL, 10.00, '50x50x50', 'En tránsito', 2),
-('CD345', 5, 6, 3, 6, '2023-06-03', '2023-06-04', 15.00, '60x60x60', 'En tránsito', 3),
-('DE456', 7, 8, 4, NULL, '2023-06-04', NULL, 20.00, '70x70x70', 'Esperando recogida', 4),
-('FG567', 9, 10, 5, 7, '2023-06-05', '2023-06-06', 25.00, '80x80x80', 'Entregado', 5);
 
--- Datos de EnviosTarifas
-INSERT INTO EnviosTarifas (envioId, tarifaId) VALUES
-('AB123', 1),
-('AB123', 2),
-('BC234', 3),
-('CD345', 4),
-('DE456', 5),
-('FG567', 1),
-('FG567', 3);
 
--- Datos de Movimientos
-INSERT INTO Movimientos (envioId, fechaHora, ubicacionId, estado) VALUES
-('AB123', '2023-06-02 08:00:00', 1, 'Recogido'),
-('AB123', '2023-06-03 09:00:00', 2, 'En tránsito'),
-('AB123', '2023-06-04 10:00:00', 4, 'Entregado'),
-('AB123', '2023-06-03 11:00:00', 2, 'Recogido'),
-('AB123', '2023-06-04 12:00:00', 3, 'En tránsito'),
-('BC234', '2023-06-04 13:00:00', 3, 'Recogido'),
-('BC234', '2023-06-05 14:00:00', 4, 'En tránsito'),
-('BC234', '2023-06-06 15:00:00', 6, 'En tránsito'),
-('CD345', '2023-06-05 16:00:00', 4, 'Esperando recogida'),
-('FG567', '2023-06-06 17:00:00', 5, 'Recogido'),
-('FG567', '2023-06-07 18:00:00', 6, 'En tránsito'),
-('FG567', '2023-06-08 19:00:00', 7, 'Entregado');
+
+
+
+
