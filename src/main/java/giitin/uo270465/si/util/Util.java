@@ -152,8 +152,8 @@ public class Util {
 	    }
 	    
 	    // Generar tres dígitos aleatorios
-	    int numero = random.nextInt(1000);
-	    sb.append(String.format("%03d", numero));
+	    int numero = random.nextInt(10000);
+	    sb.append(String.format("%04d", numero));
 	    
 	    return sb.toString();
 	}
