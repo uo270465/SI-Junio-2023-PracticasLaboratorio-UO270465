@@ -303,4 +303,8 @@ public class SearchTableComponent<DTO> extends JPanel {
 		table.getSelectionModel().addListSelectionListener(listener);
 	}
 	
+	public void clearSelection() {
+		table.clearSelection();
+	}
+	
 }
