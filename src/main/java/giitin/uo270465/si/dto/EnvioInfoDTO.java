@@ -1,5 +1,6 @@
 package giitin.uo270465.si.dto;
 
+
 public class EnvioInfoDTO {
 	private String envioId;
 	private double peso;

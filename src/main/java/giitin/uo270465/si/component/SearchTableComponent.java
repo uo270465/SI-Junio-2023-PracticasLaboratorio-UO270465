@@ -1,6 +1,7 @@
 package giitin.uo270465.si.component;
 
 import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -21,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import giitin.uo270465.si.dto.AlmacenOficinaDTO;
 import giitin.uo270465.si.dto.ClienteDTO;
 import giitin.uo270465.si.dto.EnvioDTO;
+import giitin.uo270465.si.dto.EnvioInfoDTO;
 import giitin.uo270465.si.dto.TarifaDTO;
 import giitin.uo270465.si.dto.TransportistaVechiculoDTO;
 import net.miginfocom.swing.MigLayout;
@@ -112,6 +114,17 @@ public class SearchTableComponent<DTO> extends JPanel {
 					new String[] { "Nº Seguimiento", "Fecha solicitud", "Peso(g)", "Dimensiones(cm)", "Estado" }) {
 				private static final long serialVersionUID = 1L;
 				boolean[] columnEditables = new boolean[] { false, false, false, false, false };
+
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			});
+			lSearch.setText("Buscar envios: ");
+		} else if (type == EnvioInfoDTO.class) {
+			table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nº Seguimiento", "Dimensiones(cm)",
+					"Peso(g)", "Estado", "Remitente", "Destinatario", "Transportista", "Email transportista" }) {
+				private static final long serialVersionUID = 1L;
+				boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
 
 				public boolean isCellEditable(int row, int column) {
 					return columnEditables[column];
@@ -265,7 +278,17 @@ public class SearchTableComponent<DTO> extends JPanel {
 			} else if (type == EnvioDTO.class) {
 				EnvioDTO envio = (EnvioDTO) dto;
 				getModel().addRow(new Object[] { envio.getEnvioId(), envio.getFechaSolicitud(), envio.getPeso(),
-						envio.getDimensiones(), envio.getEstado()});
+						envio.getDimensiones(), envio.getEstado() });
+			} else if (type == EnvioInfoDTO.class) {
+				EnvioInfoDTO envioInfo = (EnvioInfoDTO) dto;
+				// "Nº Seguimiento", "Dimensiones(cm)",
+				// "Peso(g)", "Estado", "Remitente", "Destinatario", "Transportista", "Email
+				// transportista"
+
+				getModel().addRow(new Object[] { envioInfo.getEnvioId(), envioInfo.getDimensiones(),
+						envioInfo.getPeso(), envioInfo.getEstado(), envioInfo.getRemitenteNombre(),
+						envioInfo.getDestinatarioNombre(), envioInfo.getTransportistaNombre(),
+						envioInfo.getTransportistaEmail() });
 			} else {
 				throw new IllegalArgumentException(String.format("Parametric type %s is not supported on class %s",
 						type.getName(), this.getClass().getName()));
@@ -302,9 +325,9 @@ public class SearchTableComponent<DTO> extends JPanel {
 	public void addListSelectionListener(ListSelectionListener listener) {
 		table.getSelectionModel().addListSelectionListener(listener);
 	}
-	
+
 	public void clearSelection() {
 		table.clearSelection();
 	}
-	
+
 }

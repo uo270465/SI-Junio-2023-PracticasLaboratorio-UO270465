@@ -11,19 +11,17 @@ public class InformacionEnviosController extends Controller<InformacionEnviosMod
 
 	public InformacionEnviosController(View parent, Date fecha) {
 		super(new InformacionEnviosModel(), new InformacionEnviosView(parent), fecha);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void initController() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void initView() {
-		// TODO Auto-generated method stub
-
+		view.getStcEnvios().newTable(model.getEnviosInfos());
+		updateView();
 	}
 
 }
