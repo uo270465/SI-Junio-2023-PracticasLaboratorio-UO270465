@@ -6,9 +6,6 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,6 +19,7 @@ import com.toedter.calendar.JDateChooser;
 
 import giitin.uo270465.si.abs.View;
 import giitin.uo270465.si.controller.EntregarEnvioController;
+import giitin.uo270465.si.controller.GestionTarifasController;
 import giitin.uo270465.si.controller.RealizarSeguimientoController;
 import giitin.uo270465.si.controller.RegistrarEnvioController;
 import giitin.uo270465.si.controller.RegistrarMovimientoController;
@@ -76,7 +74,7 @@ public class SwingMain extends View {
 
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][][][][grow]"));
+		panel.setLayout(new MigLayout("", "[grow][fill][grow]", "[grow][][][][][][][][][][grow]"));
 
 		dcFecha = new JDateChooser();
 		dcFecha.setDate(new Date());
@@ -103,6 +101,9 @@ public class SwingMain extends View {
 
 		JButton bEntregarEnvio = new JButton("Entregar envío");
 		panel.add(bEntregarEnvio, "cell 1 8");
+
+		JButton bGestionTarifas = new JButton("Gestionar tarifas");
+		panel.add(bGestionTarifas, "cell 1 9");
 
 		View THIS = this;
 
@@ -151,6 +152,15 @@ public class SwingMain extends View {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				EntregarEnvioController controller = new EntregarEnvioController(THIS, getFecha());
+				controller.initController();
+			}
+		});
+
+		bGestionTarifas.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GestionTarifasController controller = new GestionTarifasController(THIS, getFecha());
 				controller.initController();
 			}
 		});
