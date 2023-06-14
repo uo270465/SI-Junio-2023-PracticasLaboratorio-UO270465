@@ -94,7 +94,7 @@ public class EntregarEnvioController extends Controller<EntregarEnvioModel, Entr
 		envioSeleccionado = view.getStcEnvios().getSelectedDTO();
 		if (envioSeleccionado != null) {
 			ClienteDTO remitente = model.getClienteById(envioSeleccionado.getRemitenteId());
-			ClienteDTO destinatario = model.getClienteById(envioSeleccionado.getRemitenteId());
+			ClienteDTO destinatario = model.getClienteById(envioSeleccionado.getDestinatarioId());
 			view.getLNombreRemitente().setText(remitente.getNombre());
 			view.getLEmailRemitente().setText(remitente.getEmail());
 			view.getLNombreDestinatario().setText(destinatario.getNombre());

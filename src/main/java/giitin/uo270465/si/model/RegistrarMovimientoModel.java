@@ -32,7 +32,7 @@ public class RegistrarMovimientoModel extends Model {
 	            "LEFT JOIN (SELECT envioId, MAX(fechaHora) as UltimaFecha FROM Movimientos GROUP BY envioId) m " +
 	            "ON e.envioId = m.envioId " +
 	            "LEFT JOIN Movimientos mo ON m.envioId = mo.envioId AND m.UltimaFecha = mo.fechaHora "+
-	            "WHERE e.fechaRecogida IS NULL AND (mo.ubicacionId != e.destinoId OR e.destinoId IS NULL)";
+	            "WHERE e.fechaRecogida IS NULL AND (mo.ubicacionId != e.destinoId OR e.destinoId IS NULL OR e.estado = 'Pendiente')";
 	    return db.executeQueryPojo(EnvioDTO.class, QUERY);
 	}
 
